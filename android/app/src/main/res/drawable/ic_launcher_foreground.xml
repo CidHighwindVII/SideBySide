@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v0.5.0 (§7 polish): two-figure mark + traffic-light forecast motif.
+     All shapes inside the r=33 safe circle of the 108dp adaptive grid. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#B3FFFFFF"
+        android:pathData="M66,42m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0" />
+    <path
+        android:fillColor="#B3FFFFFF"
+        android:pathData="M55,72a11,11 0,0 1,22 0z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M44,38m-9,0a9,9 0,1 1,18 0a9,9 0,1 1,-18 0" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M31,73a13,13 0,0 1,26 0z" />
+    <path
+        android:fillColor="#FF2E7D32"
+        android:pathData="M40,80m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <path
+        android:fillColor="#FFF9A825"
+        android:pathData="M54,80m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+    <path
+        android:fillColor="#FFC62828"
+        android:pathData="M68,80m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+</vector>

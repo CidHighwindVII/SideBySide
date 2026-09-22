@@ -1,0 +1,98 @@
+import 'dart:convert';
+
+import '../engine/models.dart';
+
+class CatalogItem {
+  final String pt;
+  final String en;
+  final ItemTag tag;
+  final bool support; // v0.3.0 (#15): boosted when "apoio intensivo" is on
+  final String? whyPt; // v0.6.0 (#8): one-line rationale, actionable cards only
+  final String? whyEn;
+  const CatalogItem(this.pt, this.en, this.tag,
+      {this.support = false, this.whyPt, this.whyEn});
+
+  String text(bool isPt) => isPt ? pt : en;
+  String? why(bool isPt) => isPt ? whyPt : whyEn;
+}
+
+class PhaseCatalog {
+  final CatalogItem status;
+  final Map<OutlookAxis, Traffic> axes;
+  final List<CatalogItem> actionable;
+  final List<CatalogItem> warnings;
+  final List<CatalogItem> context;
+  final List<CatalogItem> nutrition; // v0.2.0 (#5)
+
+  const PhaseCatalog(
+      {required this.status,
+      required this.axes,
+      required this.actionable,
+      required this.warnings,
+      required this.context,
+      this.nutrition = const []});
+
+  /// Filter by cohabitation tag (§4.1/D17) and cap to [n].
+  /// With [supportPriority] (#15), `apoio`-flagged items come first —
+  /// stable partition, not List.sort (which is not stable).
+  static List<CatalogItem> pick(
+          List<CatalogItem> items, bool liveTogether, int n,
+          {bool supportPriority = false}) {
+    final allowed = items.where((i) => switch (i.tag) {
+          ItemTag.sempre => true,
+          ItemTag.juntos => liveTogether,
+          ItemTag.apartados => !liveTogether,
+        });
+    if (!supportPriority) return allowed.take(n).toList();
+    return [
+      ...allowed.where((i) => i.support),
+      ...allowed.where((i) => !i.support),
+    ].take(n).toList();
+  }
+}
+
+class Catalog {
+  final Map<Phase, PhaseCatalog> phases;
+  const Catalog(this.phases);
+
+  PhaseCatalog operator [](Phase p) => phases[p]!;
+
+  static Catalog parse(String source) {
+    final root = jsonDecode(source) as Map<String, dynamic>;
+    return Catalog({
+      for (final e in root.entries)
+        Phase.values.firstWhere((p) => p.name == e.key):
+            _phase(e.value as Map<String, dynamic>),
+    });
+  }
+
+  static PhaseCatalog _phase(Map<String, dynamic> j) {
+    List<CatalogItem> list(String key) =>
+        (j[key] as List? ?? []).map((e) => _item(e as Map<String, dynamic>)).toList();
+    final axesJson = j['axes'] as Map<String, dynamic>;
+    return PhaseCatalog(
+      status: _item(j['status'] as Map<String, dynamic>),
+      axes: {
+        for (final a in OutlookAxis.values)
+          a: Traffic.values.firstWhere((t) => t.name == axesJson[a.name],
+              orElse: () => Traffic.yellow)
+      },
+      actionable: list('actionable'),
+      warnings: list('warnings'),
+      context: list('context'),
+      nutrition: list('nutrition'),
+    );
+  }
+
+  static CatalogItem _item(Map<String, dynamic> j) {
+    final why = j['why'] as Map<String, dynamic>?;
+    return CatalogItem(
+      j['pt'] as String,
+      j['en'] as String,
+      ItemTag.values.firstWhere((t) => t.name == (j['tag'] ?? 'sempre')),
+      support: j['apoio'] == true,
+      whyPt: why?['pt'] as String?,
+      whyEn: why?['en'] as String?,
+    );
+  }
+}
