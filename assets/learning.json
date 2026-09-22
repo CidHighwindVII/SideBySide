@@ -1,0 +1,100 @@
+{
+  "items": [
+    {
+      "id": "l:what-a-cycle-is",
+      "title": {"pt": "O que é um ciclo", "en": "What a cycle is"},
+      "body": {"pt": "O ciclo organiza-se em fases ao longo de ~21–35 dias. As fases são médias; cada pessoa é diferente.", "en": "A cycle moves through phases over about 21–35 days. The phases are averages; everyone differs."},
+      "source": {"pt": "Faixas de referência gerais, não um diagnóstico.", "en": "General reference ranges, not a diagnosis."},
+      "quiz": {
+        "question": {"pt": "Um ciclo de 26 dias é…", "en": "A 26-day cycle is…"},
+        "options": [{"pt": "Normal", "en": "Within a normal range"}, {"pt": "Sempre um problema", "en": "Always a problem"}, {"pt": "Impossível", "en": "Impossible"}],
+        "answer": 0,
+        "explain": {"pt": "Ciclos entre ~21 e 35 dias são comuns.", "en": "Cycles between ~21 and 35 days are common."}
+      }
+    },
+    {
+      "id": "l:phases-vary",
+      "title": {"pt": "As fases variam", "en": "Phases vary"},
+      "body": {"pt": "A duração das fases muda de pessoa para pessoa e de ciclo para ciclo. Uma data prevista não marca o início real de uma fase.", "en": "Phase lengths change from person to person and cycle to cycle. A predicted date does not mark when a phase actually begins."},
+      "source": {"pt": "Henry et al., 2024 — variabilidade dentro da própria pessoa.", "en": "Henry et al., 2024 — within-person variability."}
+    },
+    {
+      "id": "l:dates-not-feelings",
+      "title": {"pt": "Datas não sentem", "en": "Dates don't feel"},
+      "body": {"pt": "O calendário estima datas. Não descreve humor, energia nem disponibilidade — isso é sempre para perguntar.", "en": "The calendar estimates dates. It cannot describe mood, energy or willingness — that's always something to ask."},
+      "source": {"pt": "Princípio do apoio primeiro desta app.", "en": "This app's support-first principle."},
+      "quiz": {
+        "question": {"pt": "A fase diz como ela se sente?", "en": "Does a phase tell how she feels?"},
+        "options": [{"pt": "Não — pergunta", "en": "No — ask her"}, {"pt": "Sim, sempre", "en": "Yes, always"}, {"pt": "Só na PMS", "en": "Only during PMS"}],
+        "answer": 0,
+        "explain": {"pt": "Fases são estimativas de datas, não de sentimentos.", "en": "Phases are date estimates, not feeling estimates."}
+      }
+    },
+    {
+      "id": "l:ovulation-uncertainty",
+      "title": {"pt": "Ovulação é difícil de prever", "en": "Ovulation is hard to predict"},
+      "body": {"pt": "Só contar dias do calendário não identifica com precisão o dia da ovulação. A janela fértil é uma estimativa, com incerteza.", "en": "Counting calendar days alone cannot pinpoint the day of ovulation. The fertile window is an estimate, with uncertainty."},
+      "source": {"pt": "Johnson et al., 2018.", "en": "Johnson et al., 2018."}
+    },
+    {
+      "id": "l:fertile-window",
+      "title": {"pt": "A janela fértil", "en": "The fertile window"},
+      "body": {"pt": "Costuma abranger ~6 dias que terminam na ovulação: os espermatozoides sobrevivem vários dias. Nesta app isso é uma estimativa, nunca uma confirmação.", "en": "It usually spans about 6 days ending at ovulation: sperm survive several days. Here that's an estimate, never a confirmation."},
+      "source": {"pt": "Referência geral de fertilidade; não aconselhamento médico.", "en": "General fertility reference; not medical advice."}
+    },
+    {
+      "id": "l:hormonal-contraception",
+      "title": {"pt": "Contracetivo hormonal", "en": "Hormonal contraception"},
+      "body": {"pt": "Métodos hormonais suprimem a ovulação, por isso esta app não prevê ovulação nem janela fértil quando o defines como hormonal. O sangamento que registares continua visível.", "en": "Hormonal methods suppress ovulation, so this app predicts no ovulation or fertile window when you set it to hormonal. Bleeding you log stays visible."},
+      "source": {"pt": "Comportamento da app; fala com um profissional sobre o teu método.", "en": "App behaviour; talk to a professional about your method."},
+      "quiz": {
+        "question": {"pt": "Com contracetivo hormonal, a app prevê ovulação?", "en": "With hormonal contraception, does the app predict ovulation?"},
+        "options": [{"pt": "Não", "en": "No"}, {"pt": "Sim, com certezas", "en": "Yes, for certain"}, {"pt": "Só em dias pares", "en": "Only on even days"}],
+        "answer": 0,
+        "explain": {"pt": "Sem ovulação prevista; apenas o sangamento registado.", "en": "No predicted ovulation; only logged bleeding."}
+      }
+    },
+    {
+      "id": "l:estimates-not-facts",
+      "title": {"pt": "Estimativas, não factos", "en": "Estimates, not facts"},
+      "body": {"pt": "Toda a previsão aqui é uma estimativa baseada nas datas que introduziste. A data real pode mudar.", "en": "Every forecast here is an estimate from the dates you entered. The real date may change."},
+      "source": {"pt": "Regra de honestidade da app.", "en": "The app's honesty rule."}
+    },
+    {
+      "id": "l:ask-dont-assume",
+      "title": {"pt": "Pergunta, não assumas", "en": "Ask, don't assume"},
+      "body": {"pt": "A forma mais útil de apoiar costuma ser perguntar o que ajuda — e aceitar a resposta, incluindo um não.", "en": "The most useful support is usually asking what helps — and accepting the answer, including a no."},
+      "source": {"pt": "Ussher & Perz, 2017 (casais); contexto, não garantia.", "en": "Ussher & Perz, 2017 (couples); context, not a guarantee."}
+    },
+    {
+      "id": "l:specific-offers",
+      "title": {"pt": "Ofertas concretas", "en": "Concrete offers"},
+      "body": {"pt": "\"Tiro o jantar\" é mais fácil de aceitar ou recusar do que \"se precisares de alguma coisa\". Sé especifico.", "en": "\"I'll handle dinner\" is easier to accept or decline than \"let me know if you need anything.\" Be specific."},
+      "source": {"pt": "Prática de comunicação.", "en": "Communication practice."}
+    },
+    {
+      "id": "l:mental-load",
+      "title": {"pt": "A carga mental", "en": "The mental load"},
+      "body": {"pt": "Assumir tarefas inclui lembrar, planear e decidir — não só executar. Pergunta o que está por fazer.", "en": "Taking on tasks includes remembering, planning and deciding — not just doing. Ask what's still pending."},
+      "source": {"pt": "Noção geral de partilha de tarefas.", "en": "General idea of shared responsibilities."}
+    },
+    {
+      "id": "l:space-is-support",
+      "title": {"pt": "Dar espaço também é apoio", "en": "Space is support too"},
+      "body": {"pt": "Às vezes o mais útil é dar espaço sem desaparecer. Diz que estás disponível e respeita o ritmo dela.", "en": "Sometimes the most helpful thing is space without disappearing. Say you're around and respect her pace."},
+      "source": {"pt": "Prática de comunicação.", "en": "Communication practice."}
+    },
+    {
+      "id": "l:irregularity-and-health",
+      "title": {"pt": "Variação e saúde", "en": "Variation and health"},
+      "body": {"pt": "Variação pontual é normal. Padrões muito irregulares podem valer uma conversa com um profissional — sem alarme nem diagnóstico.", "en": "Occasional variation is normal. Very irregular patterns may be worth a conversation with a professional — no alarm, no diagnosis."},
+      "source": {"pt": "Sinal de acompanhamento, não conclusão.", "en": "A follow-up cue, not a conclusion."}
+    },
+    {
+      "id": "l:consent-and-data",
+      "title": {"pt": "Dados e confiança", "en": "Data and trust"},
+      "body": {"pt": "Guarda apenas o que combinaste com ela. A app não verifica consentimento nem envia dados para a nuvem.", "en": "Only save what you've discussed with her. The app can't verify consent and sends nothing to the cloud."},
+      "source": {"pt": "Privacidade local desta app.", "en": "This app's local privacy."}
+    }
+  ]
+}

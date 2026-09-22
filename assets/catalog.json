@@ -1,0 +1,75 @@
+{
+  "general": {
+    "actionable": [
+      {"id":"a:ask-what-helps","cat":"communicate","pt":"Pergunta o que seria útil hoje e ouve a resposta","en":"Ask what would help today and listen to the answer","tag":"sempre","why":{"pt":"As preferências dela valem mais do que uma previsão.","en":"Her preferences matter more than any forecast."}},
+      {"id":"a:offer-task","cat":"help","pt":"Propõe uma tarefa concreta que possas assumir","en":"Offer to take on a specific task","tag":"sempre","apoio":true,"why":{"pt":"Uma oferta concreta é mais fácil de aceitar ou recusar.","en":"A specific offer is easier to accept or decline."}},
+      {"id":"a:confirm-company-help-space","cat":"communicate","pt":"Confirma se quer companhia, ajuda ou espaço","en":"Check whether she wants company, help, or space","tag":"sempre"},
+      {"id":"a:household-task","cat":"help","pt":"Pergunta se há alguma tarefa da casa que possas fazer","en":"Ask if there is a household task you can take over","tag":"juntos","apoio":true},
+      {"id":"a:message-no-reply","cat":"communicate","pt":"Envia uma mensagem sem exigir resposta imediata","en":"Send a message without expecting an immediate reply","tag":"apartados"},
+      {"id":"a:cook-a-meal","cat":"help","pt":"Cozinha ou pede uma refeição, sem que ela precise pedir","en":"Cook or order a meal without her having to ask","tag":"juntos"},
+      {"id":"a:run-an-errand","cat":"help","pt":"Trata de uma recado ou tarefa pendente","en":"Handle an errand or outstanding task","tag":"sempre"},
+      {"id":"a:handle-an-appointment","cat":"prepare","pt":"Oferece-te para tratar de uma marcação ou papelada","en":"Offer to sort out an appointment or paperwork","tag":"sempre"},
+      {"id":"a:quiet-evening","cat":"company","pt":"Propõe uma noite calma juntos, sem pressão","en":"Suggest a quiet evening together, no pressure","tag":"juntos"},
+      {"id":"a:invite-a-walk","cat":"company","pt":"Convida para um passeio, aceitando um não","en":"Invite her for a walk, accepting a no","tag":"juntos"},
+      {"id":"a:send-a-checkin","cat":"communicate","pt":"Manda um oi só para saber como está","en":"Send a hello just to check in","tag":"apartados"},
+      {"id":"a:give-space","cat":"space","pt":"Dá espaço sem desaparecer — diz que estás disponível","en":"Give space without disappearing — say you're around","tag":"sempre"},
+      {"id":"a:no-fixing-just-listen","cat":"communicate","pt":"Ouve sem tentar resolver logo","en":"Listen without jumping to fix it","tag":"sempre"},
+      {"id":"a:ask-before-advising","cat":"communicate","pt":"Pergunta se quer opinião antes de a dar","en":"Ask if she wants your input before giving it","tag":"sempre"},
+      {"id":"a:prepare-supplies","cat":"prepare","pt":"Repõe o essencial em casa, se for bem-vindo","en":"Restock the essentials at home, if welcome","tag":"sempre","apoio":true},
+      {"id":"a:pick-up-comfort","cat":"prepare","pt":"Prepara algo de que ela goste, sem grande alarde","en":"Prepare something she likes, without a big deal","tag":"juntos"},
+      {"id":"a:take-a-chore","cat":"help","pt":"Assume uma tarefa que costuma ser dela","en":"Take over a chore that's usually hers","tag":"juntos"},
+      {"id":"a:plan-low-key-date","cat":"company","pt":"Planeia algo simples para os dois, se houver vontade","en":"Plan something low-key for the two of you, if there's appetite","tag":"juntos"},
+      {"id":"a:respect-a-no","cat":"space","pt":"Aceita um não à primeira, sem insistir","en":"Accept a no the first time, without pushing","tag":"sempre"},
+      {"id":"a:notice-and-thank","cat":"communicate","pt":"Repara e agradece algo que ela fez","en":"Notice and thank her for something she did","tag":"sempre"},
+      {"id":"a:offer-a-rest-day","cat":"space","pt":"Incentiva um dia de descanso, sem culpa","en":"Encourage a rest day, guilt-free","tag":"sempre"},
+      {"id":"a:share-the-load","cat":"help","pt":"Divide a carga mental: pergunta o que está por fazer","en":"Share the mental load: ask what's still pending","tag":"juntos"},
+      {"id":"a:check-in-text-later","cat":"communicate","pt":"Deixa uma mensagem para ela ver quando quiser","en":"Leave a message for her to read whenever she wants","tag":"apartados"},
+      {"id":"a:prepare-a-kit","cat":"prepare","pt":"Deixa à mão o que costuma ajudar (sem assumir)","en":"Keep what usually helps within reach (without assuming)","tag":"sempre"},
+      {"id":"a:listen-without-solving","cat":"communicate","pt":"Fica presente mesmo sem ter resposta pronta","en":"Stay present even without a ready answer","tag":"sempre"},
+      {"id":"a:ask-how-to-support","cat":"communicate","pt":"Pergunta como prefere ser apoiada esta semana","en":"Ask how she'd like support this week","tag":"sempre","apoio":true}
+    ],
+    "warnings": [
+      {"pt":"Não atribuas o que ela sente ao ciclo","en":"Don't attribute her feelings to her cycle","tag":"sempre"},
+      {"pt":"Não adies conversas importantes por causa de uma previsão","en":"Don't postpone important conversations because of a forecast","tag":"sempre"},
+      {"pt":"Não pressuponhas que uma oferta será bem-vinda","en":"Don't assume an offer will be welcome","tag":"sempre"}
+    ],
+    "context": [
+      {"pt":"Uma data prevista não descreve como alguém se sente.","en":"A predicted date cannot describe how someone feels.","tag":"sempre"}
+    ]
+  },
+  "menstrual": {
+    "status":{"pt":"Período possivelmente em curso","en":"Period may be in progress"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Pergunta se alguma ajuda prática seria útil","en":"Ask whether practical help would be useful","tag":"sempre"}],
+    "warnings":[{"pt":"Não pressuponhas que ela tem dores ou quer ficar em casa","en":"Don't assume she has pain or wants to stay home","tag":"sempre"}],
+    "context":[{"pt":"O calendário indica datas aproximadas, não sintomas.","en":"The calendar shows approximate dates, not symptoms.","tag":"sempre"}]
+  },
+  "follicular": {
+    "status":{"pt":"Entre datas de período previstas","en":"Between estimated period dates"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Pergunta que planos fazem sentido para ambos","en":"Ask what plans work for both of you","tag":"sempre"}],
+    "warnings":[{"pt":"Não uses o calendário para escolher quando fazer pedidos","en":"Don't use the calendar to time requests","tag":"sempre"}],
+    "context":[{"pt":"Pede opinião diretamente em vez de adivinhar.","en":"Ask directly instead of guessing.","tag":"sempre"}]
+  },
+  "ovulation": {
+    "status":{"pt":"Estimativa de fase, sem confirmação","en":"Unconfirmed phase estimate"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Combina planos sem pressupor disponibilidade","en":"Make plans without assuming availability","tag":"sempre"}],
+    "warnings":[{"pt":"Não infiras energia ou vontade a partir da fase","en":"Don't infer energy or interest from a phase","tag":"sempre"}],
+    "context":[{"pt":"As datas, por si só, não confirmam a ovulação.","en":"Dates alone do not confirm ovulation.","tag":"sempre"}]
+  },
+  "luteal": {
+    "status":{"pt":"Próximo período estimado mais à frente","en":"Next estimated period is ahead"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Oferece ajuda com uma tarefa, se for bem-vinda","en":"Offer help with a task, if welcome","tag":"sempre","apoio":true}],
+    "warnings":[{"pt":"Não atribuas impaciência a uma fase","en":"Don't attribute impatience to a phase","tag":"sempre"}],
+    "context":[{"pt":"As necessidades mudam de pessoa para pessoa e de dia para dia.","en":"Needs differ from person to person and day to day.","tag":"sempre"}]
+  },
+  "pms": {
+    "status":{"pt":"Próximo período possivelmente perto","en":"Next period may be near"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Pergunta se quer que prepares algo para os próximos dias","en":"Ask if she wants anything prepared for the next few days","tag":"sempre","apoio":true}],
+    "warnings":[{"pt":"Não assumes sintomas nem adies conversas por causa da data","en":"Don't assume symptoms or postpone conversations because of the date","tag":"sempre"}],
+    "context":[{"pt":"Esta é apenas uma estimativa baseada nos registos.","en":"This is only an estimate based on logged dates.","tag":"sempre"}]
+  }
+}
