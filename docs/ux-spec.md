@@ -1,5 +1,10 @@
 # SideBySide UX specification — partner-support companion
 
+> Historical v0.12 UX direction. The support-first implementation described in
+> `STATUS.md` and `docs/support-evidence.md` supersedes the phase/action matrix,
+> fertility cues, traffic widget and first-run forecast priorities below. Use
+> current code and STATUS for implemented behavior.
+
 ## 1. User persona and information architecture
 
 An Android user wants a quick, private, respectful way to prepare for and offer useful support to his partner. She does not have to install an app. He enters period dates himself, so the forecast is **his estimate**, never a claim about her feelings, preferences, or medical state. Ask rather than assume. No server, account, partner sync, or background monitoring.

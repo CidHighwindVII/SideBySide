@@ -176,7 +176,7 @@ class CycleEngine {
     }
     final gaps = cycleGaps;
     if (gaps.length < 3) {
-      return logs.isEmpty ? Confidence.low : Confidence.medium;
+      return Confidence.low; // a single date cannot justify medium confidence
     }
     final mean = gaps.reduce((a, b) => a + b) / gaps.length;
     final variance =
@@ -198,33 +198,33 @@ class CycleEngine {
   static const Map<Phase, Map<OutlookAxis, Traffic>> _axisMap = {
     Phase.menstrual: {
       OutlookAxis.favor: Traffic.yellow,
-      OutlookAxis.news: Traffic.red,
+      OutlookAxis.news: Traffic.yellow,
       OutlookAxis.out: Traffic.yellow,
-      OutlookAxis.energy: Traffic.red,
+      OutlookAxis.energy: Traffic.yellow,
     },
     Phase.follicular: {
-      OutlookAxis.favor: Traffic.green,
-      OutlookAxis.news: Traffic.green,
-      OutlookAxis.out: Traffic.green,
-      OutlookAxis.energy: Traffic.green,
+      OutlookAxis.favor: Traffic.yellow,
+      OutlookAxis.news: Traffic.yellow,
+      OutlookAxis.out: Traffic.yellow,
+      OutlookAxis.energy: Traffic.yellow,
     },
     Phase.ovulation: {
-      OutlookAxis.favor: Traffic.green,
-      OutlookAxis.news: Traffic.green,
-      OutlookAxis.out: Traffic.green,
-      OutlookAxis.energy: Traffic.green,
+      OutlookAxis.favor: Traffic.yellow,
+      OutlookAxis.news: Traffic.yellow,
+      OutlookAxis.out: Traffic.yellow,
+      OutlookAxis.energy: Traffic.yellow,
     },
     Phase.luteal: {
       OutlookAxis.favor: Traffic.yellow,
       OutlookAxis.news: Traffic.yellow,
-      OutlookAxis.out: Traffic.green,
+      OutlookAxis.out: Traffic.yellow,
       OutlookAxis.energy: Traffic.yellow,
     },
     Phase.pms: {
-      OutlookAxis.favor: Traffic.red,
-      OutlookAxis.news: Traffic.red,
+      OutlookAxis.favor: Traffic.yellow,
+      OutlookAxis.news: Traffic.yellow,
       OutlookAxis.out: Traffic.yellow,
-      OutlookAxis.energy: Traffic.red,
+      OutlookAxis.energy: Traffic.yellow,
     },
   };
 
@@ -252,15 +252,6 @@ class CycleEngine {
     // day before expected period start
     final next = nextExpectedStart();
     if (next != null && daysBetween(tomorrow, next) == 1) return true;
-    // first day of PMS window
-    final pms = pmsStart(today);
-    if (pms != null && daysBetween(pms, tomorrow) == 0) return true;
-    // phase change between today and tomorrow
-    if (pToday != pTomorrow) return true;
-    // day after a red day
-    if (isRedDay(today)) return true;
-    // red-flag day (bad-news warning), even in "quiet" phases
-    if (axisRating(pTomorrow, OutlookAxis.news) == Traffic.red) return true;
     return false;
   }
 
@@ -305,23 +296,17 @@ class CycleEngine {
     );
   }
 
-  /// Regular cycle (D27 owner call): high confidence → definite predicted
-  /// ranges with no ± buffer. Labels still say "previsto" — §3 soft wording.
+  /// Historic regularity flag; even regular histories need an uncertainty band.
   bool get isRegular => confidence == Confidence.high;
 
   bool periodBandAt(DateTime date) {
     if (inSilenceMode || _inLoggedPeriod(date)) return false;
     final d = dateOnly(date);
-    if (isRegular) {
-      // solid block: predicted start .. start + avgPeriod - 1
-      // (dateOnly: predicted starts can carry a time component)
-      return _predictedStarts.any((p) {
-        final s = dateOnly(p);
-        return !d.isBefore(s) && daysBetween(s, d) < avgPeriod;
-      });
-    }
-    final band = bandDays; // D27
-    return _predictedStarts.any((s) => daysBetween(s, d).abs() <= band);
+    final band = bandDays;
+    return _predictedStarts.any((p) {
+      final offset = daysBetween(p, d);
+      return offset >= -band && offset < avgPeriod + band;
+    });
   }
 
   bool ovulationBandAt(DateTime date) {

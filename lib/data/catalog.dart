@@ -53,25 +53,27 @@ class PhaseCatalog {
 
 class Catalog {
   final Map<Phase, PhaseCatalog> phases;
-  const Catalog(this.phases);
+  final PhaseCatalog general;
+  const Catalog(this.phases, this.general);
 
   PhaseCatalog operator [](Phase p) => phases[p]!;
 
   static Catalog parse(String source) {
     final root = jsonDecode(source) as Map<String, dynamic>;
-    return Catalog({
-      for (final e in root.entries)
-        Phase.values.firstWhere((p) => p.name == e.key):
-            _phase(e.value as Map<String, dynamic>),
-    });
+    return Catalog(
+      {for (final p in Phase.values) p: _phase(root[p.name] as Map<String, dynamic>)},
+      _phase(root['general'] as Map<String, dynamic>, general: true),
+    );
   }
 
-  static PhaseCatalog _phase(Map<String, dynamic> j) {
+  static PhaseCatalog _phase(Map<String, dynamic> j, {bool general = false}) {
     List<CatalogItem> list(String key) =>
         (j[key] as List? ?? []).map((e) => _item(e as Map<String, dynamic>)).toList();
-    final axesJson = j['axes'] as Map<String, dynamic>;
+    final axesJson = general ? <String, dynamic>{} : j['axes'] as Map<String, dynamic>;
     return PhaseCatalog(
-      status: _item(j['status'] as Map<String, dynamic>),
+      status: general
+          ? const CatalogItem('', '', ItemTag.sempre)
+          : _item(j['status'] as Map<String, dynamic>),
       axes: {
         for (final a in OutlookAxis.values)
           a: Traffic.values.firstWhere((t) => t.name == axesJson[a.name],

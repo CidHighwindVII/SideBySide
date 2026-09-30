@@ -256,7 +256,6 @@ class _CalendarioScreenState extends ConsumerState<CalendarioScreen> {
                     _MonthGrid(month: _monthOf(p), today: today, onTap: _tapDay),
               ),
             ),
-            _patternCard(context, l, eng, ref.watch(appDataProvider).observations),
             _legend(context, l, eng),
           ],
         ),
@@ -276,15 +275,7 @@ class _CalendarioScreenState extends ConsumerState<CalendarioScreen> {
             _key(
                 phaseColors[Phase.menstrual]!.withValues(alpha: 0.2),
                 Icons.horizontal_rule,
-                eng.isRegular
-                    ? l.calendarExpectedPeriod
-                    : l.calendarBandPeriod(eng.bandDays)),
-            _key(
-                phaseColors[Phase.ovulation]!,
-                Icons.crop_square,
-                eng.isRegular
-                    ? l.calendarExpectedFertile
-                    : l.calendarBandOvulation(eng.bandDays)),
+                 l.calendarBandPeriod(eng.bandDays)),
             _key(null, Icons.event_available, l.calendarFuture),
           ],
         ),
@@ -309,62 +300,6 @@ class _CalendarioScreenState extends ConsumerState<CalendarioScreen> {
         ],
       );
 
-  /// D30: read-only pattern card — his own logged notes bucketed by the
-  /// engine-derived phase over the last ≤6 cycles. Reads existing data only:
-  /// no write path, no new keys, no clinical claims. Icon + label, never
-  /// colour-only (D25). Empty-safe: renders nothing without observations.
-  Widget _patternCard(
-      BuildContext context, AppL l, CycleEngine eng, List<Observation> obs) {
-    if (obs.isEmpty || eng.logs.isEmpty) return const SizedBox.shrink();
-    final cutoff = CycleEngine.addCalendarDays(DateTime.now(), -6 * eng.avgCycle);
-    final counts = <Phase, int>{};
-    for (final o in obs) {
-      final day = DateTime.tryParse(o.date);
-      if (day == null || day.isBefore(cutoff)) continue;
-      final p = eng.phaseOrNull(day); // silence mode → null → skipped
-      if (p != null) counts[p] = (counts[p] ?? 0) + 1;
-    }
-    if (counts.isEmpty) return const SizedBox.shrink();
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 4),
-      child: Card.outlined(
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Icon(Icons.insights_outlined, size: 18),
-                  const SizedBox(width: 6),
-                  Expanded(
-                      child: Text(l.patternTitle,
-                          style: Theme.of(context).textTheme.titleMedium)),
-                ],
-              ),
-              const SizedBox(height: 6),
-              for (final p in Phase.values)
-                if (counts[p] != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Row(
-                      children: [
-                        Icon(phaseIcon(p), size: 16, color: phaseColors[p]),
-                        const SizedBox(width: 6),
-                        Expanded(child: Text(phaseName(l, p))),
-                        Text('${counts[p]}'),
-                      ],
-                    ),
-                  ),
-              const SizedBox(height: 4),
-              Text(l.patternCaption,
-                  style: Theme.of(context).textTheme.bodySmall),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 /// One page of the month pager — its own engine anchored at the month start.
@@ -424,7 +359,6 @@ class _DayCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final phase = eng.phaseOrNull(day);
     final logged = eng.logs.any((x) =>
         !x.start.isAfter(day) &&
         (x.end != null
@@ -432,7 +366,6 @@ class _DayCell extends StatelessWidget {
             : CycleEngine.daysBetween(x.start, day) < eng.avgPeriod));
     final futureLog = eng.logs.any((x) => x.start == day);
     final band = eng.periodBandAt(day);
-    final ovu = eng.ovulationBandAt(day);
     final isToday = day == today;
 
     // v0.10: de-clutter — background wash ONLY for logged period (solid) and
@@ -448,17 +381,10 @@ class _DayCell extends StatelessWidget {
       DateFormat('EEEE, d MMMM yyyy', Localizations.localeOf(context).languageCode)
           .format(day),
       if (isToday) l.calendarToday,
-      if (phase != null) phaseName(l, phase),
       if (logged) l.calendarLogged,
       if (futureLog) l.calendarFuture,
       if (band && !logged)
-        eng.isRegular
-            ? l.calendarExpectedPeriod
-            : l.calendarBandPeriod(eng.bandDays),
-      if (ovu)
-        eng.isRegular
-            ? l.calendarExpectedFertile
-            : l.calendarBandOvulation(eng.bandDays),
+         l.calendarBandPeriod(eng.bandDays),
       if (observed) l.obsLegend,
     ].join(' · ');
     return Semantics(
@@ -504,12 +430,6 @@ class _DayCell extends StatelessWidget {
                             height: 3,
                             margin: const EdgeInsets.symmetric(horizontal: 1),
                             color: phaseColors[Phase.menstrual]),
-                      if (ovu)
-                        Container(
-                            width: 6,
-                            height: 6,
-                            margin: const EdgeInsets.symmetric(horizontal: 1),
-                            color: phaseColors[Phase.ovulation]),
                       if (observed)
                         const Icon(Icons.edit_note, size: 12),
                     ]),

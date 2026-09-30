@@ -29,7 +29,7 @@ void main() {
       (WidgetsBinding.instance.platformDispatcher as TestPlatformDispatcher)
           .clearAllTestValues());
 
-  testWidgets('Hoje renders phase card for a known log', (tester) async {
+  testWidgets('Today foregrounds estimate, phase is opt-in detail', (tester) async {
     final now = DateTime.now();
     // a period that started 20 days ago → luteal (day 21 of a 28-day cycle;
     // v0.9.0 D28 moved day 22+ into PMS)
@@ -47,16 +47,12 @@ void main() {
     ));
     await tester.pumpAndSettle();
 
-    expect(find.text('Lútea'), findsWidgets);
-    expect(find.textContaining('do ciclo'), findsOneWidget);
-    expect(find.textContaining('Próximo período'), findsOneWidget);
-    // v0.6.0 (#7) ask card removed (UX pass): axis chips are gone from Hoje
-    expect(find.text('É boa altura para…?'), findsNothing);
-    await tester.dragUntilVisible(
-        find.text('A previsão acertou?'),
-        find.byType(ListView),
-        const Offset(0, -150));
-    expect(find.text('A previsão acertou?'), findsOneWidget);
+    expect(find.text('Lútea'), findsNothing);
+    expect(find.textContaining('Próximo período estimado'), findsOneWidget);
+    expect(find.text('Esta ação foi útil para ti?'), findsOneWidget);
+    await tester.tap(find.text('Ver fase aproximada (opcional)'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Fase provável: Lútea'), findsOneWidget);
   });
 
   testWidgets('calendar day tap marks and unmarks period start/end',
@@ -248,7 +244,7 @@ void main() {
     await tester.binding.setSurfaceSize(null);
   });
 
-  testWidgets('clicking hoje preview and feedback controls is exception-free',
+  testWidgets('Today action feedback rotates a declined suggestion',
       (tester) async {
     // tall surface so the feedback row is fully visible
     await tester.binding.setSurfaceSize(const Size(800, 1600));
@@ -259,14 +255,13 @@ void main() {
     expect(find.text('Amanhã'), findsWidgets);
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
-    // feedback thumbs
-    await tester.tap(find.byIcon(Icons.thumb_up_outlined).last);
+    await tester.tap(find.text('Ver menos disto por 7 dias'));
     await tester.pumpAndSettle();
-    expect(notifier.state.feedback.length, 1);
-    await tester.tap(find.byIcon(Icons.thumb_down_outlined).last);
+    expect(notifier.state.actionFeedback.length, 1);
+    expect(notifier.state.actionFeedback.first.useful, isFalse);
+    await tester.tap(find.text('Útil'));
     await tester.pumpAndSettle();
-    expect(notifier.state.feedback.length, 1);
-    expect(notifier.state.feedback.first.thumbsUp, false);
+    expect(notifier.state.actionFeedback.length, 2);
     await tester.binding.setSurfaceSize(null);
   });
 
@@ -300,7 +295,7 @@ void main() {
     expect(find.text('Regista o último período'), findsOneWidget);
     await tester.tap(find.text('Saltar')); // → briefing time
     await tester.pumpAndSettle();
-    expect(find.textContaining('uma previsão neutra de amanhã'), findsOneWidget);
+    expect(find.textContaining('lembrete genérico'), findsOneWidget);
     await tester.tap(find.text('Continuar')); // → sample briefing
     await tester.pumpAndSettle();
     expect(find.text('É assim que vais receber'), findsOneWidget);
@@ -310,7 +305,7 @@ void main() {
     await tester.tap(find.text('Começar')); // finish
     await tester.pumpAndSettle();
     expect(notifier.state.settings.onboarded, isTrue);
-    expect(find.textContaining('Toca num dia no Calendário'), findsOneWidget);
+    expect(find.text('Registar uma data'), findsOneWidget);
     await tester.binding.setSurfaceSize(null);
   });
 
@@ -338,7 +333,7 @@ void main() {
     await tester.binding.setSurfaceSize(null);
   });
 
-  testWidgets('v0.2/v0.3/v0.6: tip, search, notes-on-Sugestões, observation',
+  testWidgets('support preferences, search and legacy observations',
       (tester) async {
     await tester.binding.setSurfaceSize(const Size(800, 1600));
     final notifier = await pumpApp(tester);
@@ -349,32 +344,31 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Dica do dia'), findsOneWidget);
     // search entry (#17)
-    await tester.dragUntilVisible(find.text('Procurar em todas as sugestões'),
+    await tester.dragUntilVisible(find.text('Procurar ideias de apoio'),
         find.byType(ListView), const Offset(0, -150));
-    await tester.tap(find.text('Procurar em todas as sugestões'));
+    await tester.tap(find.text('Procurar ideias de apoio'));
     await tester.pumpAndSettle();
-    await tester.enterText(find.byType(TextField), 'chocolate');
+    await tester.enterText(find.byType(TextField), 'pergunta');
     await tester.pump();
-    expect(find.textContaining('chocolate'), findsWidgets);
+    expect(find.textContaining('Pergunta o que seria útil'), findsWidgets);
     await tester.tap(find.byIcon(Icons.arrow_back));
     await tester.pumpAndSettle();
 
-    // v0.6.0 (#5): custom note CRUD now lives on Sugestões, not Definições
-    await tester.dragUntilVisible(find.text('As tuas notas'),
+    await tester.dragUntilVisible(find.text('Adicionar preferência combinada'),
         find.byType(ListView), const Offset(0, -150));
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.text('Adicionar preferência combinada'));
     await tester.pumpAndSettle();
     await tester.enterText(
         find.descendant(
             of: find.byType(AlertDialog), matching: find.byType(TextField)),
-        'nota de teste');
+        'prefiro ajuda com o jantar');
     await tester.tap(find.text('Guardar'));
     await tester.pumpAndSettle();
-    expect(notifier.state.customCards.length, 1);
-    expect(find.text('nota de teste'), findsOneWidget);
-    await tester.tap(find.byIcon(Icons.delete_outline));
+    expect(notifier.state.preferences.length, 1);
+    expect(find.text('prefiro ajuda com o jantar'), findsWidgets);
+    await tester.tap(find.byIcon(Icons.delete_outline).first);
     await tester.pumpAndSettle();
-    expect(notifier.state.customCards, isEmpty);
+    expect(notifier.state.preferences, isEmpty);
 
     // Definições: weekend + support toggles (#15)
     await tester.tap(find.text('Definições'));
@@ -382,13 +376,13 @@ void main() {
     await tester.tap(find.text('Hora diferente ao fim de semana'));
     await tester.pumpAndSettle();
     expect(notifier.state.settings.weekendTimeEnabled, isTrue);
-    await tester.dragUntilVisible(find.text('Apoio intensivo'),
+    await tester.dragUntilVisible(find.text('Priorizar sugestões de ajuda'),
         find.byType(ListView), const Offset(0, -150));
-    await tester.tap(find.text('Apoio intensivo'));
+    await tester.tap(find.text('Priorizar sugestões de ajuda'));
     await tester.pumpAndSettle();
     expect(notifier.state.settings.intensiveSupport, isTrue);
 
-    // Calendar observation quick-log (#4)
+    // Existing observations remain accessible and editable in the calendar.
     await tester.tap(find.text('Calendário'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('15'));
@@ -437,15 +431,13 @@ void main() {
               onboarded: true, contraception: Contraception.hormonal),
           logs: [PeriodLog(day(49), day(45)), PeriodLog(day(21), day(17))],
         ));
-    await tester.dragUntilVisible(find.text('Variância dos ciclos'),
-        find.byType(ListView), const Offset(0, -150));
-    expect(find.byType(CustomPaint), findsWidgets);
+    expect(find.text('Variância dos ciclos'), findsOneWidget);
     await tester.tap(find.text('Calendário'));
     await tester.pumpAndSettle();
     expect(find.textContaining('±4 dias'), findsWidgets);
     expect(find.textContaining('±2 dias'), findsNothing);
 
-    // regular 28-day history → high confidence → v0.10: definite ranges.
+    // Regular history still shows a buffered estimate, not a definite range.
     // Re-pumping a same-type ProviderScope reuses the element and ignores
     // new overrides, so unmount first.
     await tester.pumpWidget(const SizedBox.shrink());
@@ -459,15 +451,14 @@ void main() {
         ));
     await tester.tap(find.text('Calendário'));
     await tester.pumpAndSettle();
-    expect(find.text('período previsto'), findsWidgets);
-    expect(find.text('janela fértil prevista'), findsWidgets);
-    expect(find.textContaining('±'), findsNothing);
+    expect(find.textContaining('±2 dias'), findsWidgets);
+    expect(find.text('janela fértil prevista'), findsNothing);
     await tester.binding.setSurfaceSize(null);
   });
 
-  // v0.9.0 D30: read-only pattern card from his own notes, bucketed by
-  // engine-derived phase; renders nothing when there are no notes.
-  testWidgets('v0.9.0 D30: pattern card renders seeded notes, empty-safe',
+  // Historic observations survive the redesign but no longer drive a pattern
+  // card that implies behaviour by phase.
+  testWidgets('historic observations remain stored without a phase pattern',
       (tester) async {
     await tester.binding.setSurfaceSize(const Size(800, 1600));
     final now = DateTime.now();
@@ -483,7 +474,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Padrão das tuas notas'), findsNothing);
 
-    // day 22 = PMS (D28), day 21 = luteal, day 12 = ovulation
+    // Existing tags still load from the same model.
     final seeded = base.copyWith(observations: [
       Observation(DateFormat('yyyy-MM-dd').format(now), ['irritada']),
       Observation(DateFormat('yyyy-MM-dd')
@@ -495,19 +486,12 @@ void main() {
     await pumpApp(tester, data: seeded);
     await tester.tap(find.text('Calendário'));
     await tester.pumpAndSettle();
-    final card = find.ancestor(
-        of: find.text('Padrão das tuas notas'), matching: find.byType(Card));
-    expect(card, findsOneWidget);
-    for (final phase in ['PMS', 'Lútea', 'Ovulação']) {
-      expect(find.descendant(of: card, matching: find.text(phase)),
-          findsOneWidget,
-          reason: phase);
-    }
-    // one note each → three "1" counters inside the card; caption keeps the frame
-    expect(find.descendant(of: card, matching: find.text('1')), findsNWidgets(3));
-    expect(
-        find.descendant(of: card, matching: find.textContaining('não dados clínicos')),
-        findsOneWidget);
+    expect(find.text('Padrão das tuas notas'), findsNothing);
+    expect(seeded.observations.length, 3);
+    final semantics = tester.ensureSemantics();
+    await tester.pump();
+    expect(find.bySemanticsLabel(RegExp(r'.*observação registada.*')), findsWidgets);
+    semantics.dispose();
     expect(tester.takeException(), isNull);
     await tester.binding.setSurfaceSize(null);
   });
@@ -553,11 +537,11 @@ void main() {
       // search screen renders
       await tester.tap(find.text('Sugestões'));
       await tester.pumpAndSettle();
-      await tester.dragUntilVisible(find.text('Procurar em todas as sugestões'),
-          find.byType(ListView), const Offset(0, -150));
-      await tester.ensureVisible(find.text('Procurar em todas as sugestões'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Procurar em todas as sugestões'));
+       await tester.dragUntilVisible(find.text('Procurar ideias de apoio'),
+           find.byType(ListView), const Offset(0, -150));
+       await tester.ensureVisible(find.text('Procurar ideias de apoio'));
+       await tester.pumpAndSettle();
+       await tester.tap(find.text('Procurar ideias de apoio'));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull, reason: 'search @ $scale');
       await tester.tap(find.byIcon(Icons.arrow_back));
@@ -568,7 +552,7 @@ void main() {
     tester.platformDispatcher.clearTextScaleFactorTestValue();
   });
 
-  testWidgets('Today shows picked support, context and timely preparation',
+  testWidgets('Today shows picked support, uncertainty and timely preparation',
       (tester) async {
     await tester.binding.setSurfaceSize(const Size(800, 1600));
     final today = DateTime(2026, 9, 30);
@@ -581,7 +565,7 @@ void main() {
         ));
     expect(find.text('Dica do dia'), findsOneWidget);
     expect(find.text('Preparar com cuidado'), findsOneWidget);
-    expect(find.text('Para enquadramento'), findsOneWidget);
+    expect(find.textContaining('Poucos registos'), findsOneWidget);
     await tester.binding.setSurfaceSize(null);
   });
 
@@ -599,6 +583,90 @@ void main() {
         ));
     expect(find.text('Prepare thoughtfully'), findsOneWidget);
     expect(find.text('Today'), findsOneWidget);
+  });
+
+  testWidgets('no logs still shows a picked action and a direct logging path',
+      (tester) async {
+    await pumpApp(tester, data: const AppData(settings: Settings(onboarded: true)));
+    expect(find.text('Dica do dia'), findsOneWidget);
+    expect(find.text('Registar uma data'), findsOneWidget);
+    await tester.tap(find.text('Registar uma data'));
+    await tester.pumpAndSettle();
+    expect(find.text('Marcar início do período'), findsOneWidget);
+  });
+
+  testWidgets('agreed preference leads Today without showing a phase',
+      (tester) async {
+    await pumpApp(tester, data: AppData(
+      settings: const Settings(onboarded: true),
+      preferences: [const SupportPreference(1, 'help', 'Make dinner together')],
+    ));
+    expect(find.text('Make dinner together'), findsOneWidget);
+    expect(find.text('Ver fase aproximada (opcional)'), findsNothing);
+  });
+
+  testWidgets('declining three actions uncovers the next filtered catalog pick',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1600));
+    final notifier = await pumpApp(tester,
+        data: const AppData(settings: Settings(onboarded: true)));
+    for (var i = 0; i < 3; i++) {
+      await tester.tap(find.text('Ver menos disto por 7 dias'));
+      await tester.pumpAndSettle();
+    }
+    expect(notifier.state.actionFeedback.length, 3);
+    expect(find.text('Pergunta se há alguma tarefa da casa que possas fazer'),
+        findsOneWidget);
+    await tester.binding.setSurfaceSize(null);
+  });
+
+  testWidgets('a declined action stays out of Suggestions', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1600));
+    await pumpApp(tester, data: const AppData(settings: Settings(onboarded: true)));
+    await tester.tap(find.text('Ver menos disto por 7 dias'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Sugestões'));
+    await tester.pumpAndSettle();
+    expect(find.text('Pergunta o que seria útil hoje e ouve a resposta'), findsNothing);
+    await tester.binding.setSurfaceSize(null);
+  });
+
+  testWidgets('silence never shows the overdue date as next period',
+      (tester) async {
+    final today = DateTime(2026, 9, 30);
+    await pumpApp(tester, today: today, data: AppData(
+      settings: const Settings(onboarded: true),
+      logs: [PeriodLog(DateTime(2026, 8, 1), null)],
+    ));
+    expect(find.textContaining('Próximo período estimado'), findsNothing);
+    expect(find.textContaining('Sem previsão atual'), findsOneWidget);
+    expect(find.text('Registar uma data'), findsOneWidget);
+  });
+
+  testWidgets('legacy phase notes can still be edited and removed',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1600));
+    final notifier = await pumpApp(tester, data: const AppData(
+      settings: Settings(onboarded: true),
+      customCards: [CustomCard(Phase.luteal, 'old note')],
+    ));
+    await tester.tap(find.text('Sugestões'));
+    await tester.pumpAndSettle();
+    await tester.dragUntilVisible(find.text('Notas antigas por fase (editar ou apagar)'),
+        find.byType(ListView), const Offset(0, -150));
+    await tester.tap(find.text('Notas antigas por fase (editar ou apagar)'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('old note'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.descendant(
+        of: find.byType(AlertDialog), matching: find.byType(TextField)), 'edited note');
+    await tester.tap(find.text('Guardar'));
+    await tester.pumpAndSettle();
+    expect(notifier.state.customCards.single.text, 'edited note');
+    await tester.tap(find.byIcon(Icons.delete_outline).last);
+    await tester.pumpAndSettle();
+    expect(notifier.state.customCards, isEmpty);
+    await tester.binding.setSurfaceSize(null);
   });
 
   testWidgets('calendar exposes full dated labels to assistive technology',

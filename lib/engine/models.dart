@@ -218,32 +218,64 @@ class CustomCard {
       j['text'] as String);
 }
 
+/// User-owned, phase-independent preference discussed with the partner.
+class SupportPreference {
+  final int id;
+  final String category;
+  final String text;
+  const SupportPreference(this.id, this.category, this.text);
+
+  Map<String, dynamic> toJson() => {'id': id, 'category': category, 'text': text};
+  factory SupportPreference.fromJson(Map<String, dynamic> j) =>
+      SupportPreference(j['id'] as int, j['category'] as String, j['text'] as String);
+}
+
+class ActionFeedback {
+  final String date;
+  final String actionId;
+  final bool useful;
+  const ActionFeedback(this.date, this.actionId, this.useful);
+
+  Map<String, dynamic> toJson() =>
+      {'date': date, 'actionId': actionId, 'useful': useful};
+  factory ActionFeedback.fromJson(Map<String, dynamic> j) => ActionFeedback(
+      j['date'] as String, j['actionId'] as String, j['useful'] as bool);
+}
+
 class AppData {
   final Settings settings;
   final List<PeriodLog> logs; // sorted by start
   final List<ForecastFeedback> feedback;
   final List<Observation> observations; // sorted by date
   final List<CustomCard> customCards;
+  final List<SupportPreference> preferences;
+  final List<ActionFeedback> actionFeedback;
 
   const AppData(
       {this.settings = const Settings(),
       this.logs = const [],
       this.feedback = const [],
       this.observations = const [],
-      this.customCards = const []});
+       this.customCards = const [],
+       this.preferences = const [],
+       this.actionFeedback = const []});
 
   AppData copyWith(
           {Settings? settings,
           List<PeriodLog>? logs,
           List<ForecastFeedback>? feedback,
           List<Observation>? observations,
-          List<CustomCard>? customCards}) =>
+           List<CustomCard>? customCards,
+           List<SupportPreference>? preferences,
+           List<ActionFeedback>? actionFeedback}) =>
       AppData(
           settings: settings ?? this.settings,
           logs: logs ?? this.logs,
           feedback: feedback ?? this.feedback,
           observations: observations ?? this.observations,
-          customCards: customCards ?? this.customCards);
+           customCards: customCards ?? this.customCards,
+           preferences: preferences ?? this.preferences,
+           actionFeedback: actionFeedback ?? this.actionFeedback);
 
   Map<String, dynamic> toJson() => {
         'settings': settings.toJson(),
@@ -251,6 +283,8 @@ class AppData {
         'feedback': feedback.map((f) => f.toJson()).toList(),
         'observations': observations.map((o) => o.toJson()).toList(),
         'customCards': customCards.map((c) => c.toJson()).toList(),
+        'preferences': preferences.map((p) => p.toJson()).toList(),
+        'actionFeedback': actionFeedback.map((f) => f.toJson()).toList(),
       };
 
   factory AppData.fromJson(Map<String, dynamic> j) {
@@ -268,9 +302,15 @@ class AppData {
       observations: (j['observations'] as List? ?? [])
           .map((e) => Observation.fromJson(e as Map<String, dynamic>))
           .toList(),
-      customCards: (j['customCards'] as List? ?? [])
-          .map((e) => CustomCard.fromJson(e as Map<String, dynamic>))
-          .toList(),
+       customCards: (j['customCards'] as List? ?? [])
+           .map((e) => CustomCard.fromJson(e as Map<String, dynamic>))
+           .toList(),
+       preferences: (j['preferences'] as List? ?? [])
+           .map((e) => SupportPreference.fromJson(e as Map<String, dynamic>))
+           .toList(),
+       actionFeedback: (j['actionFeedback'] as List? ?? [])
+           .map((e) => ActionFeedback.fromJson(e as Map<String, dynamic>))
+           .toList(),
     );
   }
 

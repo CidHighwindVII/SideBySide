@@ -72,8 +72,37 @@ class AppDataNotifier extends StateNotifier<AppData> {
   void addCustomCard(CustomCard card) =>
       _set(state.copyWith(customCards: [...state.customCards, card]));
 
+  void updateCustomCard(CustomCard old, String text) => _set(state.copyWith(
+      customCards: [
+        for (final c in state.customCards)
+          identical(c, old) ? CustomCard(c.phase, text.trim()) : c,
+      ]));
+
   void deleteCustomCard(CustomCard card) => _set(state.copyWith(
       customCards: state.customCards.where((c) => c != card).toList()));
+
+  void addPreference(String category, String text) {
+    final id = state.preferences.fold<int>(0, (max, p) => p.id > max ? p.id : max) + 1;
+    _set(state.copyWith(preferences: [
+      ...state.preferences, SupportPreference(id, category, text.trim())
+    ]));
+  }
+
+  void updatePreference(SupportPreference preference) => _set(state.copyWith(
+      preferences: [
+        for (final p in state.preferences) p.id == preference.id ? preference : p
+      ]));
+
+  void deletePreference(int id) => _set(state.copyWith(
+      preferences: state.preferences.where((p) => p.id != id).toList(),
+      actionFeedback: state.actionFeedback
+          .where((f) => f.actionId != 'preference:$id').toList()));
+
+  void rateAction(String date, String actionId, bool useful) => _set(state.copyWith(
+      actionFeedback: [
+        ...state.actionFeedback.where((f) => f.date != date || f.actionId != actionId),
+        ActionFeedback(date, actionId, useful),
+      ]));
 
   Future<bool> wipe() async {
     logInfo('store', 'wiping all data');

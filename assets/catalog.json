@@ -1,215 +1,54 @@
 {
-  "menstrual": {
-    "status": {
-      "pt": "Cansaço, cólicas, precisa de conforto",
-      "en": "Tired, cramps, needs comfort"
-    },
-    "axes": { "favor": "yellow", "news": "red", "out": "yellow", "energy": "red" },
+  "general": {
     "actionable": [
-      { "pt": "Ter chocolate à mão", "en": "Have chocolate ready", "tag": "sempre", "why": { "pt": "Um mimo pequeno e pronto mostra que deste por ela, sem grande alarido.", "en": "A small, ready treat shows you noticed, without making a fuss." } },
-      { "pt": "Assumir o jantar de hoje", "en": "Take over dinner tonight", "tag": "sempre", "why": { "pt": "Menos uma decisão e menos esforço num dia de energia em baixo.", "en": "One less decision and less effort on a low-energy day." } },
-      { "pt": "Lavar a loiça antes de ela ver", "en": "Do the dishes before she sees them", "tag": "juntos", "why": { "pt": "O cansaço torna a desordem mais pesada; antecipar o trabalho vale mais do que fazer depois.", "en": "Tiredness makes mess feel heavier; doing it first counts more than doing it later." } },
-      { "pt": "Preparar chá e uma bolsa de água quente", "en": "Prepare tea and a hot water bottle", "tag": "juntos", "why": { "pt": "O calor faz bem ao desconforto; oferecer sem que ela peça mostra atenção.", "en": "Warmth eases discomfort; offering before she asks shows you're paying attention." } },
-      { "pt": "Propor um filme no sofá em vez de sair", "en": "Suggest a couch movie instead of going out", "tag": "sempre", "why": { "pt": "Com a energia em baixo, um plano caseiro tira a pressão de sair.", "en": "When energy is low, a home plan removes the pressure to go out." } },
-      { "pt": "Perguntar como está — e ouvir a resposta", "en": "Ask how she's doing — and listen", "tag": "sempre", "why": { "pt": "Validar vem antes de resolver; ouvir sem tratar logo como um problema acalma.", "en": "Validate before you fix; listening without jumping to solutions calms things down." } },
-      { "pt": "Fazer as compras para lhe poupar um passeio", "en": "Do the shopping to spare her a trip", "tag": "sempre", "why": { "pt": "Poupa esforço físico e decisões, ambos caros nesta fase.", "en": "Saves physical effort and decisions, both costly in this phase." } },
-      { "pt": "Ter um analgésico à mão, sem drama", "en": "Keep painkillers handy, casually", "tag": "sempre", "why": { "pt": "Estar pronto sem transformar aquilo num caso evita que ela tenha de pedir.", "en": "Being ready without turning it into a situation spares her from having to ask." } },
-      { "pt": "Mandar mensagem a perguntar se precisa de algo", "en": "Text to ask if she needs anything", "tag": "apartados", "why": { "pt": "Quando não vivem juntos, um gesto à distância mantém o apoio presente.", "en": "When you're apart, a message keeps the support present from a distance." } },
-      { "pt": "Adiar conversas pesadas para depois", "en": "Postpone heavy conversations", "tag": "sempre", "why": { "pt": "A fadiga encurta a paciência; uma conversa difícil corre melhor noutro dia.", "en": "Fatigue shortens patience; a hard talk goes better on another day." } },
-      { "pt": "Assumir a roupa e a loiça desta semana", "en": "Own this week's laundry and dishes", "tag": "juntos", "apoio": true, "why": { "pt": "Tirar tarefas visíveis alivia a carga mental, que pesa mais do que o esforço.", "en": "Taking visible chores lifts the mental load, which weighs more than the effort." } },
-      { "pt": "Validar antes de resolver: \"faz sentido\"", "en": "Validate before fixing: \"that makes sense\"", "tag": "sempre", "why": { "pt": "Sentir-se ouvida desarma o stress; soluções não pedidas soam a correção.", "en": "Feeling heard defuses stress; unsolicited fixes can read as correction." } }
+      {"pt":"Pergunta o que seria útil hoje e ouve a resposta","en":"Ask what would help today and listen to the answer","tag":"sempre","why":{"pt":"As preferências dela valem mais do que uma previsão.","en":"Her preferences matter more than any forecast."}},
+      {"pt":"Propõe uma tarefa concreta que possas assumir","en":"Offer to take on a specific task","tag":"sempre","apoio":true,"why":{"pt":"Uma oferta concreta é mais fácil de aceitar ou recusar.","en":"A specific offer is easier to accept or decline."}},
+      {"pt":"Confirma se quer companhia, ajuda ou espaço","en":"Check whether she wants company, help, or space","tag":"sempre"},
+      {"pt":"Pergunta se há alguma tarefa da casa que possas fazer","en":"Ask if there is a household task you can take over","tag":"juntos","apoio":true},
+      {"pt":"Envia uma mensagem sem exigir resposta imediata","en":"Send a message without expecting an immediate reply","tag":"apartados"}
     ],
     "warnings": [
-      { "pt": "Não sugerir dietas nem ginásio hoje", "en": "Don't suggest diets or the gym today", "tag": "sempre" },
-      { "pt": "Não comentar o corpo, nem para bem", "en": "Don't comment on her body, even positively", "tag": "sempre" },
-      { "pt": "Não dar más notícias se puderes esperar", "en": "Don't deliver bad news if you can wait", "tag": "sempre" },
-      { "pt": "Não dizer \"isso é das hormonas\"", "en": "Never say \"it's your hormones\"", "tag": "sempre" },
-      { "pt": "Não marcar saídas grandes sem perguntar antes", "en": "Don't plan big outings without asking first", "tag": "sempre" },
-      { "pt": "Não transformar a dor dela num drama teu", "en": "Don't turn her pain into your drama", "tag": "sempre" },
-      { "pt": "Não insistir em \"anda connosco hoje\"", "en": "Don't push \"come out with us today\"", "tag": "sempre" },
-      { "pt": "Não responder a queixumes com \"tens a certeza?\"", "en": "Don't answer complaints with \"are you sure?\"", "tag": "sempre" },
-      { "pt": "Não corrigir a descrição dela com factos", "en": "Don't correct her account with facts", "tag": "sempre" }
+      {"pt":"Não atribuas o que ela sente ao ciclo","en":"Don't attribute her feelings to her cycle","tag":"sempre"},
+      {"pt":"Não adies conversas importantes por causa de uma previsão","en":"Don't postpone important conversations because of a forecast","tag":"sempre"},
+      {"pt":"Não pressuponhas que uma oferta será bem-vinda","en":"Don't assume an offer will be welcome","tag":"sempre"}
     ],
     "context": [
-      { "pt": "Hoje ela provavelmente está com menos energia — não é preguiça", "en": "She's probably lower-energy today — it's not laziness", "tag": "sempre" },
-      { "pt": "Cólicas são reais e cansam o dia todo", "en": "Cramps are real and tiring all day", "tag": "sempre" },
-      { "pt": "Conforto > soluções. Às vezes só presença.", "en": "Comfort > solutions. Sometimes just presence.", "tag": "sempre" }
-    ],
-    "nutrition": [
-      { "pt": "Cozinhar algo quente e reconfortante", "en": "Cook something warm and comforting", "tag": "sempre" },
-      { "pt": "Ter frutos secos e chocolate negro à mão", "en": "Keep nuts and dark chocolate handy", "tag": "sempre" },
-      { "pt": "Comer coisas com ferro: carne, feijão, lentilhas", "en": "Iron-rich food: meat, beans, lentils", "tag": "sempre" },
-      { "pt": "Encher um jarro de água — a hidratação ajuda o cansaço", "en": "Fill a water jug — hydration eases tiredness", "tag": "sempre" },
-      { "pt": "Ir leve no sal: o inchaço agradece", "en": "Go easy on salt: bloating thanks you", "tag": "sempre" }
+      {"pt":"Uma data prevista não descreve como alguém se sente.","en":"A predicted date cannot describe how someone feels.","tag":"sempre"}
     ]
+  },
+  "menstrual": {
+    "status":{"pt":"Período possivelmente em curso","en":"Period may be in progress"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Pergunta se alguma ajuda prática seria útil","en":"Ask whether practical help would be useful","tag":"sempre"}],
+    "warnings":[{"pt":"Não pressuponhas que ela tem dores ou quer ficar em casa","en":"Don't assume she has pain or wants to stay home","tag":"sempre"}],
+    "context":[{"pt":"O calendário indica datas aproximadas, não sintomas.","en":"The calendar shows approximate dates, not symptoms.","tag":"sempre"}]
   },
   "follicular": {
-    "status": {
-      "pt": "Energia a subir, aberta a novidades",
-      "en": "Rising energy, open to new things"
-    },
-    "axes": { "favor": "green", "news": "green", "out": "green", "energy": "green" },
-    "actionable": [
-      { "pt": "Pedir hoje o favor que andas a adiar", "en": "Ask for the favor you've been putting off", "tag": "sempre", "why": { "pt": "A energia está a subir e há mais margem para dizer sim.", "en": "Energy is rising and there's more room to say yes." } },
-      { "pt": "Propor o restaurante novo", "en": "Suggest the new restaurant", "tag": "sempre", "why": { "pt": "Fase aberta a novidades: é o momento para experimentar.", "en": "A phase open to new things: the right moment to try something." } },
-      { "pt": "Planear a viagem de fim de semana", "en": "Plan the weekend trip", "tag": "sempre", "why": { "pt": "Planos conjuntos colhem melhor quando o humor está em alta.", "en": "Joint plans land better when mood is up." } },
-      { "pt": "Sugerir aquela atividade nova que nunca fazem", "en": "Suggest that new activity you never try", "tag": "sempre", "why": { "pt": "Curiosidade e energia a subir tornam o improvável bem-vindo.", "en": "Rising curiosity and energy make the unlikely welcome." } },
-      { "pt": "Pôr em dia a conversa sobre contas e casa", "en": "Catch up on bills and household talk", "tag": "juntos", "why": { "pt": "Assuntos práticos correm melhor com cabeça fresca e paciência.", "en": "Practical matters go better with a fresh, patient head." } },
-      { "pt": "Convidar para sair com amigos", "en": "Invite her out with friends", "tag": "sempre", "why": { "pt": "A sociabilidade está no ponto; é fácil animar-se.", "en": "Sociability is at its peak; it's easy to get going." } },
-      { "pt": "Dar a ideia do curso ou do projeto novo", "en": "Float the course or new-project idea", "tag": "sempre", "why": { "pt": "Novidades são bem-recebidas agora; guarda isto para depois da PMS.", "en": "New ideas are well received now; save it for before PMS." } },
-      { "pt": "Marcar o próximo encontro com entusiasmo", "en": "Plan the next date with real enthusiasm", "tag": "apartados", "why": { "pt": "Mostrar vontade genuína conta mais quando o terreno está favorável.", "en": "Showing real enthusiasm counts more on favorable ground." } },
-      { "pt": "Fazer um elogio específico", "en": "Give a specific compliment", "tag": "sempre", "why": { "pt": "Elogios concretos soam verdadeiros e ficam.", "en": "Specific compliments ring true and stick." } },
-      { "pt": "Começar o projeto a dois que está na gaveta", "en": "Start the two-of-you project stuck in a drawer", "tag": "sempre", "why": { "pt": "Há energia de sobra para arrancar; aproveita a fase.", "en": "There's spare energy to start; use the phase." } },
-      { "pt": "Abrir a conversa difícil com \"tens 5 minutos?\"", "en": "Open the hard talk with \"got 5 minutes?\"", "tag": "sempre", "why": { "pt": "Pedir licença antes respeita o tempo dela e melhora a receção.", "en": "Asking permission first respects her time and improves the reception." } }
-    ],
-    "warnings": [
-      { "pt": "Não abuses: aberta a novidades não é diz que sim a tudo", "en": "Don't abuse it: open to news isn't yes to everything", "tag": "sempre" },
-      { "pt": "Não despejes cinco pedidos de uma vez", "en": "Don't dump five requests at once", "tag": "sempre" },
-      { "pt": "Não \"expliques\" o humor dela com o ciclo", "en": "Don't \"explain\" her mood with the cycle", "tag": "sempre" },
-      { "pt": "Não adies tudo para a PMS só para não estragar agora", "en": "Don't put everything off to PMS just to not spoil now", "tag": "sempre" },
-      { "pt": "Não prometas o passeio e desmarques", "en": "Don't promise the outing and cancel", "tag": "sempre" },
-      { "pt": "Não compares com outros casais", "en": "Don't compare with other couples", "tag": "sempre" },
-      { "pt": "Um \"hoje não\" continua a valer — respeita", "en": "A \"not today\" still counts — respect it", "tag": "sempre" },
-      { "pt": "Não enchas a semana toda de pedidos, deixa margem", "en": "Don't fill the whole week with asks, leave margin", "tag": "sempre" }
-    ],
-    "context": [
-      { "pt": "Fase de subida: bom momento para novidades e planos", "en": "Uphill phase: good moment for news and plans", "tag": "sempre" },
-      { "pt": "Provavelmente dorme melhor e tem mais paciência", "en": "She probably sleeps better and has more patience", "tag": "sempre" }
-    ],
-    "nutrition": [
-      { "pt": "Aproveitar para cozinhar uma receita nova", "en": "Good moment to try a new recipe", "tag": "sempre" },
-      { "pt": "Refeições leves e variadas para a energia subir", "en": "Light, varied meals to ride the energy", "tag": "sempre" },
-      { "pt": "Vegetais coloridos à mesa", "en": "Colorful vegetables on the table", "tag": "sempre" },
-      { "pt": "Pequeno-almoço a dois antes do dia arrancar", "en": "Breakfast together before the day starts", "tag": "juntos" },
-      { "pt": "Poupar no álcool esta semana", "en": "Go easy on alcohol this week", "tag": "sempre" }
-    ]
+    "status":{"pt":"Entre datas de período previstas","en":"Between estimated period dates"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Pergunta que planos fazem sentido para ambos","en":"Ask what plans work for both of you","tag":"sempre"}],
+    "warnings":[{"pt":"Não uses o calendário para escolher quando fazer pedidos","en":"Don't use the calendar to time requests","tag":"sempre"}],
+    "context":[{"pt":"Pede opinião diretamente em vez de adivinhar.","en":"Ask directly instead of guessing.","tag":"sempre"}]
   },
   "ovulation": {
-    "status": {
-      "pt": "Melhor humor, mais sociável",
-      "en": "Best mood, more sociable"
-    },
-    "axes": { "favor": "green", "news": "green", "out": "green", "energy": "green" },
-    "actionable": [
-      { "pt": "Marcar o jantar de aniversário ou a data especial", "en": "Book the birthday dinner or special date", "tag": "sempre", "why": { "pt": "O pico de bom humor torna os planos bem-recebidos.", "en": "The mood peak makes plans well received." } },
-      { "pt": "Pedir ajuda com uma tarefa tua", "en": "Ask for help with one of your errands", "tag": "sempre", "why": { "pt": "Está mais sociável e disponível — um pedido simples passa bem.", "en": "She's more sociable and available — a simple ask goes down well." } },
-      { "pt": "Propor receber amigos em casa", "en": "Suggest hosting friends at home", "tag": "juntos", "why": { "pt": "A energia social está no topo; receber casa bem.", "en": "Social energy is at its peak; hosting works well." } },
-      { "pt": "Sugerir a atividade social que ela anda a adiar", "en": "Suggest the social activity she's postponing", "tag": "sempre", "why": { "pt": "A mesma atividade pesa menos quando o humor acompanha.", "en": "The same activity feels lighter when the mood supports it." } },
-      { "pt": "Tirar fotos a dois — hoje correm bem", "en": "Take couple photos — today they turn out well", "tag": "sempre", "why": { "pt": "Menos vontade de se esconder da câmara; o momento rende.", "en": "Less urge to hide from the camera; the moment delivers." } },
-      { "pt": "Convidar para o evento com os teus colegas", "en": "Invite her to your colleagues' event", "tag": "apartados", "why": { "pt": "Ambientes novos custam menos com a energia social em alta.", "en": "New settings cost less with social energy high." } },
-      { "pt": "Elogiar — hoje ela está mais recetiva", "en": "Compliment — she's more receptive today", "tag": "sempre", "why": { "pt": "Um elogio cai melhor quando a autoconfiança está em cima.", "en": "A compliment lands better when self-confidence is high." } },
-      { "pt": "Reativar o plano dos concertos no verão", "en": "Revive the summer concerts plan", "tag": "sempre", "why": { "pt": "Planos animados combinam com a fase; a probabilidade de sim sobe.", "en": "Fun plans match the phase; the odds of a yes rise." } },
-      { "pt": "Fazer um convite duplo a outros casais", "en": "Set up a double date with another couple", "tag": "sempre", "why": { "pt": "Socializar em grupo é mais leve agora.", "en": "Group socializing feels lighter right now." } },
-      { "pt": "Guardar hoje para o pedido grande", "en": "Save today for the big ask", "tag": "sempre", "why": { "pt": "Para decisões importantes, esta é a janela mais aberta.", "en": "For important decisions, this is the most open window." } },
-      { "pt": "Dizer em concreto o que gostas nela", "en": "Say specifically what you like about her", "tag": "sempre", "why": { "pt": "Elogios específicos são críveis e reforçam a ligação.", "en": "Specific praise is believable and strengthens the bond." } }
-    ],
-    "warnings": [
-      { "pt": "Sociável não é disponível 24 sobre 7", "en": "Sociable doesn't mean available 24/7", "tag": "sempre" },
-      { "pt": "Não assumas que quer sair só porque está de bom humor", "en": "Don't assume she wants to go out just because she's in a good mood", "tag": "sempre" },
-      { "pt": "Não uses a fase para negociar tudo", "en": "Don't use the phase to negotiate everything", "tag": "sempre" },
-      { "pt": "Não enchas a agenda de jantares até esgotar a fase", "en": "Don't fill the calendar with dinners until the phase runs out", "tag": "sempre" },
-      { "pt": "Não compares o humor de hoje com o de há duas semanas", "en": "Don't compare today's mood with two weeks ago", "tag": "sempre" },
-      { "pt": "Não adies decisões boas: esta janela é curta", "en": "Don't postpone good decisions: this window is short", "tag": "sempre" },
-      { "pt": "Não prometas presença em tudo e falhes metade", "en": "Don't promise to attend everything and miss half", "tag": "sempre" },
-      { "pt": "Bom humor não resolve problemas a dois", "en": "Good mood doesn't fix couple problems", "tag": "sempre" }
-    ],
-    "context": [
-      { "pt": "Pico provável de energia social da semana", "en": "Likely peak of social energy this week", "tag": "sempre" },
-      { "pt": "Boa altura para conversas que precisam de leveza", "en": "Good time for conversations that need lightness", "tag": "sempre" }
-    ],
-    "nutrition": [
-      { "pt": "Cozinhar para os amigos: a fase pede mesa cheia", "en": "Cook for friends: the phase asks for a full table", "tag": "juntos" },
-      { "pt": "Peixe uma vez por semana — ómega-3", "en": "Fish once a week — omega-3", "tag": "sempre" },
-      { "pt": "Fruta fresca para um piquenique", "en": "Fresh fruit for a picnic", "tag": "sempre" },
-      { "pt": "Água antes e durante uma saída", "en": "Water before and during an outing", "tag": "sempre" },
-      { "pt": "Laticínios ou alternativas: cálcio diário", "en": "Dairy or alternatives: daily calcium", "tag": "sempre" }
-    ]
+    "status":{"pt":"Estimativa de fase, sem confirmação","en":"Unconfirmed phase estimate"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Combina planos sem pressupor disponibilidade","en":"Make plans without assuming availability","tag":"sempre"}],
+    "warnings":[{"pt":"Não infiras energia ou vontade a partir da fase","en":"Don't infer energy or interest from a phase","tag":"sempre"}],
+    "context":[{"pt":"As datas, por si só, não confirmam a ovulação.","en":"Dates alone do not confirm ovulation.","tag":"sempre"}]
   },
   "luteal": {
-    "status": {
-      "pt": "Energia em queda, mais seletiva",
-      "en": "Energy dropping, more selective"
-    },
-    "axes": { "favor": "yellow", "news": "yellow", "out": "green", "energy": "yellow" },
-    "actionable": [
-      { "pt": "Reduzir o plano social para um jantar a dois", "en": "Scale the social plan down to a dinner for two", "tag": "sempre", "why": { "pt": "A energia cai e ela fica mais seletiva; menos gente, melhor.", "en": "Energy drops and she's more selective; fewer people, better." } },
-      { "pt": "Confirmar o que ficou combinado esta semana", "en": "Confirm what was arranged this week", "tag": "sempre", "why": { "pt": "Reconfirmar evita surpresas numa fase de menos paciência.", "en": "Reconfirming avoids surprises in a lower-patience phase." } },
-      { "pt": "Assumir mais uma tarefa da casa sem pedir licença", "en": "Take on one more chore without asking", "tag": "juntos", "apoio": true, "why": { "pt": "Tirar carga mental sem ela ter de pedir vale mais do que muitas palavras.", "en": "Removing mental load without her asking beats words." } },
-      { "pt": "Perguntar se hoje prefere ficar em casa", "en": "Ask if she'd rather stay in today", "tag": "sempre", "apoio": true, "why": { "pt": "Dar a opção do recolhimento respeita a energia sem a julgar.", "en": "Offering the stay-in option respects her energy without judging it." } },
-      { "pt": "Fazer pedidos pequenos, não médios", "en": "Keep asks small, not medium", "tag": "sempre", "why": { "pt": "A margem para dizer sim encolhe; um pedido pequeno passa.", "en": "The room to say yes shrinks; a small ask still gets through." } },
-      { "pt": "Guardar as más notícias para uma janela melhor", "en": "Save bad news for a better window", "tag": "sempre", "why": { "pt": "Nada de grave se aguenta melhor quando a energia desce.", "en": "Nothing heavy is well received as energy falls." } },
-      { "pt": "Marcar algo calmo para o próximo encontro", "en": "Plan something calm for the next date", "tag": "apartados", "why": { "pt": "Planos tranquilos combinam com a fase; evita o barulho.", "en": "Calm plans suit the phase; skip the noise." } },
-      { "pt": "Antecipar: resolver algo antes de ela pedir", "en": "Anticipate: fix something before she asks", "tag": "sempre", "apoio": true, "why": { "pt": "Ver alguém a antecipar alivia; esperar pelo pedido pesa.", "en": "Seeing someone anticipate is a relief; waiting for the ask is a burden." } },
-      { "pt": "Elogiar o esforço, não a aparência", "en": "Compliment effort, not appearance", "tag": "sempre", "why": { "pt": "Nesta fase o corpo pesa mais; elogiar o que ela faz é mais seguro.", "en": "In this phase the body weighs more; praising what she does is safer." } },
-      { "pt": "Propor deitar mais cedo esta semana", "en": "Suggest an earlier bedtime this week", "tag": "juntos", "apoio": true, "why": { "pt": "O sono fica mais frágil; um ritmo mais cedo ajuda os dois.", "en": "Sleep gets fragile; an earlier rhythm helps both." } },
-      { "pt": "Trocar de turno nas tarefas: mais para ti esta semana", "en": "Swap chore duty: more on you this week", "tag": "juntos", "apoio": true, "why": { "pt": "Equilibrar a balança em baixo-tensão evita ressentimento.", "en": "Balancing the scale in low-tension avoids resentment." } },
-      { "pt": "Uma pergunta de cada vez, sem pressa de resposta", "en": "One question at a time, no rush for answers", "tag": "sempre", "why": { "pt": "O processamento custa mais; espaço e ritmo evitam pressão.", "en": "Processing costs more; space and pace avoid pressure." } }
-    ],
-    "warnings": [
-      { "pt": "Não marcar a conversa difícil \"porque agora está calma\"", "en": "Don't book the hard talk \"because she's calm now\"", "tag": "sempre" },
-      { "pt": "Não ler o recolher-se como rejeição", "en": "Don't read winding down as rejection", "tag": "sempre" },
-      { "pt": "Não encher a semana de compromissos", "en": "Don't fill the week with commitments", "tag": "sempre" },
-      { "pt": "Não dizer \"antes estavas bem-disposta\"", "en": "Don't say \"you were in a better mood before\"", "tag": "sempre" },
-      { "pt": "Não insistir em sair quando o plano é ficar", "en": "Don't push going out when the plan is staying in", "tag": "sempre" },
-      { "pt": "Não somar pedidos em cima de cansaço", "en": "Don't stack requests on top of tiredness", "tag": "sempre" },
-      { "pt": "Não adiar tarefas de casa \"para falar depois\"", "en": "Don't postpone chores \"to talk later\"", "tag": "juntos" },
-      { "pt": "Não prometer energia que não tens: esta fase cansa", "en": "Don't promise energy you don't have: this phase tires", "tag": "sempre" },
-      { "pt": "Não insistir em \"o que tens?\" três vezes", "en": "Don't ask \"what's wrong?\" three times", "tag": "sempre" }
-    ],
-    "context": [
-      { "pt": "A energia desce: menos barulho, mais sofá", "en": "Energy is dropping: less noise, more couch", "tag": "sempre" },
-      { "pt": "Mais seletiva com planos — não é contigo", "en": "More selective about plans — it's not about you", "tag": "sempre" }
-    ],
-    "nutrition": [
-      { "pt": "Mais fome é normal: porções honestas, sem drama", "en": "More hunger is normal: honest portions, no drama", "tag": "sempre" },
-      { "pt": "Frutos secos, cacau, banana — magnésio", "en": "Nuts, cocoa, banana — magnesium", "tag": "sempre" },
-      { "pt": "Hidratos de absorção lenta: batata, arroz, aveia", "en": "Slow carbs: potato, rice, oats", "tag": "sempre" },
-      { "pt": "Menos cafeína se o sono andar estranho", "en": "Less caffeine if sleep gets weird", "tag": "sempre" },
-      { "pt": "Jarro de água na mesa — a retenção sobe nesta fase", "en": "Water jug on the table — retention rises in this phase", "tag": "sempre" }
-    ]
+    "status":{"pt":"Próximo período estimado mais à frente","en":"Next estimated period is ahead"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Oferece ajuda com uma tarefa, se for bem-vinda","en":"Offer help with a task, if welcome","tag":"sempre","apoio":true}],
+    "warnings":[{"pt":"Não atribuas impaciência a uma fase","en":"Don't attribute impatience to a phase","tag":"sempre"}],
+    "context":[{"pt":"As necessidades mudam de pessoa para pessoa e de dia para dia.","en":"Needs differ from person to person and day to day.","tag":"sempre"}]
   },
   "pms": {
-    "status": {
-      "pt": "Última semana antes do período — provavelmente irritabilidade, stress, desejos",
-      "en": "Final week before the period — probably irritable, stressed, cravings"
-    },
-    "axes": { "favor": "red", "news": "red", "out": "yellow", "energy": "red" },
-    "actionable": [
-      { "pt": "Comprar chocolate hoje", "en": "Buy chocolate today", "tag": "sempre", "why": { "pt": "Os desejos apertam na PMS; um mimo antecipado desarma o stress.", "en": "Cravings peak in PMS; an anticipated treat defuses stress." } },
-      { "pt": "Adiar a conversa sobre o ginásio", "en": "Postpone the gym talk", "tag": "sempre", "why": { "pt": "Comentários sobre corpo caem mal com a sensibilidade em alta.", "en": "Body comments land badly with sensitivity high." } },
-      { "pt": "Ter um plano B calmo para a noite", "en": "Have a calm plan B for tonight", "tag": "sempre", "why": { "pt": "Um escape tranquilo evita que um plano se transforme em tensão.", "en": "A quiet escape keeps a plan from turning into tension." } },
-      { "pt": "Assumir as tarefas da semana sem ela pedir", "en": "Own this week's chores without being asked", "tag": "juntos", "apoio": true, "why": { "pt": "A irritação vem muito da carga mental; tirar tarefas sem pedido alivia.", "en": "Much of the irritation is mental load; taking chores unasked relieves it." } },
-      { "pt": "Responder ao stress com presença, não com soluções", "en": "Answer stress with presence, not solutions", "tag": "sempre", "why": { "pt": "Estar presente acalma; resolver depressa mais parece pressa em despachar.", "en": "Presence calms; quick fixes can read as wanting to be done." } },
-      { "pt": "Perguntar: \"queres desabafar ou ajuda?\"", "en": "Ask: \"vent or help?\"", "tag": "sempre", "why": { "pt": "Deixar escolher o tipo de apoio evita o erro de resolver quando ela só queria falar.", "en": "Letting her choose the kind of support avoids fixing when she just wanted to talk." } },
-      { "pt": "Mandar delivery sem ela pensar nisso", "en": "Order delivery without her thinking about it", "tag": "apartados", "why": { "pt": "Tira a decisão do jantar de cima de quem está stressada.", "en": "Takes the dinner decision off someone already stressed." } },
-      { "pt": "Guardar os favores para a próxima semana", "en": "Save the favors for next week", "tag": "sempre", "why": { "pt": "A janela de sim está quase fechada; um pedido agora arrisca um não.", "en": "The yes-window is nearly closed; an ask now risks a no." } },
-      { "pt": "Dormir bem tu — vai ser um fim de semana longo", "en": "Sleep well yourself — it'll be a long weekend", "tag": "sempre", "why": { "pt": "A tua paciência também gasta; descansar é parte do apoio.", "en": "Your patience runs out too; resting is part of the support." } },
-      { "pt": "Propor um mimo: banho, massagem, chá", "en": "Offer a treat: bath, massage, tea", "tag": "juntos", "apoio": true, "why": { "pt": "Gestos de conforto baixam a tensão sem exigir conversa.", "en": "Comfort gestures lower tension without demanding talk." } },
-      { "pt": "Limpar a cozinha antes de ela entrar", "en": "Clean the kitchen before she walks in", "tag": "juntos", "apoio": true, "why": { "pt": "A desordem pesa mais na PMS; entrar num espaço limpo muda o dia.", "en": "Mess weighs more in PMS; walking into a clean space changes the day." } },
-      { "pt": "Escolher o timing: depois do jantar, nunca de manhã", "en": "Pick the timing: after dinner, never in the morning", "tag": "sempre", "why": { "pt": "A sensibilidade é maior ao início do dia; o fim da tarde amortece.", "en": "Sensitivity is highest early in the day; late afternoon softens it." } }
-    ],
-    "warnings": [
-      { "pt": "Não dar más notícias hoje", "en": "No bad news today", "tag": "sempre" },
-      { "pt": "Não comentar peso, roupa ou ginásio", "en": "Don't comment on weight, clothes or the gym", "tag": "sempre" },
-      { "pt": "Não levar a irritação a peito — não é sobre ti", "en": "Don't take the irritation personally — it's not about you", "tag": "sempre" },
-      { "pt": "Não dizer \"está na PMS\", nem pensar em voz alta", "en": "Don't say \"it's PMS\", not even out loud", "tag": "sempre" },
-      { "pt": "Não iniciar a discussão sobre as férias agora", "en": "Don't start the holidays argument now", "tag": "sempre" },
-      { "pt": "Não prometas que \"passa rápido\" — valida", "en": "Don't promise \"it passes fast\" — validate", "tag": "sempre" },
-      { "pt": "Não responder a irritação com irritação", "en": "Don't answer irritation with irritation", "tag": "sempre" },
-      { "pt": "Não marcar nada importante esta semana, se puderes evitar", "en": "Don't book anything important this week if you can avoid it", "tag": "sempre" },
-      { "pt": "Não ganhar a discussão — o objetivo nem é esse", "en": "Don't win the argument — that's not the point", "tag": "sempre" }
-    ],
-    "context": [
-      { "pt": "Hoje ela provavelmente está mais sensível — sê suave", "en": "She's probably more sensitive today — be gentle", "tag": "sempre" },
-      { "pt": "O período deve começar em dias: modo conforto ativado", "en": "The period should start any day: comfort mode on", "tag": "sempre" },
-      { "pt": "Irritação não é rejeição. Vai passar.", "en": "Irritation isn't rejection. It will pass.", "tag": "sempre" }
-    ],
-    "nutrition": [
-      { "pt": "Chocolate negro: o mimo óbvio que funciona", "en": "Dark chocolate: the obvious treat that works", "tag": "sempre" },
-      { "pt": "Menos sal e fritos — o inchaço agradece", "en": "Less salt and fried food — bloating thanks you", "tag": "sempre" },
-      { "pt": "Não saltar refeições: a fome piora tudo", "en": "Don't skip meals: hunger makes everything worse", "tag": "sempre" },
-      { "pt": "Sopa e chá: conforto quente para a noite", "en": "Soup and tea: warm comfort for the evening", "tag": "sempre" },
-      { "pt": "Cálcio e magnésio podem atenuar o desconforto", "en": "Calcium and magnesium may ease the discomfort", "tag": "sempre" }
-    ]
+    "status":{"pt":"Próximo período possivelmente perto","en":"Next period may be near"},
+    "axes":{"favor":"yellow","news":"yellow","out":"yellow","energy":"yellow"},
+    "actionable":[{"pt":"Pergunta se quer que prepares algo para os próximos dias","en":"Ask if she wants anything prepared for the next few days","tag":"sempre","apoio":true}],
+    "warnings":[{"pt":"Não assumes sintomas nem adies conversas por causa da data","en":"Don't assume symptoms or postpone conversations because of the date","tag":"sempre"}],
+    "context":[{"pt":"Esta é apenas uma estimativa baseada nos registos.","en":"This is only an estimate based on logged dates.","tag":"sempre"}]
   }
 }

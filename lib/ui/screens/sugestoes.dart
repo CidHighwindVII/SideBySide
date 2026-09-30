@@ -2,156 +2,124 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../engine/models.dart';
+import '../../l10n/gen/app_localizations.dart';
 import '../../state/providers.dart';
 import '../widgets.dart';
-import '../theme.dart';
-import '../../l10n/gen/app_localizations.dart';
 import 'procurar.dart';
 
-/// v0.11: content moved out of the Dashboard — tip of the day, phase
-/// suggestions/warnings/context, your notes and the catalog search.
 class SugestoesScreen extends ConsumerWidget {
   const SugestoesScreen({super.key});
+
+  Future<void> _editLegacyNote(BuildContext context, WidgetRef ref,
+      CustomCard card) async {
+    final l = AppL.of(context);
+    final controller = TextEditingController(text: card.text);
+    final result = await showDialog<String>(context: context,
+      builder: (ctx) => AlertDialog(title: Text(l.customTitle),
+        content: TextField(controller: controller, maxLength: 180, maxLines: 3,
+          decoration: InputDecoration(labelText: l.customText)),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(l.cancel)),
+          FilledButton(onPressed: () {
+            final text = controller.text.trim();
+            if (text.isNotEmpty) Navigator.pop(ctx, text);
+          }, child: Text(l.save)),
+        ]));
+    if (result != null && context.mounted) {
+      ref.read(appDataProvider.notifier).updateCustomCard(card, result);
+    }
+  }
+
+  Future<void> _editPreference(BuildContext context, WidgetRef ref,
+      {SupportPreference? existing}) async {
+    final l = AppL.of(context);
+    final controller = TextEditingController(text: existing?.text);
+    var category = existing?.category ?? 'checkIn';
+    final result = await showDialog<({String text, String category})>(context: context,
+        builder: (ctx) => StatefulBuilder(builder: (ctx, setDialogState) => AlertDialog(
+          title: Text(existing == null ? l.preferenceAdd : l.preferenceEdit),
+          content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(l.preferenceConsent),
+              DropdownButtonFormField<String>(initialValue: category,
+                decoration: InputDecoration(labelText: l.preferenceCategory),
+                items: [
+                  DropdownMenuItem(value: 'checkIn', child: Text(l.preferenceCheckIn)),
+                  DropdownMenuItem(value: 'help', child: Text(l.preferenceHelp)),
+                  DropdownMenuItem(value: 'space', child: Text(l.preferenceSpace)),
+                ], onChanged: (v) { if (v != null) setDialogState(() => category = v); }),
+              TextField(controller: controller, maxLength: 180, maxLines: 3,
+                  decoration: InputDecoration(labelText: l.preferenceText)),
+            ])),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(ctx), child: Text(l.cancel)),
+            FilledButton(onPressed: () {
+              final text = controller.text.trim();
+              if (text.isNotEmpty) Navigator.pop(ctx, (text: text, category: category));
+            }, child: Text(l.save)),
+          ],
+        )));
+    // Dialog route may still be animating; no explicit dispose of its controller.
+    if (result == null || !context.mounted) return;
+    if (existing == null) {
+      ref.read(appDataProvider.notifier).addPreference(result.category, result.text);
+    } else {
+      ref.read(appDataProvider.notifier).updatePreference(
+          SupportPreference(existing.id, result.category, result.text));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppL.of(context);
     final data = ref.watch(appDataProvider);
-    final s = data.settings;
-    final day = ref.watch(todayProvider);
-    final eng = ref.watch(engineProvider(day));
     final catalogState = ref.watch(catalogProvider);
     final catalog = catalogState.valueOrNull;
     final isPt = ref.watch(langCodeProvider) == 'pt';
-    final phase = eng.phaseOrNull(day);
-
-    if (catalog == null) {
-      return SafeArea(
-          child: Center(
-              child: catalogState.hasError
-                  ? Text(l.catalogUnavailable)
-                  : const CircularProgressIndicator()));
-    }
-    if (data.logs.isEmpty || phase == null) {
-      return SafeArea(
-        child: Center(
-            child: Text(data.logs.isEmpty ? l.noDataYet : l.noForecast)),
-      );
-    }
-
-    final support = s.intensiveSupport && phase == Phase.luteal;
-    final picks = phasePicks(catalog[phase], s, support: support);
-
-    return SafeArea(
-      child: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 32),
-        children: [
-          Wrap(spacing: 8, runSpacing: 8, children: [
-            PhaseBadge(phase),
-            ConfidenceChip(eng.confidence),
-          ]),
-          const SizedBox(height: 16),
-          // The lead action comes from the same filtered pick as the rest.
-          if (picks.actionable.isNotEmpty) ...[
-            SupportActionCard(
-              title: l.tipOfDayTitle,
-              action: picks.actionable.first.text(isPt),
-              why: picks.actionable.first.why(isPt),
-            ),
-            const SizedBox(height: 12),
-          ],
-          Section(title: l.suggestionsTitle, icon: Icons.lightbulb_outline, items: [
-            for (final i in picks.actionable.skip(1)) (i.text(isPt), null)
-          ]),
-          _NotesSection(phase: phase),
-          Section(title: l.warningsTitle, icon: Icons.do_not_disturb_alt_outlined, items: [
-            for (final i in picks.warnings) (i.text(isPt), null)
-          ]),
-          Section(title: l.contextTitle, icon: Icons.wb_twilight, items: [
-            for (final i in picks.context) (i.text(isPt), null)
-          ]),
-          // v0.2.0 (#17): catalog search entry
-          const SizedBox(height: 16),
-          Card.filled(
-            color: Theme.of(context).colorScheme.surfaceContainerLow,
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              leading: const Icon(Icons.search),
-              title: Text(l.searchTitle),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const ProcurarScreen())),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// v0.6.0 (#5): phase-bound notes; v0.11: lives in Sugestões, not Definições.
-class _NotesSection extends ConsumerWidget {
-  final Phase phase;
-  const _NotesSection({required this.phase});
-
-  Future<void> _add(BuildContext context, WidgetRef ref, AppL l) async {
-    final text = TextEditingController();
-    final ok = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l.customAdd),
-        content: TextField(
-          controller: text,
-          autofocus: true,
-          maxLines: 3,
-          decoration: InputDecoration(labelText: l.customText),
-        ),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.pop(ctx, false), child: Text(l.cancel)),
-          FilledButton(
-              onPressed: () => Navigator.pop(ctx, true), child: Text(l.save)),
-        ],
-      ),
-    );
-    if (ok == true && text.text.trim().isNotEmpty) {
-      ref
-          .read(appDataProvider.notifier)
-          .addCustomCard(CustomCard(phase, text.text.trim()));
-    }
-    // no dispose: the pop animation still reads the controller (GC handles it)
-  }
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l = AppL.of(context);
-    final cards = ref
-        .watch(appDataProvider)
-        .customCards
-        .where((c) => c.phase == phase)
-        .toList();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionHeader(Icons.edit_note, l.customTitle,
-            color: phaseColors[phase],
-            trailing: IconButton(
-              icon: const Icon(Icons.add),
-              tooltip: l.customAdd,
-              onPressed: () => _add(context, ref, l),
-            )),
-        for (final c in cards)
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            dense: true,
-            title: Text(c.text),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete_outline),
-              onPressed: () =>
-                  ref.read(appDataProvider.notifier).deleteCustomCard(c),
-            ),
-          ),
-      ],
-    );
+    final today = ref.watch(todayProvider);
+    if (catalog == null) return SafeArea(child: Center(child: catalogState.hasError
+        ? Text(l.catalogUnavailable) : const CircularProgressIndicator()));
+    final picks = phasePicks(catalog.general, data.settings,
+        support: data.settings.intensiveSupport);
+    final actions = generalPicks(catalog.general, data, today);
+    final hasActivePreference = data.preferences.any((p) =>
+        !actionSuppressed(data, 'preference:${p.id}', today));
+    return SafeArea(child: ListView(
+      padding: const EdgeInsets.fromLTRB(16, 20, 16, 32), children: [
+        Text(l.preferenceTitle, style: Theme.of(context).textTheme.titleLarge),
+        Text(l.preferenceConsent),
+        for (final p in data.preferences)
+          Card.outlined(child: ListTile(title: Text(p.text),
+            subtitle: Text(switch (p.category) {
+              'help' => l.preferenceHelp, 'space' => l.preferenceSpace,
+              _ => l.preferenceCheckIn,
+            }),
+            onTap: () => _editPreference(context, ref, existing: p),
+            trailing: IconButton(tooltip: l.preferenceDelete,
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () => ref.read(appDataProvider.notifier).deletePreference(p.id)))),
+        TextButton.icon(onPressed: () => _editPreference(context, ref),
+            icon: const Icon(Icons.add), label: Text(l.preferenceAdd)),
+        const SizedBox(height: 12),
+        SupportToday(general: catalog.general),
+        Section(title: l.suggestionsTitle, icon: Icons.lightbulb_outline,
+            items: [for (final i in hasActivePreference ? actions : actions.skip(1))
+              (i.text(isPt), null)]),
+        Section(title: l.warningsTitle, icon: Icons.info_outline,
+            items: [for (final i in picks.warnings) (i.text(isPt), null)]),
+        Section(title: l.contextTitle, icon: Icons.menu_book_outlined,
+            items: [for (final i in picks.context) (i.text(isPt), null)]),
+        if (data.customCards.isNotEmpty) ExpansionTile(title: Text(l.legacyNotes),
+          children: [for (final c in data.customCards)
+            ListTile(title: Text(c.text), subtitle: Text(phaseName(l, c.phase)),
+              onTap: () => _editLegacyNote(context, ref, c),
+              trailing: IconButton(tooltip: l.preferenceDelete,
+                icon: const Icon(Icons.delete_outline),
+                onPressed: () => ref.read(appDataProvider.notifier).deleteCustomCard(c)))]),
+        Card.filled(child: ListTile(leading: const Icon(Icons.search),
+          title: Text(l.searchTitle), trailing: const Icon(Icons.chevron_right),
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => const ProcurarScreen())))),
+      ]));
   }
 }

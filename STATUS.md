@@ -1,5 +1,29 @@
 # STATUS
 
+## Support-first working-tree redesign (unverified on Flutter)
+- General PT/EN catalog actions now lead without a period log; phase-specific
+  social advice and fertile-window UI have been removed. Approximate phase
+  labels are optional detail on Hoje. Old enum/JSON representations remain for
+  backwards compatibility; old observations and phase-bound notes remain stored
+  and accessible. Older suggestions are replaced, not migrated as saved data.
+- One-JSON persisted phase-neutral support preferences and action usefulness
+  feedback use `AppDataNotifier._set`. A negative rating rotates the selected
+  suggestion and suppresses it for seven calendar days. A direct start-date picker now opens from Hoje;
+  missed-start confirmation asks for the real date instead of saving a forecast.
+- Period estimates show history/assumptions and uncertainty; one log is low
+  confidence and the calendar retains a buffer even for regular histories.
+  Generic lock-screen messages stay unchanged. The Android widget now gives
+  only a neutral prompt. Source/limitations: `docs/support-evidence.md`.
+- Current checks: JSON validity and PT/EN key parity passed; `git diff --check`
+  passed; no Flutter imports found in `lib/engine/`. Dart/Flutter are not on
+  PATH on this host, so `dart test test/engine_test.dart`,
+  `flutter test test/widget_smoke_test.dart` and `flutter analyze` could not
+  run. Generated l10n, Android/device and partner research remain unverified.
+- Risks to revisit: existing `periodTooShort` and `cycleTooShort` input floors
+  reject some real-world logs; app lock is not encryption. No backup/sync was
+  added, so losing the device still loses the data. Product effectiveness is
+  unproven; test acceptability with both partners before making impact claims.
+
 Current build: **v0.12.0** (Material 3 restyle on top of v0.11.0; working tree).
 
 ## Current working-tree pass (not yet verified with Flutter)

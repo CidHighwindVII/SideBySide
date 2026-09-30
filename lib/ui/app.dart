@@ -13,10 +13,10 @@ import 'lock.dart';
 import 'screens/calendario.dart';
 import 'screens/definicoes.dart';
 import 'screens/hoje.dart';
+import 'screens/log_date.dart';
 import 'screens/onboarding.dart';
 import 'screens/sugestoes.dart';
 import 'theme.dart';
-import 'widgets.dart';
 
 class _Shell extends ConsumerStatefulWidget {
   const _Shell();
@@ -200,18 +200,14 @@ class _SideBySideAppState extends ConsumerState<SideBySideApp>
 
   Future<void> _writeWidget(AppData data) async {
     if (!mounted || !identical(data, ref.read(appDataProvider))) return;
-    final eng = ref.read(engineProvider(DateTime.now()));
     final s = data.settings;
     final l =
         await AppL.delegate.load(Locale(ref.read(langCodeProvider)));
     if (!mounted || !identical(data, ref.read(appDataProvider))) return;
-    final phase = eng.phaseOrNull(eng.today);
-    final day = eng.dayOfCycle(eng.today);
     await Device.syncWidget(
       enabled: s.widgetEnabled,
-      phaseLabel: phase == null ? 'SideBySide' : phaseName(l, phase),
-      dayLabel: phase == null || day == 0 ? '' : l.todayCycleDay(day),
-      dotColor: trafficColors[eng.tomorrowTeaser()]!.toARGB32(),
+      phaseLabel: 'SideBySide',
+      dayLabel: l.widgetPrompt,
     );
   }
 
@@ -244,6 +240,7 @@ class _SideBySideAppState extends ConsumerState<SideBySideApp>
       home: unlocked,
       routes: {
         '/amanha': (_) => const AmanhaScreen(),
+        '/log': (_) => const LogDateScreen(),
       },
     );
   }

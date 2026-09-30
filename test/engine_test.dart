@@ -175,10 +175,10 @@ void main() {
     test('only setup → low', () {
       expect(engine(logs: [], today: d(1, 1)).confidence, Confidence.low);
     });
-    test('some logs → medium', () {
+    test('one logged start → low', () {
       expect(
         engine(logs: oneLog, today: d(3, 1)).confidence,
-        Confidence.medium,
+        Confidence.low,
       );
     });
     test('≥3 gaps, low variance → high', () {
@@ -231,30 +231,30 @@ void main() {
         isTrue,
       );
     });
-    test('first day of PMS window → notify (D28: fires ~2 days earlier)', () {
+    test('first day of PMS window does not trigger a reminder', () {
       // pmsStart moved Jan 24 → Jan 22, so tonight's brief is Jan 21
       expect(
         engine(logs: oneLog, today: d(1, 21)).shouldBriefTonight(),
-        isTrue,
+          isFalse,
       );
     });
-    test('phase change today→tomorrow → notify', () {
+    test('phase change alone does not notify', () {
       // follicular (day 11) → ovulation (day 12)
       expect(
         engine(logs: oneLog, today: d(1, 11)).shouldBriefTonight(),
-        isTrue,
+          isFalse,
       );
     });
-    test('day after a red day → notify', () {
+    test('former red day does not notify', () {
       // day 24 (PMS, red axes) → day 25
       expect(
         engine(logs: oneLog, today: d(1, 24)).shouldBriefTonight(),
-        isTrue,
+          isFalse,
       );
     });
-    test('red bad-news day is always notified', () {
+    test('former red bad-news day does not notify', () {
       // menstrual day 3 (news=red) → day 4
-      expect(engine(logs: oneLog, today: d(1, 3)).shouldBriefTonight(), isTrue);
+      expect(engine(logs: oneLog, today: d(1, 3)).shouldBriefTonight(), isFalse);
     });
     test('briefing toggle off → never', () {
       expect(
@@ -294,9 +294,9 @@ void main() {
   });
 
   group('§4.8 bands (D19 + D27)', () {
-    final e = engine(logs: oneLog, today: d(1, 8)); // medium → ±3
+    final e = engine(logs: oneLog, today: d(1, 8)); // low → ±4
     test('expected period is a ±bandDays band', () {
-      expect(e.bandDays, 3);
+      expect(e.bandDays, 4);
       expect(e.periodBandAt(d(1, 27)), isTrue);
       expect(e.periodBandAt(d(1, 29)), isTrue);
       expect(e.periodBandAt(d(1, 31)), isTrue);
@@ -315,10 +315,10 @@ void main() {
         PeriodLog(d(3, 26), d(3, 30)),
       ]; // gaps 28,28,28 → high
       expect(engine(logs: regular, today: d(4, 1)).bandDays, 2);
-      expect(engine(logs: oneLog, today: d(3, 1)).bandDays, 3); // medium
+      expect(engine(logs: oneLog, today: d(3, 1)).bandDays, 4); // sparse
       expect(engine(logs: [], today: d(3, 1)).bandDays, 4); // low
     });
-    test('v0.10: regular → definite expected period, no ± tail', () {
+    test('regular history still shows a start and end uncertainty band', () {
       final e = engine(
         logs: [
           PeriodLog(d(1, 1), d(1, 5)),
@@ -329,11 +329,13 @@ void main() {
         today: d(4, 1),
       ); // gaps 28,28,28 → high → isRegular
       expect(e.isRegular, isTrue);
-      // predicted start Apr 23, avgPeriod 5 → solid Apr 23–27
-      expect(e.periodBandAt(d(4, 22)), isFalse);
+      // estimated Apr 23–27 with ±2 calendar-day margin
+      expect(e.periodBandAt(d(4, 20)), isFalse);
+      expect(e.periodBandAt(d(4, 22)), isTrue);
       expect(e.periodBandAt(d(4, 23)), isTrue);
       expect(e.periodBandAt(d(4, 27)), isTrue);
-      expect(e.periodBandAt(d(4, 28)), isFalse);
+      expect(e.periodBandAt(d(4, 29)), isTrue);
+      expect(e.periodBandAt(d(4, 30)), isFalse);
     });
     test('v0.10: regular → fixed 6-day fertile window ending at ovulation',
         () {
@@ -362,7 +364,7 @@ void main() {
       expect(e.periodBandAt(d(1, 25)), isTrue); // Jan 29 − 4
       expect(e.periodBandAt(d(2, 2)), isTrue); // Jan 29 + 4
       expect(e.periodBandAt(d(1, 24)), isFalse); // ±5
-      expect(e.periodBandAt(d(2, 3)), isFalse);
+      expect(e.periodBandAt(d(2, 7)), isFalse);
     });
   });
 
@@ -454,15 +456,25 @@ void main() {
     });
   });
 
-  group('v0.3.0 #8 energy axis — catalog is source of truth', () {
-    test('shipped catalog.json has energy + nutrition for every phase', () {
+  group('support-first catalog', () {
+    test('shipped catalog has neutral, filtered advice and legacy axes', () {
       final catalog = Catalog.parse(
         File('assets/catalog.json').readAsStringSync(),
       );
       for (final p in Phase.values) {
         expect(catalog[p].axes[OutlookAxis.energy], isNotNull, reason: p.name);
-        expect(catalog[p].nutrition, isNotEmpty, reason: p.name);
+        expect(catalog[p].actionable, isNotEmpty, reason: p.name);
+        final fallback = engine(logs: [], today: d(1, 1));
+        for (final axis in OutlookAxis.values) {
+          expect(fallback.axisRating(p, axis), catalog[p].axes[axis],
+              reason: '${p.name}/${axis.name}');
+        }
       }
+      expect(PhaseCatalog.pick(catalog.general.actionable, false, 3).length, 3);
+      expect(PhaseCatalog.pick(catalog.general.actionable, false, 3)
+          .any((i) => i.tag == ItemTag.juntos), isFalse);
+      expect(PhaseCatalog.pick(catalog.general.actionable, true, 3,
+          supportPriority: true).first.support, isTrue);
     });
   });
 }

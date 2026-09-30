@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../data/catalog.dart';
+import '../engine/cycle_engine.dart';
 import '../engine/models.dart';
+import '../state/providers.dart';
 import '../l10n/gen/app_localizations.dart';
 import 'theme.dart';
 
@@ -92,8 +96,7 @@ class PhaseBadge extends StatelessWidget {
   }
 }
 
-/// A picked catalog action with optional explanation, shared by the forecast
-/// and suggestions surfaces. Callers supply items from phasePicks only.
+/// A picked catalog action or explicitly user-authored preference.
 class SupportActionCard extends StatelessWidget {
   final String title;
   final String action;
@@ -131,6 +134,63 @@ class SupportActionCard extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+/// Preferences are user-authored; all published suggestions use pick before
+/// display. A negative rating rotates candidates and suppresses them for 7 days.
+bool actionSuppressed(AppData data, String id, DateTime today) =>
+    data.actionFeedback.any((f) {
+      if (f.actionId != id || f.useful) return false;
+      final logged = DateTime.tryParse(f.date);
+      if (logged == null) return false;
+      final days = CycleEngine.daysBetween(logged, today);
+      return days >= 0 && days < 7;
+    });
+
+List<CatalogItem> generalPicks(PhaseCatalog general, AppData data, DateTime today) =>
+    PhaseCatalog.pick(general.actionable
+        .where((i) => !actionSuppressed(data, 'general:${i.pt}', today)).toList(),
+        data.settings.liveTogether, 3,
+        supportPriority: data.settings.intensiveSupport);
+
+class SupportToday extends ConsumerWidget {
+  final PhaseCatalog general;
+  final bool compact;
+  const SupportToday({required this.general, this.compact = false, super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppL.of(context);
+    final data = ref.watch(appDataProvider);
+    final isPt = ref.watch(langCodeProvider) == 'pt';
+    final today = ref.watch(todayProvider);
+    final date = DateFormat('yyyy-MM-dd').format(today);
+    final picks = generalPicks(general, data, today);
+    final candidates = <({String id, String text, String? why})>[
+      for (final p in data.preferences)
+        if (!actionSuppressed(data, 'preference:${p.id}', today))
+          (id: 'preference:${p.id}', text: p.text, why: l.agreedPreference),
+      for (var i = 0; i < picks.length; i++)
+        (id: 'general:${picks[i].pt}', text: picks[i].text(isPt),
+            why: picks[i].why(isPt)),
+    ];
+    final action = candidates.firstOrNull;
+    if (action == null) return Text(l.allActionsSeen);
+    final rating = data.actionFeedback.where((f) =>
+        f.date == date && f.actionId == action.id).firstOrNull;
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      SupportActionCard(title: compact ? l.suggestionsTitle : l.tipOfDayTitle,
+          action: action.text, why: action.why),
+      if (!compact) Wrap(spacing: 8, crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text(rating?.useful == true ? l.actionThanks : l.actionQuestion),
+            TextButton(onPressed: () => ref.read(appDataProvider.notifier)
+                .rateAction(date, action.id, true), child: Text(l.actionUseful)),
+            TextButton(onPressed: () => ref.read(appDataProvider.notifier)
+                .rateAction(date, action.id, false), child: Text(l.actionNotUseful)),
+          ]),
+    ]);
   }
 }
 
@@ -196,8 +256,7 @@ class Section extends StatelessWidget {
   }
 }
 
-/// Catalog picks for a phase — cohabitation filter + ≤3 cap + #15 re-rank.
-/// Single source for Hoje, Amanhã and Sugestões.
+/// Catalog picks for a section — cohabitation filter + ≤3 cap + support re-rank.
 ({List<CatalogItem> actionable, List<CatalogItem> warnings,
       List<CatalogItem> context})
     phasePicks(PhaseCatalog pc, Settings s, {required bool support}) =>

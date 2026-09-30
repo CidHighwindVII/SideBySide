@@ -50,7 +50,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   Future<void> _next() async {
-    final l = AppL.of(context);
     final notifier = ref.read(appDataProvider.notifier);
     if (_step == 1 && _start != null) {
       final end = _end != null && !CycleEngine.periodTooShort(_start!, _end!)
@@ -59,11 +58,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       notifier.saveLog(PeriodLog(_start!, end));
     }
     if (_step == 4) {
-      await Notifications.instance.requestPermission();
-      await Notifications.instance.scheduleSampleBriefing(l.notifBriefBody);
-      if (!mounted) return;
-      notifier.updateSettings(
-          ref.read(appDataProvider).settings.copyWith(onboarded: true));
+       // The separate button requests OS permission; finishing is always optional.
+       notifier.updateSettings(
+           ref.read(appDataProvider).settings.copyWith(onboarded: true));
       return;
     }
     setState(() => _step++);
@@ -121,7 +118,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   }),
                   const SizedBox(height: 24),
                   ...switch (_step) {
-                    0 => [
+                     0 => [
+                       Text(l.privacyIntro),
+                       const SizedBox(height: 12),
                       Text(l.avgFromLogs,
                           style: Theme.of(context).textTheme.bodySmall),
                       const SizedBox(height: 24),

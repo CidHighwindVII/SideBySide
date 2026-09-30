@@ -1,6 +1,6 @@
 # SideBySide
 
-SideBySide is an Android-local Flutter companion app for following a partner's menstrual cycle with **estimated** phase forecasts and practical suggestions. It offers Hoje, Calendário, Sugestões and Definições, local briefings, optional calendar events and a home-screen widget. Predictions are not medical facts; notification previews reveal no cycle details.
+SideBySide is an Android-local Flutter companion for remembering support preferences discussed with a partner and checking an **estimated** next period date. It offers Hoje, Calendário, Sugestões and Definições, generic local reminders, optional calendar events and a neutral home-screen widget. Approximate phase information is optional detail, not a prediction of feelings. No account or cloud sync; notification previews reveal no cycle details. Research boundaries and sources are in `docs/support-evidence.md`.
 
 ## Setup
 

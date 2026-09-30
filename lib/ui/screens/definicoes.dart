@@ -25,6 +25,7 @@ class DefinicoesScreen extends ConsumerWidget {
             // v0.8.0 (#7): personal facts vs. app config split — Perfil holds
             // the profile-driven inputs, everything below is pure settings.
             Text(l.profileTitle, style: Theme.of(context).textTheme.titleMedium),
+            Text(l.privacyIntro),
             Text(l.contraception),
             Wrap(spacing: 8, runSpacing: 8, children: [
               for (final (value, label) in [
@@ -183,6 +184,7 @@ class DefinicoesScreen extends ConsumerWidget {
               ),
             Text(l.dataTitle,
                 style: Theme.of(context).textTheme.titleMedium),
+            Text(l.privacyData),
             if (deviceSurfacesAvailable)
               ListTile(
                 contentPadding: EdgeInsets.zero,

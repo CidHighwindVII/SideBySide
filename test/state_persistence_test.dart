@@ -42,6 +42,43 @@ class _RecordingStore extends Store {
 }
 
 void main() {
+  test('old JSON still loads; preferences and action ratings round-trip', () {
+    final old = AppData.fromJson({
+      'settings': {'onboarded': true},
+      'logs': [PeriodLog(DateTime(2026, 8, 1), null).toJson()],
+      'observations': [const Observation('2026-08-01', ['colicas']).toJson()],
+      'customCards': [const CustomCard(Phase.pms, 'old note').toJson()],
+      'feedback': [const ForecastFeedback('2026-08-01', true).toJson()],
+    });
+    expect(old.preferences, isEmpty);
+    expect(old.actionFeedback, isEmpty);
+    final updated = old.copyWith(
+      preferences: [const SupportPreference(1, 'help', 'Agreed chore')],
+      actionFeedback: [const ActionFeedback('2026-08-02', 'preference:1', true)],
+    );
+    final restored = AppData.fromJson(updated.toJson());
+    expect(restored.logs.length, 1);
+    expect(restored.observations.single.tags, ['colicas']);
+    expect(restored.customCards.single.text, 'old note');
+    expect(restored.feedback.single.thumbsUp, isTrue);
+    expect(restored.preferences.single.text, 'Agreed chore');
+    expect(restored.actionFeedback.single.useful, isTrue);
+  });
+
+  test('preference and action changes persist through the ordered _set queue', () async {
+    final store = _RecordingStore();
+    final notifier = AppDataNotifier(store, const AppData());
+    notifier.addPreference('help', 'Do the dishes');
+    await store.firstWrite.future;
+    notifier.rateAction('2026-09-30', 'preference:1', false);
+    notifier.deletePreference(1);
+    store.releaseFirstWrite.complete();
+    await notifier.persistenceIdle;
+    expect(store.onDisk!.preferences, isEmpty);
+    expect(store.onDisk!.actionFeedback, isEmpty);
+    expect(store.operations, ['save', 'save', 'save']);
+    notifier.dispose();
+  });
   test('rapid mutations persist in order; wipe is last and publishes empty data',
       () async {
     final store = _RecordingStore();
