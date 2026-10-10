@@ -199,7 +199,7 @@ class Observation {
       j['date'] as String, (j['tags'] as List? ?? []).cast<String>());
 }
 
-/// v0.3.0 (#18): user-written, phase-bound note surfaced in Hoje.
+/// v0.3.0 (#18): user-written, phase-bound note surfaced in Today.
 class CustomCard {
   final Phase phase;
   final String text;

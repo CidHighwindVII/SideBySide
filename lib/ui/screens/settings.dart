@@ -6,8 +6,8 @@ import '../../engine/models.dart';
 import '../../state/providers.dart';
 import '../../l10n/gen/app_localizations.dart';
 
-class DefinicoesScreen extends ConsumerWidget {
-  const DefinicoesScreen({super.key});
+class SettingsScreen extends ConsumerWidget {
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -8,10 +8,10 @@ import '../../state/providers.dart';
 import '../widgets.dart';
 import 'garden.dart';
 import 'learning.dart';
-import 'procurar.dart';
+import 'search.dart';
 
-class SugestoesScreen extends ConsumerWidget {
-  const SugestoesScreen({super.key});
+class SuggestionsScreen extends ConsumerWidget {
+  const SuggestionsScreen({super.key});
 
   Future<void> _editLegacyNote(BuildContext context, WidgetRef ref,
       CustomCard card) async {
@@ -151,7 +151,7 @@ class SugestoesScreen extends ConsumerWidget {
         Card.filled(child: ListTile(leading: const Icon(Icons.search),
           title: Text(l.searchTitle), trailing: const Icon(Icons.chevron_right),
           onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => const ProcurarScreen())))),
+              builder: (_) => const SearchScreen())))),
       ]));
   }
 }

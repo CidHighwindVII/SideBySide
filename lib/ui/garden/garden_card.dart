@@ -22,7 +22,7 @@ String varietyName(AppL l, int v) => switch (v) {
       _ => l.gardenVariety2,
     };
 
-/// Compact garden card for Hoje: the active plant, weekly care progress and a
+/// Compact garden card for Today: the active plant, weekly care progress and a
 /// next-care action. Hidden entirely when the garden setting is off (progress is
 /// retained regardless). Growth pops once per newly earned moment and never
 /// replays on unrelated rebuilds; honours reduced-motion.

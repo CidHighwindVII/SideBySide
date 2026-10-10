@@ -5,13 +5,13 @@ import '../../data/catalog.dart';
 import '../../l10n/gen/app_localizations.dart';
 import '../../state/providers.dart';
 
-class ProcurarScreen extends ConsumerStatefulWidget {
-  const ProcurarScreen({super.key});
+class SearchScreen extends ConsumerStatefulWidget {
+  const SearchScreen({super.key});
   @override
-  ConsumerState<ProcurarScreen> createState() => _ProcurarScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _ProcurarScreenState extends ConsumerState<ProcurarScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   String _query = '';
 
   @override

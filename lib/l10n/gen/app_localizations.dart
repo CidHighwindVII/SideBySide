@@ -97,1420 +97,1420 @@ abstract class AppL {
     Locale('pt'),
   ];
 
-  /// No description provided for @tabHoje.
+  /// No description provided for @tabToday.
   ///
-  /// In pt, this message translates to:
-  /// **'Hoje'**
-  String get tabHoje;
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get tabToday;
 
-  /// No description provided for @tabCalendario.
+  /// No description provided for @tabCalendar.
   ///
-  /// In pt, this message translates to:
-  /// **'Calendário'**
-  String get tabCalendario;
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get tabCalendar;
 
-  /// No description provided for @tabSugestoes.
+  /// No description provided for @tabSuggestions.
   ///
-  /// In pt, this message translates to:
-  /// **'Sugestões'**
-  String get tabSugestoes;
+  /// In en, this message translates to:
+  /// **'Suggestions'**
+  String get tabSuggestions;
 
-  /// No description provided for @tabDefinicoes.
+  /// No description provided for @tabSettings.
   ///
-  /// In pt, this message translates to:
-  /// **'Definições'**
-  String get tabDefinicoes;
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get tabSettings;
 
   /// No description provided for @phaseMenstrual.
   ///
-  /// In pt, this message translates to:
+  /// In en, this message translates to:
   /// **'Menstrual'**
   String get phaseMenstrual;
 
   /// No description provided for @phaseFollicular.
   ///
-  /// In pt, this message translates to:
-  /// **'Folicular'**
+  /// In en, this message translates to:
+  /// **'Follicular'**
   String get phaseFollicular;
 
   /// No description provided for @phaseOvulation.
   ///
-  /// In pt, this message translates to:
-  /// **'Ovulação'**
+  /// In en, this message translates to:
+  /// **'Ovulation'**
   String get phaseOvulation;
 
   /// No description provided for @phaseLuteal.
   ///
-  /// In pt, this message translates to:
-  /// **'Lútea'**
+  /// In en, this message translates to:
+  /// **'Luteal'**
   String get phaseLuteal;
 
   /// No description provided for @phasePms.
   ///
-  /// In pt, this message translates to:
+  /// In en, this message translates to:
   /// **'PMS'**
   String get phasePms;
 
   /// No description provided for @statusLabel.
   ///
-  /// In pt, this message translates to:
-  /// **'Fase provável'**
+  /// In en, this message translates to:
+  /// **'Likely phase'**
   String get statusLabel;
 
   /// No description provided for @confHigh.
   ///
-  /// In pt, this message translates to:
-  /// **'datas registadas mais estáveis'**
+  /// In en, this message translates to:
+  /// **'more consistent logged dates'**
   String get confHigh;
 
   /// No description provided for @confMedium.
   ///
-  /// In pt, this message translates to:
-  /// **'estimativa com alguns registos'**
+  /// In en, this message translates to:
+  /// **'estimate with some history'**
   String get confMedium;
 
   /// No description provided for @confLow.
   ///
-  /// In pt, this message translates to:
-  /// **'estimativa limitada'**
+  /// In en, this message translates to:
+  /// **'limited estimate'**
   String get confLow;
 
   /// No description provided for @suggestionsTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Para hoje'**
+  /// In en, this message translates to:
+  /// **'For today'**
   String get suggestionsTitle;
 
   /// No description provided for @warningsTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Melhor evitar'**
+  /// In en, this message translates to:
+  /// **'Better avoid'**
   String get warningsTitle;
 
   /// No description provided for @contextTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Para enquadramento'**
+  /// In en, this message translates to:
+  /// **'For context'**
   String get contextTitle;
 
   /// No description provided for @axisFavor.
   ///
-  /// In pt, this message translates to:
-  /// **'Pedir favores'**
+  /// In en, this message translates to:
+  /// **'Ask favors'**
   String get axisFavor;
 
   /// No description provided for @axisNews.
   ///
-  /// In pt, this message translates to:
-  /// **'Dar más notícias'**
+  /// In en, this message translates to:
+  /// **'Give bad news'**
   String get axisNews;
 
   /// No description provided for @axisOut.
   ///
-  /// In pt, this message translates to:
-  /// **'Sair e planear'**
+  /// In en, this message translates to:
+  /// **'Go out & plan'**
   String get axisOut;
 
   /// No description provided for @axisEnergy.
   ///
-  /// In pt, this message translates to:
-  /// **'Energia'**
+  /// In en, this message translates to:
+  /// **'Energy'**
   String get axisEnergy;
 
   /// No description provided for @searchTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Procurar ideias de apoio'**
+  /// In en, this message translates to:
+  /// **'Search support ideas'**
   String get searchTitle;
 
   /// No description provided for @searchHint.
   ///
-  /// In pt, this message translates to:
-  /// **'Escreve para procurar'**
+  /// In en, this message translates to:
+  /// **'Type to search'**
   String get searchHint;
 
   /// No description provided for @searchEmpty.
   ///
-  /// In pt, this message translates to:
-  /// **'Nada encontrado.'**
+  /// In en, this message translates to:
+  /// **'Nothing found.'**
   String get searchEmpty;
 
   /// No description provided for @catalogUnavailable.
   ///
-  /// In pt, this message translates to:
-  /// **'Não foi possível carregar as sugestões. Reinicia a app para tentar de novo.'**
+  /// In en, this message translates to:
+  /// **'Suggestions could not be loaded. Restart the app to try again.'**
   String get catalogUnavailable;
 
   /// No description provided for @searchAllPhases.
   ///
-  /// In pt, this message translates to:
-  /// **'Todas'**
+  /// In en, this message translates to:
+  /// **'All'**
   String get searchAllPhases;
 
   /// No description provided for @varianceTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Variância dos ciclos'**
+  /// In en, this message translates to:
+  /// **'Cycle variance'**
   String get varianceTitle;
 
   /// No description provided for @varianceAvg.
   ///
-  /// In pt, this message translates to:
-  /// **'média: {n} dias'**
+  /// In en, this message translates to:
+  /// **'avg: {n} days'**
   String varianceAvg(int n);
 
   /// No description provided for @weekendTimeTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Hora diferente ao fim de semana'**
+  /// In en, this message translates to:
+  /// **'Different time on weekends'**
   String get weekendTimeTitle;
 
   /// No description provided for @weekendBriefingTime.
   ///
-  /// In pt, this message translates to:
-  /// **'Hora do briefing (fim de semana)'**
+  /// In en, this message translates to:
+  /// **'Weekend briefing time'**
   String get weekendBriefingTime;
 
   /// No description provided for @supportTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Priorizar sugestões de ajuda'**
+  /// In en, this message translates to:
+  /// **'Prioritize offers of help'**
   String get supportTitle;
 
   /// No description provided for @supportBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Mostra primeiro ofertas de ajuda, sem inferir as preferências dela a partir do ciclo.'**
+  /// In en, this message translates to:
+  /// **'Shows offers of help first, without inferring her preferences from a cycle.'**
   String get supportBody;
 
   /// No description provided for @obsTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Registar observação'**
+  /// In en, this message translates to:
+  /// **'Log an observation'**
   String get obsTitle;
 
   /// No description provided for @obsBody.
   ///
-  /// In pt, this message translates to:
-  /// **'O que observaste hoje — notas tuas, não dados clínicos.'**
+  /// In en, this message translates to:
+  /// **'What you noticed today — your notes, not clinical data.'**
   String get obsBody;
 
   /// No description provided for @obsLegend.
   ///
-  /// In pt, this message translates to:
-  /// **'observação registada'**
+  /// In en, this message translates to:
+  /// **'observation logged'**
   String get obsLegend;
 
   /// No description provided for @patternTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Padrão das tuas notas'**
+  /// In en, this message translates to:
+  /// **'Pattern in your notes'**
   String get patternTitle;
 
   /// No description provided for @patternCaption.
   ///
-  /// In pt, this message translates to:
-  /// **'Distribuição pelas fases — notas tuas, não dados clínicos.'**
+  /// In en, this message translates to:
+  /// **'Spread across phases — your notes, not clinical data.'**
   String get patternCaption;
 
   /// No description provided for @obsCalm.
   ///
-  /// In pt, this message translates to:
-  /// **'Calma'**
+  /// In en, this message translates to:
+  /// **'Calm'**
   String get obsCalm;
 
   /// No description provided for @obsTired.
   ///
-  /// In pt, this message translates to:
-  /// **'Cansada'**
+  /// In en, this message translates to:
+  /// **'Tired'**
   String get obsTired;
 
   /// No description provided for @obsSensitive.
   ///
-  /// In pt, this message translates to:
-  /// **'Sensível'**
+  /// In en, this message translates to:
+  /// **'Sensitive'**
   String get obsSensitive;
 
   /// No description provided for @obsGoodMood.
   ///
-  /// In pt, this message translates to:
-  /// **'De bom humor'**
+  /// In en, this message translates to:
+  /// **'Good mood'**
   String get obsGoodMood;
 
   /// No description provided for @obsIrritable.
   ///
-  /// In pt, this message translates to:
-  /// **'Irritada'**
+  /// In en, this message translates to:
+  /// **'Irritable'**
   String get obsIrritable;
 
   /// No description provided for @obsCramps.
   ///
-  /// In pt, this message translates to:
-  /// **'Cólicas'**
+  /// In en, this message translates to:
+  /// **'Cramps'**
   String get obsCramps;
 
   /// No description provided for @obsHeadache.
   ///
-  /// In pt, this message translates to:
-  /// **'Dor de cabeça'**
+  /// In en, this message translates to:
+  /// **'Headache'**
   String get obsHeadache;
 
   /// No description provided for @obsBloating.
   ///
-  /// In pt, this message translates to:
-  /// **'Inchaço'**
+  /// In en, this message translates to:
+  /// **'Bloating'**
   String get obsBloating;
 
   /// No description provided for @obsCravings.
   ///
-  /// In pt, this message translates to:
-  /// **'Desejos'**
+  /// In en, this message translates to:
+  /// **'Cravings'**
   String get obsCravings;
 
   /// No description provided for @obsSleepless.
   ///
-  /// In pt, this message translates to:
-  /// **'Dormiu mal'**
+  /// In en, this message translates to:
+  /// **'Slept badly'**
   String get obsSleepless;
 
   /// No description provided for @save.
   ///
-  /// In pt, this message translates to:
-  /// **'Guardar'**
+  /// In en, this message translates to:
+  /// **'Save'**
   String get save;
 
   /// No description provided for @customTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'As tuas notas'**
+  /// In en, this message translates to:
+  /// **'Your notes'**
   String get customTitle;
 
   /// No description provided for @customAdd.
   ///
-  /// In pt, this message translates to:
-  /// **'Adicionar nota'**
+  /// In en, this message translates to:
+  /// **'Add note'**
   String get customAdd;
 
   /// No description provided for @customText.
   ///
-  /// In pt, this message translates to:
-  /// **'O que queres lembrar'**
+  /// In en, this message translates to:
+  /// **'What you want to remember'**
   String get customText;
 
   /// No description provided for @widgetTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Widget no ecrã inicial'**
+  /// In en, this message translates to:
+  /// **'Home screen widget'**
   String get widgetTitle;
 
   /// No description provided for @widgetBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Mostra apenas um lembrete neutro para abrir a app. Só Android.'**
+  /// In en, this message translates to:
+  /// **'Only shows a neutral prompt to open the app. Android only.'**
   String get widgetBody;
 
   /// No description provided for @widgetPrompt.
   ///
-  /// In pt, this message translates to:
-  /// **'Consulta a app'**
+  /// In en, this message translates to:
+  /// **'Check the app'**
   String get widgetPrompt;
 
   /// No description provided for @dataTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Dados'**
+  /// In en, this message translates to:
+  /// **'Data'**
   String get dataTitle;
 
   /// No description provided for @deviceFail.
   ///
-  /// In pt, this message translates to:
-  /// **'Não foi possível concluir neste dispositivo.'**
+  /// In en, this message translates to:
+  /// **'Couldn\'t complete on this device.'**
   String get deviceFail;
 
   /// No description provided for @calTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Adicionar ao calendário'**
+  /// In en, this message translates to:
+  /// **'Add to calendar'**
   String get calTitle;
 
   /// No description provided for @calBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Escreve os próximos 14 dias no teu calendário com o título neutro \"SxS\" — nada revelador. Atenção: se o calendário sincroniza com Google/Apple, esses eventos saem do telefone.'**
+  /// In en, this message translates to:
+  /// **'Writes the next 14 days to your calendar with the neutral title \"SxS\" — nothing revealing. Warning: if your calendar syncs with Google/Apple, these events leave the phone.'**
   String get calBody;
 
   /// No description provided for @avgTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Médias usadas'**
+  /// In en, this message translates to:
+  /// **'Averages in use'**
   String get avgTitle;
 
   /// No description provided for @avgAuto.
   ///
-  /// In pt, this message translates to:
-  /// **'automática — mediana dos teus registos'**
+  /// In en, this message translates to:
+  /// **'automatic — median of your logs'**
   String get avgAuto;
 
   /// No description provided for @avgFallback.
   ///
-  /// In pt, this message translates to:
-  /// **'média inicial — ainda com poucos registos'**
+  /// In en, this message translates to:
+  /// **'starting average — still few logs'**
   String get avgFallback;
 
   /// No description provided for @avgFromLogs.
   ///
-  /// In pt, this message translates to:
-  /// **'A app calcula a duração do ciclo e da menstruação a partir dos teus registos — não precisas de as definir.'**
+  /// In en, this message translates to:
+  /// **'The app computes cycle and period length from your logs — you don\'t need to set them.'**
   String get avgFromLogs;
 
   /// No description provided for @trafficGreen.
   ///
-  /// In pt, this message translates to:
-  /// **'bom'**
+  /// In en, this message translates to:
+  /// **'good'**
   String get trafficGreen;
 
   /// No description provided for @trafficYellow.
   ///
-  /// In pt, this message translates to:
-  /// **'atenção'**
+  /// In en, this message translates to:
+  /// **'careful'**
   String get trafficYellow;
 
   /// No description provided for @trafficRed.
   ///
-  /// In pt, this message translates to:
-  /// **'evitar'**
+  /// In en, this message translates to:
+  /// **'avoid'**
   String get trafficRed;
 
   /// No description provided for @tomorrowCard.
   ///
-  /// In pt, this message translates to:
-  /// **'Amanhã'**
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
   String get tomorrowCard;
 
   /// No description provided for @tomorrowPreview.
   ///
-  /// In pt, this message translates to:
-  /// **'Ver amanhã ↓'**
+  /// In en, this message translates to:
+  /// **'See tomorrow ↓'**
   String get tomorrowPreview;
 
   /// No description provided for @feedbackQuestion.
   ///
-  /// In pt, this message translates to:
-  /// **'Esta sugestão foi útil?'**
+  /// In en, this message translates to:
+  /// **'Was this suggestion useful?'**
   String get feedbackQuestion;
 
   /// No description provided for @feedbackThanks.
   ///
-  /// In pt, this message translates to:
-  /// **'Thanks — guardado.'**
+  /// In en, this message translates to:
+  /// **'Thanks — saved.'**
   String get feedbackThanks;
 
   /// No description provided for @confirmTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Confirmar data'**
+  /// In en, this message translates to:
+  /// **'Confirm date'**
   String get confirmTitle;
 
   /// No description provided for @confirmBody.
   ///
-  /// In pt, this message translates to:
-  /// **'A tua previsão de período passou por registar. Confirmas a data real?'**
+  /// In en, this message translates to:
+  /// **'Your period forecast passed without a log. Confirm the real date?'**
   String get confirmBody;
 
   /// No description provided for @confirmAction.
   ///
-  /// In pt, this message translates to:
-  /// **'Registar agora'**
+  /// In en, this message translates to:
+  /// **'Log now'**
   String get confirmAction;
 
   /// No description provided for @confirmDismiss.
   ///
-  /// In pt, this message translates to:
-  /// **'Ainda não'**
+  /// In en, this message translates to:
+  /// **'Not yet'**
   String get confirmDismiss;
 
   /// No description provided for @healthNudge.
   ///
-  /// In pt, this message translates to:
-  /// **'Os teus ciclos variam bastante — vale a pena espreitar com um profissional. Não é alarme nem diagnóstico.'**
+  /// In en, this message translates to:
+  /// **'Your cycles vary a lot — worth a peek with a professional. Not an alarm or a diagnosis.'**
   String get healthNudge;
 
   /// No description provided for @healthNudgeOk.
   ///
-  /// In pt, this message translates to:
-  /// **'Entendi'**
+  /// In en, this message translates to:
+  /// **'Got it'**
   String get healthNudgeOk;
 
   /// No description provided for @noForecast.
   ///
-  /// In pt, this message translates to:
-  /// **'Sem previsão atual — regista uma data para voltar a estimar.'**
+  /// In en, this message translates to:
+  /// **'No current forecast — log a date to start estimating again.'**
   String get noForecast;
 
   /// No description provided for @noDataYet.
   ///
-  /// In pt, this message translates to:
-  /// **'Ainda não há datas registadas. Podes começar pela data do último período.'**
+  /// In en, this message translates to:
+  /// **'No dates logged yet. You can start with the last period date.'**
   String get noDataYet;
 
   /// No description provided for @calendarBandPeriod.
   ///
-  /// In pt, this message translates to:
-  /// **'período previsto (±{n} dias)'**
+  /// In en, this message translates to:
+  /// **'expected period (±{n} days)'**
   String calendarBandPeriod(int n);
 
   /// No description provided for @calendarBandOvulation.
   ///
-  /// In pt, this message translates to:
-  /// **'janela fértil prevista (±{n} dias)'**
+  /// In en, this message translates to:
+  /// **'expected fertile window (±{n} days)'**
   String calendarBandOvulation(int n);
 
   /// No description provided for @calendarLogged.
   ///
-  /// In pt, this message translates to:
-  /// **'registado'**
+  /// In en, this message translates to:
+  /// **'logged'**
   String get calendarLogged;
 
   /// No description provided for @calendarFuture.
   ///
-  /// In pt, this message translates to:
-  /// **'previsto por ti'**
+  /// In en, this message translates to:
+  /// **'planned by you'**
   String get calendarFuture;
 
   /// No description provided for @calendarExpectedPeriod.
   ///
-  /// In pt, this message translates to:
-  /// **'período estimado; a data pode mudar'**
+  /// In en, this message translates to:
+  /// **'estimated period; the date may change'**
   String get calendarExpectedPeriod;
 
   /// No description provided for @calendarExpectedFertile.
   ///
-  /// In pt, this message translates to:
-  /// **'janela fértil estimada (6 dias)'**
+  /// In en, this message translates to:
+  /// **'estimated fertile window (6 days)'**
   String get calendarExpectedFertile;
 
   /// No description provided for @calendarFertileUncertainty.
   ///
-  /// In pt, this message translates to:
-  /// **'incerteza da janela fértil (±{n} dias)'**
+  /// In en, this message translates to:
+  /// **'fertile-window uncertainty (±{n} days)'**
   String calendarFertileUncertainty(int n);
 
   /// No description provided for @calendarNoBand.
   ///
-  /// In pt, this message translates to:
-  /// **'Sem estimativas de período ou janela fértil (contracetivo hormonal). O sangamento registado continua visível.'**
+  /// In en, this message translates to:
+  /// **'No period or fertile-window estimates (hormonal contraception). Logged bleeding stays visible.'**
   String get calendarNoBand;
 
   /// No description provided for @unknownContrNote.
   ///
-  /// In pt, this message translates to:
-  /// **'A contraceção está marcada como desconhecida. As estimativas assumem um ciclo natural e podem não se aplicar — confirma nas Definições.'**
+  /// In en, this message translates to:
+  /// **'Contraception is set to unknown. Estimates assume a natural cycle and may not apply — confirm in Settings.'**
   String get unknownContrNote;
 
   /// No description provided for @unknownContrAction.
   ///
-  /// In pt, this message translates to:
-  /// **'Definir contraceção'**
+  /// In en, this message translates to:
+  /// **'Set contraception'**
   String get unknownContrAction;
 
   /// No description provided for @calendarToday.
   ///
-  /// In pt, this message translates to:
-  /// **'Hoje'**
+  /// In en, this message translates to:
+  /// **'Today'**
   String get calendarToday;
 
   /// No description provided for @tipOfDayTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Dica do dia'**
+  /// In en, this message translates to:
+  /// **'Tip of the day'**
   String get tipOfDayTitle;
 
   /// No description provided for @prepTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Preparar com cuidado'**
+  /// In en, this message translates to:
+  /// **'Prepare thoughtfully'**
   String get prepTitle;
 
   /// No description provided for @prepBody.
   ///
-  /// In pt, this message translates to:
-  /// **'O próximo período pode estar perto. Se fizer sentido para vocês, pergunta do que ela precisa e prepara o essencial — a previsão pode mudar.'**
+  /// In en, this message translates to:
+  /// **'The next period may be near. If it works for you both, ask what she needs and prepare the essentials — the estimate can change.'**
   String get prepBody;
 
   /// No description provided for @contraception.
   ///
-  /// In pt, this message translates to:
-  /// **'Contracetivos'**
+  /// In en, this message translates to:
+  /// **'Contraception'**
   String get contraception;
 
   /// No description provided for @contrNone.
   ///
-  /// In pt, this message translates to:
-  /// **'Nenhum'**
+  /// In en, this message translates to:
+  /// **'None'**
   String get contrNone;
 
   /// No description provided for @contrHormonal.
   ///
-  /// In pt, this message translates to:
+  /// In en, this message translates to:
   /// **'Hormonal'**
   String get contrHormonal;
 
   /// No description provided for @contrUnknown.
   ///
-  /// In pt, this message translates to:
-  /// **'Desconhecido'**
+  /// In en, this message translates to:
+  /// **'Unknown'**
   String get contrUnknown;
 
   /// No description provided for @liveTogether.
   ///
-  /// In pt, this message translates to:
-  /// **'Moram juntos?'**
+  /// In en, this message translates to:
+  /// **'Living together?'**
   String get liveTogether;
 
   /// No description provided for @yes.
   ///
-  /// In pt, this message translates to:
-  /// **'Sim'**
+  /// In en, this message translates to:
+  /// **'Yes'**
   String get yes;
 
   /// No description provided for @no.
   ///
-  /// In pt, this message translates to:
-  /// **'Não'**
+  /// In en, this message translates to:
+  /// **'No'**
   String get no;
 
   /// No description provided for @profileTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Perfil'**
+  /// In en, this message translates to:
+  /// **'Profile'**
   String get profileTitle;
 
   /// No description provided for @settingsBriefing.
   ///
-  /// In pt, this message translates to:
-  /// **'Briefing de amanhã'**
+  /// In en, this message translates to:
+  /// **'Tomorrow briefing'**
   String get settingsBriefing;
 
   /// No description provided for @settingsBriefingTime.
   ///
-  /// In pt, this message translates to:
-  /// **'Hora do briefing'**
+  /// In en, this message translates to:
+  /// **'Briefing time'**
   String get settingsBriefingTime;
 
   /// No description provided for @settingsHeadsUp.
   ///
-  /// In pt, this message translates to:
-  /// **'Lembrete de preparação (detalhes só na app)'**
+  /// In en, this message translates to:
+  /// **'Preparation reminder (details in the app only)'**
   String get settingsHeadsUp;
 
   /// No description provided for @settingsWipe.
   ///
-  /// In pt, this message translates to:
-  /// **'Apagar todos os dados'**
+  /// In en, this message translates to:
+  /// **'Delete all data'**
   String get settingsWipe;
 
   /// No description provided for @settingsWipeConfirm.
   ///
-  /// In pt, this message translates to:
-  /// **'Apagar remove todos os dados. Não há recuperação.'**
+  /// In en, this message translates to:
+  /// **'Deleting erases all data. No recovery.'**
   String get settingsWipeConfirm;
 
   /// No description provided for @todayCycleDay.
   ///
-  /// In pt, this message translates to:
-  /// **'Dia {day} do ciclo'**
+  /// In en, this message translates to:
+  /// **'Day {day} of the cycle'**
   String todayCycleDay(int day);
 
   /// No description provided for @todayNextPeriod.
   ///
-  /// In pt, this message translates to:
-  /// **'Próximo período estimado: {date}'**
+  /// In en, this message translates to:
+  /// **'Estimated next period: {date}'**
   String todayNextPeriod(String date);
 
   /// No description provided for @cancel.
   ///
-  /// In pt, this message translates to:
-  /// **'Cancelar'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get cancel;
 
   /// No description provided for @calMarkStart.
   ///
-  /// In pt, this message translates to:
-  /// **'Marcar início do período'**
+  /// In en, this message translates to:
+  /// **'Mark period start'**
   String get calMarkStart;
 
   /// No description provided for @calMarkEnd.
   ///
-  /// In pt, this message translates to:
-  /// **'Marcar fim do período'**
+  /// In en, this message translates to:
+  /// **'Mark period end'**
   String get calMarkEnd;
 
   /// No description provided for @calUnmarkStart.
   ///
-  /// In pt, this message translates to:
-  /// **'Desmarcar início do período'**
+  /// In en, this message translates to:
+  /// **'Unmark period start'**
   String get calUnmarkStart;
 
   /// No description provided for @calUnmarkEnd.
   ///
-  /// In pt, this message translates to:
-  /// **'Desmarcar fim do período'**
+  /// In en, this message translates to:
+  /// **'Unmark period end'**
   String get calUnmarkEnd;
 
   /// No description provided for @periodTooShort.
   ///
-  /// In pt, this message translates to:
-  /// **'Uma menstruação costuma durar pelo menos ~3 dias.'**
+  /// In en, this message translates to:
+  /// **'A period usually lasts at least ~3 days.'**
   String get periodTooShort;
 
   /// No description provided for @periodTooSoon.
   ///
-  /// In pt, this message translates to:
-  /// **'Nesta app, os inícios dos períodos registados precisam de estar separados por pelo menos 21 dias.'**
+  /// In en, this message translates to:
+  /// **'In this app, logged period starts must be at least 21 days apart.'**
   String get periodTooSoon;
 
   /// No description provided for @notifBriefTitle.
   ///
-  /// In pt, this message translates to:
+  /// In en, this message translates to:
   /// **'SideBySide'**
   String get notifBriefTitle;
 
   /// No description provided for @notifBriefBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Tens uma atualização para veres na app.'**
+  /// In en, this message translates to:
+  /// **'There\'s an update to view in the app.'**
   String get notifBriefBody;
 
   /// No description provided for @notifHeadsUpTitle.
   ///
-  /// In pt, this message translates to:
+  /// In en, this message translates to:
   /// **'SideBySide'**
   String get notifHeadsUpTitle;
 
   /// No description provided for @notifHeadsUpBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Tens uma nota para consultar na app.'**
+  /// In en, this message translates to:
+  /// **'There\'s a note to check in the app.'**
   String get notifHeadsUpBody;
 
   /// No description provided for @notifReminderTitle.
   ///
-  /// In pt, this message translates to:
+  /// In en, this message translates to:
   /// **'SideBySide'**
   String get notifReminderTitle;
 
   /// No description provided for @notifReminderBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Tens um lembrete para ver na app.'**
+  /// In en, this message translates to:
+  /// **'There\'s a reminder to view in the app.'**
   String get notifReminderBody;
 
   /// No description provided for @ofToday.
   ///
-  /// In pt, this message translates to:
-  /// **'de hoje'**
+  /// In en, this message translates to:
+  /// **'from today'**
   String get ofToday;
 
   /// No description provided for @onbSetupTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Começar'**
+  /// In en, this message translates to:
+  /// **'Get started'**
   String get onbSetupTitle;
 
   /// No description provided for @onbSetupBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Regista apenas datas que conheces. As necessidades dela são sempre para perguntar, não para prever.'**
+  /// In en, this message translates to:
+  /// **'Only log dates you know. Ask about her needs; don\'t try to predict them.'**
   String get onbSetupBody;
 
   /// No description provided for @onbAvgCycle.
   ///
-  /// In pt, this message translates to:
-  /// **'Duração média do ciclo'**
+  /// In en, this message translates to:
+  /// **'Average cycle length'**
   String get onbAvgCycle;
 
   /// No description provided for @onbAvgPeriod.
   ///
-  /// In pt, this message translates to:
-  /// **'Duração da menstruação'**
+  /// In en, this message translates to:
+  /// **'Period length'**
   String get onbAvgPeriod;
 
   /// No description provided for @onbDays.
   ///
-  /// In pt, this message translates to:
-  /// **'{n} dias'**
+  /// In en, this message translates to:
+  /// **'{n} days'**
   String onbDays(int n);
 
   /// No description provided for @onbLogTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Regista o último período'**
+  /// In en, this message translates to:
+  /// **'Log the last period'**
   String get onbLogTitle;
 
   /// No description provided for @onbLogBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Quando começou? O fim é opcional — podes saltar e marcar depois no Calendário.'**
+  /// In en, this message translates to:
+  /// **'When did it start? The end is optional — you can skip and log later in the Calendar.'**
   String get onbLogBody;
 
   /// No description provided for @onbLogStart.
   ///
-  /// In pt, this message translates to:
-  /// **'Início do período'**
+  /// In en, this message translates to:
+  /// **'Period start'**
   String get onbLogStart;
 
   /// No description provided for @onbLogEnd.
   ///
-  /// In pt, this message translates to:
-  /// **'Fim do período (opcional)'**
+  /// In en, this message translates to:
+  /// **'Period end (optional)'**
   String get onbLogEnd;
 
   /// No description provided for @onbNotSet.
   ///
-  /// In pt, this message translates to:
-  /// **'Toca para escolher'**
+  /// In en, this message translates to:
+  /// **'Tap to choose'**
   String get onbNotSet;
 
   /// No description provided for @onbSkip.
   ///
-  /// In pt, this message translates to:
-  /// **'Saltar'**
+  /// In en, this message translates to:
+  /// **'Skip'**
   String get onbSkip;
 
   /// No description provided for @onbTimeTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Hora do briefing'**
+  /// In en, this message translates to:
+  /// **'Briefing time'**
   String get onbTimeTitle;
 
   /// No description provided for @onbTimeBody.
   ///
-  /// In pt, this message translates to:
-  /// **'À hora que escolheres, recebes um lembrete genérico para consultar a app. Podes desligá-lo depois.'**
+  /// In en, this message translates to:
+  /// **'At the time you choose, receive a generic reminder to check the app. You can turn it off later.'**
   String get onbTimeBody;
 
   /// No description provided for @preferenceTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'O que combinaram que ajuda'**
+  /// In en, this message translates to:
+  /// **'Support you agreed on'**
   String get preferenceTitle;
 
   /// No description provided for @preferenceConsent.
   ///
-  /// In pt, this message translates to:
-  /// **'Guarda apenas preferências de que falaram. Podes editar ou apagar quando quiseres; a app não confirma o consentimento dela.'**
+  /// In en, this message translates to:
+  /// **'Only save preferences you have discussed. Edit or delete them any time; the app cannot verify her consent.'**
   String get preferenceConsent;
 
   /// No description provided for @preferenceAdd.
   ///
-  /// In pt, this message translates to:
-  /// **'Adicionar preferência combinada'**
+  /// In en, this message translates to:
+  /// **'Add agreed preference'**
   String get preferenceAdd;
 
   /// No description provided for @preferenceEdit.
   ///
-  /// In pt, this message translates to:
-  /// **'Editar preferência'**
+  /// In en, this message translates to:
+  /// **'Edit preference'**
   String get preferenceEdit;
 
   /// No description provided for @preferenceDelete.
   ///
-  /// In pt, this message translates to:
-  /// **'Apagar preferência'**
+  /// In en, this message translates to:
+  /// **'Delete preference'**
   String get preferenceDelete;
 
   /// No description provided for @preferenceCategory.
   ///
-  /// In pt, this message translates to:
-  /// **'Tipo de apoio'**
+  /// In en, this message translates to:
+  /// **'Kind of support'**
   String get preferenceCategory;
 
   /// No description provided for @preferenceCheckIn.
   ///
-  /// In pt, this message translates to:
-  /// **'Perguntar como está'**
+  /// In en, this message translates to:
+  /// **'Check in'**
   String get preferenceCheckIn;
 
   /// No description provided for @preferenceHelp.
   ///
-  /// In pt, this message translates to:
-  /// **'Ajuda prática'**
+  /// In en, this message translates to:
+  /// **'Practical help'**
   String get preferenceHelp;
 
   /// No description provided for @preferenceSpace.
   ///
-  /// In pt, this message translates to:
-  /// **'Dar espaço'**
+  /// In en, this message translates to:
+  /// **'Give space'**
   String get preferenceSpace;
 
   /// No description provided for @preferenceText.
   ///
-  /// In pt, this message translates to:
-  /// **'O que gostariam que te lembrasses?'**
+  /// In en, this message translates to:
+  /// **'What did you agree to remember?'**
   String get preferenceText;
 
   /// No description provided for @agreedPreference.
   ///
-  /// In pt, this message translates to:
-  /// **'Preferência que guardaste — confirma sempre se ainda faz sentido.'**
+  /// In en, this message translates to:
+  /// **'A preference you saved — always check if it still fits.'**
   String get agreedPreference;
 
   /// No description provided for @actionQuestion.
   ///
-  /// In pt, this message translates to:
-  /// **'Esta ação foi útil para ti?'**
+  /// In en, this message translates to:
+  /// **'Was this action useful to you?'**
   String get actionQuestion;
 
   /// No description provided for @actionUseful.
   ///
-  /// In pt, this message translates to:
-  /// **'Útil'**
+  /// In en, this message translates to:
+  /// **'Useful'**
   String get actionUseful;
 
   /// No description provided for @actionNotUseful.
   ///
-  /// In pt, this message translates to:
-  /// **'Ver menos disto por 7 dias'**
+  /// In en, this message translates to:
+  /// **'Show less of this for 7 days'**
   String get actionNotUseful;
 
   /// No description provided for @actionThanks.
   ///
-  /// In pt, this message translates to:
-  /// **'Obrigado pelo feedback.'**
+  /// In en, this message translates to:
+  /// **'Thanks for the feedback.'**
   String get actionThanks;
 
   /// No description provided for @actionDone.
   ///
-  /// In pt, this message translates to:
-  /// **'Feito'**
+  /// In en, this message translates to:
+  /// **'Done'**
   String get actionDone;
 
   /// No description provided for @actionDoneThanks.
   ///
-  /// In pt, this message translates to:
-  /// **'Marcado como feito.'**
+  /// In en, this message translates to:
+  /// **'Marked as done.'**
   String get actionDoneThanks;
 
   /// No description provided for @actionAnother.
   ///
-  /// In pt, this message translates to:
-  /// **'Outra sugestão'**
+  /// In en, this message translates to:
+  /// **'Another suggestion'**
   String get actionAnother;
 
   /// No description provided for @actionCompletedLabel.
   ///
-  /// In pt, this message translates to:
-  /// **'Feito hoje'**
+  /// In en, this message translates to:
+  /// **'Done today'**
   String get actionCompletedLabel;
 
   /// No description provided for @allActionsSeen.
   ///
-  /// In pt, this message translates to:
-  /// **'Já viste as sugestões disponíveis hoje. Pergunta diretamente o que ajudaria.'**
+  /// In en, this message translates to:
+  /// **'You\'ve seen today\'s available suggestions. Ask directly what would help.'**
   String get allActionsSeen;
 
   /// No description provided for @legacyNotes.
   ///
-  /// In pt, this message translates to:
-  /// **'Notas antigas por fase (editar ou apagar)'**
+  /// In en, this message translates to:
+  /// **'Older phase notes (edit or delete)'**
   String get legacyNotes;
 
   /// No description provided for @logDateAction.
   ///
-  /// In pt, this message translates to:
-  /// **'Registar uma data'**
+  /// In en, this message translates to:
+  /// **'Log a date'**
   String get logDateAction;
 
   /// No description provided for @estimateFallback.
   ///
-  /// In pt, this message translates to:
-  /// **'Poucos registos: cálculo inicial de {n} dias, não personalizado.'**
+  /// In en, this message translates to:
+  /// **'Few logs: initial {n}-day assumption, not personalized.'**
   String estimateFallback(int n);
 
   /// No description provided for @estimateFromLogs.
   ///
-  /// In pt, this message translates to:
-  /// **'Com base em {n} intervalos registados; margem indicativa de ±{band} dias.'**
+  /// In en, this message translates to:
+  /// **'Based on {n} logged intervals; indicative margin of ±{band} days.'**
   String estimateFromLogs(int n, int band);
 
   /// No description provided for @estimateNotCertain.
   ///
-  /// In pt, this message translates to:
-  /// **'A data pode mudar; não descreve como ela se sente.'**
+  /// In en, this message translates to:
+  /// **'The date may change; it cannot tell you how she feels.'**
   String get estimateNotCertain;
 
   /// No description provided for @estimateEvidence.
   ///
-  /// In pt, this message translates to:
-  /// **'Datas não confirmam fases ou ovulação (Henry et al., 2024; Johnson et al., 2018).'**
+  /// In en, this message translates to:
+  /// **'Dates cannot confirm phases or ovulation (Henry et al., 2024; Johnson et al., 2018).'**
   String get estimateEvidence;
 
   /// No description provided for @phaseDetailTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Ver fase aproximada (opcional)'**
+  /// In en, this message translates to:
+  /// **'View approximate phase (optional)'**
   String get phaseDetailTitle;
 
   /// No description provided for @phaseDetailBody.
   ///
-  /// In pt, this message translates to:
-  /// **'É uma aproximação baseada em datas. Não indica humor, energia ou disponibilidade.'**
+  /// In en, this message translates to:
+  /// **'This is an approximation from dates, not an indication of mood, energy or availability.'**
   String get phaseDetailBody;
 
   /// No description provided for @onbSampleTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'É assim que vais receber'**
+  /// In en, this message translates to:
+  /// **'This is what you\'ll get'**
   String get onbSampleTitle;
 
   /// No description provided for @onbSampleBody.
   ///
-  /// In pt, this message translates to:
-  /// **'As notificações mostram apenas uma mensagem neutra — os detalhes ficam na app.'**
+  /// In en, this message translates to:
+  /// **'Notifications only show a neutral message — details stay in the app.'**
   String get onbSampleBody;
 
   /// No description provided for @onbNotifyTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Ligar notificações'**
+  /// In en, this message translates to:
+  /// **'Enable notifications'**
   String get onbNotifyTitle;
 
   /// No description provided for @onbNotifyBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Opcional: toca no botão para permitir lembretes genéricos. Podes começar sem os ligar e mudar depois nas Definições.'**
+  /// In en, this message translates to:
+  /// **'Optional: use the button to enable generic reminders. You can start without them and change this later in Settings.'**
   String get onbNotifyBody;
 
   /// No description provided for @onbNotifyAction.
   ///
-  /// In pt, this message translates to:
-  /// **'Ligar e ver exemplo'**
+  /// In en, this message translates to:
+  /// **'Enable and see a sample'**
   String get onbNotifyAction;
 
   /// No description provided for @onbBack.
   ///
-  /// In pt, this message translates to:
-  /// **'Voltar'**
+  /// In en, this message translates to:
+  /// **'Back'**
   String get onbBack;
 
   /// No description provided for @onbNext.
   ///
-  /// In pt, this message translates to:
-  /// **'Continuar'**
+  /// In en, this message translates to:
+  /// **'Continue'**
   String get onbNext;
 
   /// No description provided for @onbDone.
   ///
-  /// In pt, this message translates to:
-  /// **'Começar'**
+  /// In en, this message translates to:
+  /// **'Start'**
   String get onbDone;
 
   /// No description provided for @learningTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Aprender'**
+  /// In en, this message translates to:
+  /// **'Learn'**
   String get learningTitle;
 
   /// No description provided for @learningIntro.
   ///
-  /// In pt, this message translates to:
-  /// **'Cartões curtos sobre ciclos, variabilidade e apoio. Não são diagnóstico — abre, lê e marca como concluído quando quiseres.'**
+  /// In en, this message translates to:
+  /// **'Short cards about cycles, variability and support. Not a diagnosis — open, read, and mark done whenever you like.'**
   String get learningIntro;
 
   /// No description provided for @learningSource.
   ///
-  /// In pt, this message translates to:
-  /// **'De onde vem'**
+  /// In en, this message translates to:
+  /// **'Where it comes from'**
   String get learningSource;
 
   /// No description provided for @learningQuiz.
   ///
-  /// In pt, this message translates to:
-  /// **'Testa o que aprendeste'**
+  /// In en, this message translates to:
+  /// **'Check your understanding'**
   String get learningQuiz;
 
   /// No description provided for @learningCheckRight.
   ///
-  /// In pt, this message translates to:
-  /// **'Correto.'**
+  /// In en, this message translates to:
+  /// **'Correct.'**
   String get learningCheckRight;
 
   /// No description provided for @learningCheckWrong.
   ///
-  /// In pt, this message translates to:
-  /// **'Ainda não — vê a explicação.'**
+  /// In en, this message translates to:
+  /// **'Not quite — see the explanation.'**
   String get learningCheckWrong;
 
   /// No description provided for @learningDone.
   ///
-  /// In pt, this message translates to:
-  /// **'Marcar como concluído'**
+  /// In en, this message translates to:
+  /// **'Mark as done'**
   String get learningDone;
 
   /// No description provided for @learningCompleted.
   ///
-  /// In pt, this message translates to:
-  /// **'Concluído'**
+  /// In en, this message translates to:
+  /// **'Completed'**
   String get learningCompleted;
 
   /// No description provided for @entriesTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Notas rápidas'**
+  /// In en, this message translates to:
+  /// **'Quick notes'**
   String get entriesTitle;
 
   /// No description provided for @entryAdd.
   ///
-  /// In pt, this message translates to:
-  /// **'Adicionar nota'**
+  /// In en, this message translates to:
+  /// **'Add note'**
   String get entryAdd;
 
   /// No description provided for @entrySharedKind.
   ///
-  /// In pt, this message translates to:
-  /// **'Informação partilhada'**
+  /// In en, this message translates to:
+  /// **'Shared information'**
   String get entrySharedKind;
 
   /// No description provided for @entryReflectionKind.
   ///
-  /// In pt, this message translates to:
-  /// **'Reflexão tua'**
+  /// In en, this message translates to:
+  /// **'Your reflection'**
   String get entryReflectionKind;
 
   /// No description provided for @entryPrompt.
   ///
-  /// In pt, this message translates to:
-  /// **'O que queres registar?'**
+  /// In en, this message translates to:
+  /// **'What do you want to note?'**
   String get entryPrompt;
 
   /// No description provided for @entryKindHint.
   ///
-  /// In pt, this message translates to:
-  /// **'\"Informação partilhada\" é algo que ela te contou; \"Reflexão tua\" é o que tu pensas. Só as reflexões contam como momento de cuidado.'**
+  /// In en, this message translates to:
+  /// **'\"Shared information\" is something she told you; \"Your reflection\" is what you think. Only reflections count as a care moment.'**
   String get entryKindHint;
 
   /// No description provided for @entryEdit.
   ///
-  /// In pt, this message translates to:
-  /// **'Editar nota'**
+  /// In en, this message translates to:
+  /// **'Edit note'**
   String get entryEdit;
 
   /// No description provided for @entryDelete.
   ///
-  /// In pt, this message translates to:
-  /// **'Apagar nota'**
+  /// In en, this message translates to:
+  /// **'Delete note'**
   String get entryDelete;
 
   /// No description provided for @entryToPreference.
   ///
-  /// In pt, this message translates to:
-  /// **'Transformar em preferência'**
+  /// In en, this message translates to:
+  /// **'Make a preference'**
   String get entryToPreference;
 
   /// No description provided for @entryToReminder.
   ///
-  /// In pt, this message translates to:
-  /// **'Transformar em lembrete'**
+  /// In en, this message translates to:
+  /// **'Make a reminder'**
   String get entryToReminder;
 
   /// No description provided for @remindersTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Lembretes'**
+  /// In en, this message translates to:
+  /// **'Reminders'**
   String get remindersTitle;
 
   /// No description provided for @reminderAdd.
   ///
-  /// In pt, this message translates to:
-  /// **'Novo lembrete'**
+  /// In en, this message translates to:
+  /// **'New reminder'**
   String get reminderAdd;
 
   /// No description provided for @reminderTitleField.
   ///
-  /// In pt, this message translates to:
-  /// **'Título'**
+  /// In en, this message translates to:
+  /// **'Title'**
   String get reminderTitleField;
 
   /// No description provided for @reminderWhen.
   ///
-  /// In pt, this message translates to:
-  /// **'Quando'**
+  /// In en, this message translates to:
+  /// **'When'**
   String get reminderWhen;
 
   /// No description provided for @reminderComplete.
   ///
-  /// In pt, this message translates to:
-  /// **'Concluir'**
+  /// In en, this message translates to:
+  /// **'Complete'**
   String get reminderComplete;
 
   /// No description provided for @reminderDelete.
   ///
-  /// In pt, this message translates to:
-  /// **'Apagar lembrete'**
+  /// In en, this message translates to:
+  /// **'Delete reminder'**
   String get reminderDelete;
 
   /// No description provided for @reminderEmpty.
   ///
-  /// In pt, this message translates to:
-  /// **'Sem lembretes por agora.'**
+  /// In en, this message translates to:
+  /// **'No reminders yet.'**
   String get reminderEmpty;
 
   /// No description provided for @reminderDoneLabel.
   ///
-  /// In pt, this message translates to:
-  /// **'Concluído'**
+  /// In en, this message translates to:
+  /// **'Completed'**
   String get reminderDoneLabel;
 
   /// No description provided for @todayQuickEntry.
   ///
-  /// In pt, this message translates to:
-  /// **'Nota rápida'**
+  /// In en, this message translates to:
+  /// **'Quick note'**
   String get todayQuickEntry;
 
   /// No description provided for @todayReminders.
   ///
-  /// In pt, this message translates to:
-  /// **'Lembretes de hoje'**
+  /// In en, this message translates to:
+  /// **'Today\'s reminders'**
   String get todayReminders;
 
   /// No description provided for @todayLearning.
   ///
-  /// In pt, this message translates to:
-  /// **'Aprender um pouco'**
+  /// In en, this message translates to:
+  /// **'Learn something'**
   String get todayLearning;
 
   /// No description provided for @todayOpenLearning.
   ///
-  /// In pt, this message translates to:
-  /// **'Ver cartões'**
+  /// In en, this message translates to:
+  /// **'See cards'**
   String get todayOpenLearning;
 
   /// No description provided for @catHelp.
   ///
-  /// In pt, this message translates to:
-  /// **'Ajuda prática'**
+  /// In en, this message translates to:
+  /// **'Practical help'**
   String get catHelp;
 
   /// No description provided for @catCommunicate.
   ///
-  /// In pt, this message translates to:
-  /// **'Comunicar'**
+  /// In en, this message translates to:
+  /// **'Communicate'**
   String get catCommunicate;
 
   /// No description provided for @catCompany.
   ///
-  /// In pt, this message translates to:
-  /// **'Companhia'**
+  /// In en, this message translates to:
+  /// **'Company'**
   String get catCompany;
 
   /// No description provided for @catSpace.
   ///
-  /// In pt, this message translates to:
-  /// **'Espaço'**
+  /// In en, this message translates to:
+  /// **'Space'**
   String get catSpace;
 
   /// No description provided for @catPrepare.
   ///
-  /// In pt, this message translates to:
-  /// **'Preparar'**
+  /// In en, this message translates to:
+  /// **'Prepare'**
   String get catPrepare;
 
   /// No description provided for @saveFailedTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Não foi possível guardar'**
+  /// In en, this message translates to:
+  /// **'Couldn\'t save'**
   String get saveFailedTitle;
 
   /// No description provided for @saveFailedBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Os teus dados estão nesta sessão, mas ainda não ficaram no telefone. Tenta guardar outra vez.'**
+  /// In en, this message translates to:
+  /// **'Your data is in this session but hasn\'t reached your phone yet. Try saving again.'**
   String get saveFailedBody;
 
   /// No description provided for @saveRetry.
   ///
-  /// In pt, this message translates to:
-  /// **'Tentar guardar'**
+  /// In en, this message translates to:
+  /// **'Try to save'**
   String get saveRetry;
 
   /// No description provided for @calcDetailsTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Como estimamos (opcional)'**
+  /// In en, this message translates to:
+  /// **'How we estimate (optional)'**
   String get calcDetailsTitle;
 
   /// No description provided for @gardenTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Jardim'**
+  /// In en, this message translates to:
+  /// **'Garden'**
   String get gardenTitle;
 
   /// No description provided for @gardenIntro.
   ///
-  /// In pt, this message translates to:
-  /// **'Bem-vindo de volta. Cada cuidado conta — nada morre nem perde progresso quando fazes uma pausa.'**
+  /// In en, this message translates to:
+  /// **'Welcome back. Every care moment counts — nothing dies or loses progress when you take a break.'**
   String get gardenIntro;
 
   /// No description provided for @gardenOpen.
   ///
-  /// In pt, this message translates to:
-  /// **'Abrir jardim'**
+  /// In en, this message translates to:
+  /// **'Open garden'**
   String get gardenOpen;
 
   /// No description provided for @gardenEmpty.
   ///
-  /// In pt, this message translates to:
-  /// **'Ainda sem plantas. Um momento de cuidado começa uma semente.'**
+  /// In en, this message translates to:
+  /// **'No plants yet. One care moment starts a seed.'**
   String get gardenEmpty;
 
   /// No description provided for @gardenActivePlant.
   ///
-  /// In pt, this message translates to:
-  /// **'A crescer'**
+  /// In en, this message translates to:
+  /// **'Growing'**
   String get gardenActivePlant;
 
   /// No description provided for @gardenCollection.
   ///
-  /// In pt, this message translates to:
-  /// **'Plantas maduras'**
+  /// In en, this message translates to:
+  /// **'Mature plants'**
   String get gardenCollection;
 
   /// No description provided for @gardenWeeklyGoal.
   ///
-  /// In pt, this message translates to:
-  /// **'Cuidados esta semana: {n}/3'**
+  /// In en, this message translates to:
+  /// **'This week\'s care: {n}/3'**
   String gardenWeeklyGoal(int n);
 
   /// No description provided for @gardenMoments.
   ///
-  /// In pt, this message translates to:
-  /// **'{n} de 12 momentos'**
+  /// In en, this message translates to:
+  /// **'{n} of 12 moments'**
   String gardenMoments(int n);
 
   /// No description provided for @gardenStageSeed.
   ///
-  /// In pt, this message translates to:
-  /// **'Semente'**
+  /// In en, this message translates to:
+  /// **'Seed'**
   String get gardenStageSeed;
 
   /// No description provided for @gardenStageSprout.
   ///
-  /// In pt, this message translates to:
-  /// **'Brote'**
+  /// In en, this message translates to:
+  /// **'Sprout'**
   String get gardenStageSprout;
 
   /// No description provided for @gardenStageLeaves.
   ///
-  /// In pt, this message translates to:
-  /// **'Folhas'**
+  /// In en, this message translates to:
+  /// **'Leaves'**
   String get gardenStageLeaves;
 
   /// No description provided for @gardenStageBuds.
   ///
-  /// In pt, this message translates to:
-  /// **'Botões'**
+  /// In en, this message translates to:
+  /// **'Buds'**
   String get gardenStageBuds;
 
   /// No description provided for @gardenStageFlowering.
   ///
-  /// In pt, this message translates to:
-  /// **'Em flor'**
+  /// In en, this message translates to:
+  /// **'Flowering'**
   String get gardenStageFlowering;
 
   /// No description provided for @gardenStageMature.
   ///
-  /// In pt, this message translates to:
-  /// **'Madura'**
+  /// In en, this message translates to:
+  /// **'Mature'**
   String get gardenStageMature;
 
   /// No description provided for @gardenVariety0.
   ///
-  /// In pt, this message translates to:
-  /// **'Samambaia'**
+  /// In en, this message translates to:
+  /// **'Fern'**
   String get gardenVariety0;
 
   /// No description provided for @gardenVariety1.
   ///
-  /// In pt, this message translates to:
-  /// **'Alfazema'**
+  /// In en, this message translates to:
+  /// **'Lavender'**
   String get gardenVariety1;
 
   /// No description provided for @gardenVariety2.
   ///
-  /// In pt, this message translates to:
-  /// **'Suculenta'**
+  /// In en, this message translates to:
+  /// **'Succulent'**
   String get gardenVariety2;
 
   /// No description provided for @gardenName.
   ///
-  /// In pt, this message translates to:
-  /// **'Dar um nome'**
+  /// In en, this message translates to:
+  /// **'Name it'**
   String get gardenName;
 
   /// No description provided for @gardenPotStyle.
   ///
-  /// In pt, this message translates to:
-  /// **'Estilo do vaso'**
+  /// In en, this message translates to:
+  /// **'Pot style'**
   String get gardenPotStyle;
 
   /// No description provided for @gardenDetailTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Detalhe da planta'**
+  /// In en, this message translates to:
+  /// **'Plant detail'**
   String get gardenDetailTitle;
 
   /// No description provided for @gardenGrowthDates.
   ///
-  /// In pt, this message translates to:
-  /// **'Datas de crescimento'**
+  /// In en, this message translates to:
+  /// **'Growth dates'**
   String get gardenGrowthDates;
 
   /// No description provided for @gardenTotals.
   ///
-  /// In pt, this message translates to:
-  /// **'Momentos por tipo'**
+  /// In en, this message translates to:
+  /// **'Moments by type'**
   String get gardenTotals;
 
   /// No description provided for @gardenCatLearn.
   ///
-  /// In pt, this message translates to:
-  /// **'Aprender'**
+  /// In en, this message translates to:
+  /// **'Learn'**
   String get gardenCatLearn;
 
   /// No description provided for @gardenCatAct.
   ///
-  /// In pt, this message translates to:
-  /// **'Agir'**
+  /// In en, this message translates to:
+  /// **'Act'**
   String get gardenCatAct;
 
   /// No description provided for @gardenCatReflect.
   ///
-  /// In pt, this message translates to:
-  /// **'Refletir'**
+  /// In en, this message translates to:
+  /// **'Reflect'**
   String get gardenCatReflect;
 
   /// No description provided for @gardenNextHint.
   ///
-  /// In pt, this message translates to:
-  /// **'Próximo cuidado'**
+  /// In en, this message translates to:
+  /// **'Next care'**
   String get gardenNextHint;
 
   /// No description provided for @gardenShowTitle.
   ///
-  /// In pt, this message translates to:
-  /// **'Mostrar o jardim'**
+  /// In en, this message translates to:
+  /// **'Show the garden'**
   String get gardenShowTitle;
 
   /// No description provided for @gardenShowBody.
   ///
-  /// In pt, this message translates to:
-  /// **'Esconde o jardim na app sem perder nenhum progresso.'**
+  /// In en, this message translates to:
+  /// **'Hides the garden in the app without losing any progress.'**
   String get gardenShowBody;
 
   /// No description provided for @gardenUnnamed.
   ///
-  /// In pt, this message translates to:
-  /// **'Sem nome'**
+  /// In en, this message translates to:
+  /// **'Unnamed'**
   String get gardenUnnamed;
 }
 

@@ -9,16 +9,16 @@ class AppLPt extends AppL {
   AppLPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get tabHoje => 'Hoje';
+  String get tabToday => 'Hoje';
 
   @override
-  String get tabCalendario => 'Calendário';
+  String get tabCalendar => 'Calendário';
 
   @override
-  String get tabSugestoes => 'Sugestões';
+  String get tabSuggestions => 'Sugestões';
 
   @override
-  String get tabDefinicoes => 'Definições';
+  String get tabSettings => 'Definições';
 
   @override
   String get phaseMenstrual => 'Menstrual';

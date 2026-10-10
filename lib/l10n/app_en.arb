@@ -1,9 +1,9 @@
 {
   "@@locale": "en",
-  "tabHoje": "Today",
-  "tabCalendario": "Calendar",
-  "tabSugestoes": "Suggestions",
-  "tabDefinicoes": "Settings",
+  "tabToday": "Today",
+  "tabCalendar": "Calendar",
+  "tabSuggestions": "Suggestions",
+  "tabSettings": "Settings",
   "phaseMenstrual": "Menstrual",
   "phaseFollicular": "Follicular",
   "phaseOvulation": "Ovulation",

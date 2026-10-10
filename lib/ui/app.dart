@@ -9,12 +9,12 @@ import '../log.dart';
 import '../notify/notifications.dart';
 import '../state/providers.dart';
 import '../l10n/gen/app_localizations.dart';
-import 'screens/calendario.dart';
-import 'screens/definicoes.dart';
-import 'screens/hoje.dart';
+import 'screens/calendar.dart';
+import 'screens/settings.dart';
+import 'screens/today.dart';
 import 'screens/log_date.dart';
 import 'screens/onboarding.dart';
-import 'screens/sugestoes.dart';
+import 'screens/suggestions.dart';
 import 'theme.dart';
 
 class _Shell extends ConsumerStatefulWidget {
@@ -41,12 +41,15 @@ class _ShellState extends ConsumerState<_Shell> {
     Notifications.instance.tapPayload.value = null;
     if (payload == null) return;
     logInfo('notify', 'notification tapped: $payload');
-    if (payload == 'amanha') {
+    if (payload == 'tomorrow' || payload == 'amanha') {
+      // 'amanha' kept so notifications scheduled before the rename still route.
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => const AmanhaScreen()));
-    } else if (payload == 'hoje' || payload.startsWith('reminder:')) {
-      // Reminders (and any stale/deleted reminder target) open Hoje, where the
-      // detail is shown in-app. Missing targets degrade gracefully to Hoje.
+          MaterialPageRoute(builder: (_) => const TomorrowScreen()));
+    } else if (payload == 'today' ||
+        payload == 'hoje' ||
+        payload.startsWith('reminder:')) {
+      // Reminders (and any stale/deleted reminder target) open Today, where the
+      // detail is shown in-app. Missing targets degrade gracefully to Today.
       setState(() => _tab = 0);
     }
   }
@@ -91,10 +94,10 @@ class _ShellState extends ConsumerState<_Shell> {
             child: IndexedStack(
               index: _tab,
               children: const [
-                HojeScreen(),
-                CalendarioScreen(),
-                SugestoesScreen(),
-                DefinicoesScreen(),
+                TodayScreen(),
+                CalendarScreen(),
+                SuggestionsScreen(),
+                SettingsScreen(),
               ],
             ),
           ),
@@ -107,19 +110,19 @@ class _ShellState extends ConsumerState<_Shell> {
           NavigationDestination(
               icon: const Icon(Icons.dashboard_outlined),
               selectedIcon: const Icon(Icons.dashboard),
-              label: l.tabHoje),
+              label: l.tabToday),
           NavigationDestination(
               icon: const Icon(Icons.calendar_month_outlined),
               selectedIcon: const Icon(Icons.calendar_month),
-              label: l.tabCalendario),
+              label: l.tabCalendar),
           NavigationDestination(
               icon: const Icon(Icons.lightbulb_outline),
               selectedIcon: const Icon(Icons.lightbulb),
-              label: l.tabSugestoes),
+              label: l.tabSuggestions),
           NavigationDestination(
               icon: const Icon(Icons.settings_outlined),
               selectedIcon: const Icon(Icons.settings),
-              label: l.tabDefinicoes),
+              label: l.tabSettings),
         ],
       ),
     );
@@ -217,7 +220,7 @@ class _SideBySideAppState extends ConsumerState<SideBySideApp>
     });
   }
 
-  /// v0.4.0 (#7): mirror Hoje's headline onto the Android home-screen widget
+  /// v0.4.0 (#7): mirror Today's headline onto the Android home-screen widget
   /// whenever data changes; blanked when the switch is off.
   void _syncWidget(AppData data) {
     if (!deviceSurfacesAvailable) return;
@@ -269,7 +272,7 @@ class _SideBySideAppState extends ConsumerState<SideBySideApp>
       builder: (context, child) => _Frame(child: child!),
       home: settings.onboarded ? const _Shell() : const OnboardingScreen(),
       routes: {
-        '/amanha': (_) => const AmanhaScreen(),
+        '/tomorrow': (_) => const TomorrowScreen(),
         '/log': (_) => const LogDateScreen(),
       },
     );

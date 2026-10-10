@@ -11,7 +11,9 @@ import '../l10n/gen/app_localizations.dart';
 import '../log.dart';
 import 'schedule_plan.dart';
 
-/// Briefing + heads-up scheduling. Payloads: 'amanha' | 'hoje'.
+/// Briefing + heads-up scheduling. Payloads: 'tomorrow' | 'today'.
+/// Legacy payloads 'amanha'/'hoje' (pre-rename schedules) are still routed
+/// by `ui/app.dart`.
 class Notifications {
   Notifications._();
   static final instance = Notifications._();

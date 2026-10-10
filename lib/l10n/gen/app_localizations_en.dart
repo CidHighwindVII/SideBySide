@@ -9,16 +9,16 @@ class AppLEn extends AppL {
   AppLEn([String locale = 'en']) : super(locale);
 
   @override
-  String get tabHoje => 'Today';
+  String get tabToday => 'Today';
 
   @override
-  String get tabCalendario => 'Calendar';
+  String get tabCalendar => 'Calendar';
 
   @override
-  String get tabSugestoes => 'Suggestions';
+  String get tabSuggestions => 'Suggestions';
 
   @override
-  String get tabDefinicoes => 'Settings';
+  String get tabSettings => 'Settings';
 
   @override
   String get phaseMenstrual => 'Menstrual';

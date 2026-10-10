@@ -8,14 +8,14 @@ import '../../state/providers.dart';
 import '../theme.dart';
 import '../../l10n/gen/app_localizations.dart';
 
-class CalendarioScreen extends ConsumerStatefulWidget {
-  const CalendarioScreen({super.key});
+class CalendarScreen extends ConsumerStatefulWidget {
+  const CalendarScreen({super.key});
 
   @override
-  ConsumerState<CalendarioScreen> createState() => _CalendarioScreenState();
+  ConsumerState<CalendarScreen> createState() => _CalendarScreenState();
 }
 
-class _CalendarioScreenState extends ConsumerState<CalendarioScreen> {
+class _CalendarScreenState extends ConsumerState<CalendarScreen> {
   DateTime _month = CycleEngine.dateOnly(DateTime.now());
 
   // Swipe = month pager over absolute month indices (year*12 + month-1).

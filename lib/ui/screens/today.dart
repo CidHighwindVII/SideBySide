@@ -12,14 +12,14 @@ import 'learning.dart';
 import 'log_date.dart';
 import 'quick_entry.dart';
 
-class HojeScreen extends StatelessWidget {
-  const HojeScreen({super.key});
+class TodayScreen extends StatelessWidget {
+  const TodayScreen({super.key});
   @override
   Widget build(BuildContext context) => const SafeArea(child: ForecastView(offsetDays: 0));
 }
 
-class AmanhaScreen extends StatelessWidget {
-  const AmanhaScreen({super.key});
+class TomorrowScreen extends StatelessWidget {
+  const TomorrowScreen({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text(AppL.of(context).tomorrowCard)),
@@ -31,7 +31,7 @@ class ForecastView extends ConsumerWidget {
   final bool compact;
   const ForecastView({required this.offsetDays, this.compact = false, super.key});
 
-  /// Access to the contraception setting without leaving Hoje — the estimates
+  /// Access to the contraception setting without leaving Today — the estimates
   /// above depend on it, so "unknown" must be resolvable in place.
   Future<void> _pickContraception(BuildContext context, WidgetRef ref) async {
     final l = AppL.of(context);
@@ -149,7 +149,7 @@ class ForecastView extends ConsumerWidget {
     ]);
   }
 
-  /// Hoje-only sections: quick entry, reminders, preparation, learning, tomorrow
+  /// Today-only sections: quick entry, reminders, preparation, learning, tomorrow
   /// preview and variance. Returned as a list so the build literal stays simple.
   List<Widget> _todayTail(BuildContext context, WidgetRef ref, AppL l,
       CycleEngine eng, DateTime day, bool near) {
@@ -184,7 +184,7 @@ class ForecastView extends ConsumerWidget {
           leading: const Icon(Icons.calendar_today_outlined),
           title: Text(l.tomorrowCard), subtitle: Text(l.estimateNotCertain),
           trailing: Text(l.tomorrowPreview),
-          onTap: () => Navigator.of(context).pushNamed('/amanha'))),
+          onTap: () => Navigator.of(context).pushNamed('/tomorrow'))),
         if (eng.cycleGaps.isNotEmpty)
           Card.outlined(child: ListTile(title: Text(l.varianceTitle),
               subtitle: Text(l.varianceAvg(eng.avgCycle)))),
@@ -192,7 +192,7 @@ class ForecastView extends ConsumerWidget {
     ];
   }
 
-  /// Amanhã-only sections: read-only reminders and preparation. Never completes
+  /// Tomorrow-only sections: read-only reminders and preparation. Never completes
   /// or earns anything for a future day.
   List<Widget> _tomorrowTail(BuildContext context, WidgetRef ref, AppL l,
       CycleEngine eng, DateTime day, bool near) {
