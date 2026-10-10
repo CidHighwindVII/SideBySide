@@ -14,15 +14,20 @@ class CatalogItem {
   final bool support; // v0.3.0 (#15): boosted when "apoio intensivo" is on
   final String? whyPt; // v0.6.0 (#8): one-line rationale, actionable cards only
   final String? whyEn;
+  final String? offerPt; // one short example of how to offer the action
+  final String? offerEn;
   const CatalogItem(this.pt, this.en, this.tag,
       {this.id = '',
       this.category = ActionCategory.help,
       this.support = false,
       this.whyPt,
-      this.whyEn});
+      this.whyEn,
+      this.offerPt,
+      this.offerEn});
 
   String text(bool isPt) => isPt ? pt : en;
   String? why(bool isPt) => isPt ? whyPt : whyEn;
+  String? offer(bool isPt) => isPt ? offerPt : offerEn;
 }
 
 class PhaseCatalog {
@@ -69,10 +74,19 @@ class Catalog {
 
   static Catalog parse(String source) {
     final root = jsonDecode(source) as Map<String, dynamic>;
-    return Catalog(
+    final catalog = Catalog(
       {for (final p in Phase.values) p: _phase(root[p.name] as Map<String, dynamic>)},
       _phase(root['general'] as Map<String, dynamic>, general: true),
     );
+    final actionIds = <String>{};
+    for (final phase in [catalog.general, ...catalog.phases.values]) {
+      for (final item in phase.actionable) {
+        if (item.id.isEmpty || !actionIds.add(item.id)) {
+          throw FormatException('Action IDs must be nonempty and unique: ${item.id}');
+        }
+      }
+    }
+    return catalog;
   }
 
   static PhaseCatalog _phase(Map<String, dynamic> j, {bool general = false}) {
@@ -97,6 +111,7 @@ class Catalog {
 
   static CatalogItem _item(Map<String, dynamic> j) {
     final why = j['why'] as Map<String, dynamic>?;
+    final offer = j['offer'] as Map<String, dynamic>?;
     return CatalogItem(
       j['pt'] as String,
       j['en'] as String,
@@ -106,6 +121,8 @@ class Catalog {
       support: j['apoio'] == true,
       whyPt: why?['pt'] as String?,
       whyEn: why?['en'] as String?,
+      offerPt: offer?['pt'] as String?,
+      offerEn: offer?['en'] as String?,
     );
   }
 

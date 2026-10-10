@@ -55,7 +55,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       final end = _end != null && !CycleEngine.periodTooShort(_start!, _end!)
           ? _end
           : null;
-      notifier.saveLog(PeriodLog(_start!, end));
+      if (!notifier.saveLog(PeriodLog(_start!, end)) && mounted) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(AppL.of(context).periodTooSoon)));
+        return; // stay on the step so the date can be corrected
+      }
     }
     if (_step == 4) {
        // The separate button requests OS permission; finishing is always optional.

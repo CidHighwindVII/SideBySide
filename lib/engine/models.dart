@@ -11,12 +11,170 @@ enum OutlookAxis { favor, news, out, energy }
 
 enum ItemTag { sempre, juntos, apartados }
 
+/// Optional intensity for a dated feeling selection. Order is load-bearing
+/// (recurrence comparisons rank by index).
+enum FeelingIntensity { mild, moderate, strong }
+
+/// Four-group stage view for History and personalization. Derived at read time
+/// from dated records; `Phase` is never reordered or replaced.
+enum HistoryStage { menstrual, follicular, ovulatory, luteal, unknown }
+
+/// Maps the existing engine phase onto the four-group view (PMS sits inside
+/// luteal with more precise position context handled by callers).
+HistoryStage historyStageOf(Phase? phase) => switch (phase) {
+      Phase.menstrual => HistoryStage.menstrual,
+      Phase.follicular => HistoryStage.follicular,
+      Phase.ovulation => HistoryStage.ovulatory,
+      Phase.luteal => HistoryStage.luteal,
+      Phase.pms => HistoryStage.luteal,
+      null => HistoryStage.unknown,
+    };
+
+/// One selected feeling in a dated record. `concept` is a canonical catalog id
+/// or a stable `custom:<id>` reference; never inferred, only user-selected.
+class FeelingEntry {
+  final String concept;
+  final FeelingIntensity? intensity;
+  const FeelingEntry(this.concept, {this.intensity});
+
+  FeelingEntry copyWith({FeelingIntensity? intensity}) =>
+      FeelingEntry(concept,
+          intensity: intensity ?? this.intensity);
+
+  Map<String, dynamic> toJson() => {
+        'concept': concept,
+        if (intensity != null) 'intensity': intensity!.name,
+      };
+  factory FeelingEntry.fromJson(Map<String, dynamic> j) => FeelingEntry(
+      j['concept'] as String,
+      intensity: j['intensity'] == null
+          ? null
+          : FeelingIntensity.values.firstWhere((e) => e.name == j['intensity'],
+              orElse: () => FeelingIntensity.mild));
+}
+
+/// What the user recorded for one calendar day. Missing dates are unknown —
+/// never "felt fine".
+class FeelingLog {
+  final String date; // yyyy-MM-dd
+  final List<FeelingEntry> entries;
+  const FeelingLog(this.date, this.entries);
+
+  FeelingLog copyWith({List<FeelingEntry>? entries}) =>
+      FeelingLog(date, entries ?? this.entries);
+
+  Map<String, dynamic> toJson() => {
+        'date': date,
+        'entries': entries.map((e) => e.toJson()).toList(),
+      };
+  factory FeelingLog.fromJson(Map<String, dynamic> j) => FeelingLog(
+      j['date'] as String,
+      (j['entries'] as List? ?? [])
+          .map((e) => FeelingEntry.fromJson(e as Map<String, dynamic>))
+          .toList());
+}
+
+/// User-owned concept created when no catalog match exists. Searchable and
+/// loggable immediately; never a general stage suggestion.
+class CustomFeeling {
+  final int id;
+  final String label;
+  const CustomFeeling(this.id, this.label);
+
+  String get concept => 'custom:$id';
+
+  CustomFeeling copyWith({String? label}) => CustomFeeling(id, label ?? this.label);
+
+  Map<String, dynamic> toJson() => {'id': id, 'label': label};
+  factory CustomFeeling.fromJson(Map<String, dynamic> j) =>
+      CustomFeeling(j['id'] as int, j['label'] as String);
+}
+
+/// Persisted manual rotation cursor for Today's general feeling items. Historical
+/// items stay fixed; only the general selection moves.
+class FeelingRotation {
+  final String date; // yyyy-MM-dd
+  final int cursor;
+  const FeelingRotation(this.date, this.cursor);
+
+  FeelingRotation copyWith({int? cursor}) => FeelingRotation(date, cursor ?? this.cursor);
+
+  Map<String, dynamic> toJson() => {'date': date, 'cursor': cursor};
+  factory FeelingRotation.fromJson(Map<String, dynamic> j) =>
+      FeelingRotation(j['date'] as String, j['cursor'] as int? ?? 0);
+}
+
+/// Known legacy `Observation.tags` slugs mapped onto canonical catalog concepts
+/// so migrated records stay searchable. Anything unmapped is preserved as a
+/// custom concept instead of being dropped.
+const legacyFeelingTags = <String, String>{
+  'calma': 'calm',
+  'cansada': 'low-energy',
+  'sensivel': 'sensitive',
+  'bom-humor': 'good-mood',
+  'irritada': 'irritable',
+  'colicas': 'cramps',
+  'dor-cabeca': 'headache',
+  'incharo': 'bloating',
+  'desejos': 'cravings',
+  'dormiu-mal': 'slept-badly',
+};
+
+// Equivalent packaged concepts retain their old IDs as read aliases. Related
+// experiences (for example sadness and tearfulness) remain separate concepts.
+const feelingEquivalences = <String, String>{
+  'restless-sleep': 'slept-badly',
+  'push-through': 'tough-mode',
+  'progress-small': 'small-wins',
+  'fine-normal': 'neutral',
+  'sweet-tooth': 'cravings',
+  'breath-shallow': 'shallow-breath',
+};
+
+String canonicalFeelingId(String id) => feelingEquivalences[id] ?? id;
+
 /// Action categories (implementation.md P1/P4). Drives Suggestions grouping and
 /// selector variety; never changes the cohabitation tag filter or pick cap.
 enum ActionCategory { help, communicate, company, space, prepare }
 
 ActionCategory categoryFromName(String? name) => ActionCategory.values
     .firstWhere((c) => c.name == name, orElse: () => ActionCategory.help);
+
+/// Recognized situation choices on the Support screen ("Give me something
+/// useful I can do"). Order is presentation metadata only.
+enum SupportSituation { comfort, practical, listening, space, together, apart }
+
+extension SupportSituationRules on SupportSituation {
+  /// Which action categories this situation invites. "Giving space" must never
+  /// be answered with company guidance, and "Listening" is communication only.
+  Set<ActionCategory> get categories => switch (this) {
+        SupportSituation.comfort => {ActionCategory.help, ActionCategory.prepare},
+        SupportSituation.practical => {ActionCategory.help, ActionCategory.prepare},
+        SupportSituation.listening => {ActionCategory.communicate},
+        SupportSituation.space => {ActionCategory.space},
+        SupportSituation.together => {ActionCategory.company},
+        SupportSituation.apart => ActionCategory.values.toSet(),
+      };
+
+  /// Cohabitation override for the untouched `PhaseCatalog.pick` filter:
+  /// "Time together" evaluates joint options, "We're apart" evaluates remote
+  /// ones; the others follow the user's recorded setting.
+  bool? get liveTogetherOverride => switch (this) {
+        SupportSituation.together => true,
+        SupportSituation.apart => false,
+        _ => null,
+      };
+
+  /// Which saved preference kinds belong to this situation.
+  Set<String> get preferenceCategories => switch (this) {
+        SupportSituation.comfort => {'help', 'checkIn'},
+        SupportSituation.practical => {'help'},
+        SupportSituation.listening => {'checkIn', 'help'},
+        SupportSituation.space => {'space'},
+        SupportSituation.together => {'help', 'checkIn'},
+        SupportSituation.apart => {'checkIn', 'space', 'help'},
+      };
+}
 
 class PeriodLog {
   final DateTime start;
@@ -187,19 +345,7 @@ class ForecastFeedback {
       ForecastFeedback(j['date'] as String, j['thumbs'] as bool);
 }
 
-/// v0.3.0 (#4): partner's own dated observations (mood/symptom tags).
-/// Never stores a phase — phase is derived at read time (§3 honesty).
-class Observation {
-  final String date; // yyyy-MM-dd
-  final List<String> tags;
-  const Observation(this.date, this.tags);
-
-  Map<String, dynamic> toJson() => {'date': date, 'tags': tags};
-  factory Observation.fromJson(Map<String, dynamic> j) => Observation(
-      j['date'] as String, (j['tags'] as List? ?? []).cast<String>());
-}
-
-/// v0.3.0 (#18): user-written, phase-bound note surfaced in Hoje.
+/// v0.3.0 (#18): user-written, phase-bound note surfaced in Today.
 class CustomCard {
   final Phase phase;
   final String text;
@@ -243,17 +389,18 @@ class DaySelection {
   final String date; // yyyy-MM-dd
   final List<String> order;
   final int cursor; // index into `order` currently leading
-  const DaySelection(this.date, this.order, this.cursor);
+  final String scope; // empty = legacy briefing; otherwise Support situation
+  const DaySelection(this.date, this.order, this.cursor, {this.scope = ''});
 
   DaySelection copyWith({List<String>? order, int? cursor}) =>
-      DaySelection(date, order ?? this.order, cursor ?? this.cursor);
+      DaySelection(date, order ?? this.order, cursor ?? this.cursor, scope: scope);
 
   Map<String, dynamic> toJson() =>
-      {'date': date, 'order': order, 'cursor': cursor};
+      {'date': date, 'order': order, 'cursor': cursor, if (scope.isNotEmpty) 'scope': scope};
   factory DaySelection.fromJson(Map<String, dynamic> j) => DaySelection(
       j['date'] as String,
       (j['order'] as List? ?? const []).cast<String>(),
-      j['cursor'] as int? ?? 0);
+      j['cursor'] as int? ?? 0, scope: j['scope'] as String? ?? '');
 }
 
 /// A practical action the user actually did — the `act` reward source. Kept
@@ -425,7 +572,9 @@ class AppData {
   final Settings settings;
   final List<PeriodLog> logs; // sorted by start
   final List<ForecastFeedback> feedback;
-  final List<Observation> observations; // sorted by date
+  final List<FeelingLog> feelingLogs; // sorted by date (migrated from legacy observations)
+  final List<CustomFeeling> customFeelings;
+  final List<FeelingRotation> feelingRotations;
   final List<CustomCard> customCards;
   final List<SupportPreference> preferences;
   final List<ActionFeedback> actionFeedback;
@@ -443,7 +592,9 @@ class AppData {
       {this.settings = const Settings(),
       this.logs = const [],
       this.feedback = const [],
-      this.observations = const [],
+      this.feelingLogs = const [],
+      this.customFeelings = const [],
+      this.feelingRotations = const [],
       this.customCards = const [],
       this.preferences = const [],
       this.actionFeedback = const [],
@@ -460,7 +611,9 @@ class AppData {
           {Settings? settings,
           List<PeriodLog>? logs,
           List<ForecastFeedback>? feedback,
-          List<Observation>? observations,
+          List<FeelingLog>? feelingLogs,
+          List<CustomFeeling>? customFeelings,
+          List<FeelingRotation>? feelingRotations,
           List<CustomCard>? customCards,
           List<SupportPreference>? preferences,
           List<ActionFeedback>? actionFeedback,
@@ -476,7 +629,9 @@ class AppData {
           settings: settings ?? this.settings,
           logs: logs ?? this.logs,
           feedback: feedback ?? this.feedback,
-          observations: observations ?? this.observations,
+          feelingLogs: feelingLogs ?? this.feelingLogs,
+          customFeelings: customFeelings ?? this.customFeelings,
+          feelingRotations: feelingRotations ?? this.feelingRotations,
           customCards: customCards ?? this.customCards,
           preferences: preferences ?? this.preferences,
           actionFeedback: actionFeedback ?? this.actionFeedback,
@@ -498,7 +653,9 @@ class AppData {
         'settings': settings.toJson(),
         'logs': logs.map((l) => l.toJson()).toList(),
         'feedback': feedback.map((f) => f.toJson()).toList(),
-        'observations': observations.map((o) => o.toJson()).toList(),
+        'feelingLogs': feelingLogs.map((o) => o.toJson()).toList(),
+        'customFeelings': customFeelings.map((c) => c.toJson()).toList(),
+        'feelingRotations': feelingRotations.map((r) => r.toJson()).toList(),
         'customCards': customCards.map((c) => c.toJson()).toList(),
         'preferences': preferences.map((p) => p.toJson()).toList(),
         'actionFeedback': actionFeedback.map((f) => f.toJson()).toList(),
@@ -559,6 +716,52 @@ class AppData {
     for (final p in plants) {
       bump(p.index);
     }
+    var feelingLogs = (j['feelingLogs'] as List? ?? [])
+        .map((e) => FeelingLog.fromJson(e as Map<String, dynamic>))
+        .toList();
+    var customFeelings = (j['customFeelings'] as List? ?? [])
+        .map((e) => CustomFeeling.fromJson(e as Map<String, dynamic>))
+        .toList();
+    for (final c in customFeelings) {
+      bump(c.id);
+    }
+    // One-time migration: legacy dated observations become feeling records.
+    // Known tags map to canonical concepts; anything unmapped is preserved as
+    // a custom concept so no record is lost. Runs at read time and persists
+    // forward — old files that already carry feelingLogs are left untouched.
+    for (final raw in (j['observations'] as List? ?? const [])) {
+      final o = raw as Map<String, dynamic>;
+      final date = o['date'] as String;
+      final idx = feelingLogs.indexWhere((f) => f.date == date);
+      final merged = <String, FeelingEntry>{
+        if (idx >= 0) for (final e in feelingLogs[idx].entries) e.concept: e,
+      };
+      for (final tag in (o['tags'] as List? ?? const []).cast<String>()) {
+        final canonical = legacyFeelingTags[tag];
+        final concept = canonical ??
+            () {
+              final existing =
+                  customFeelings.where((c) => c.label == tag).firstOrNull;
+              if (existing != null) return existing.concept;
+              highMark += 1;
+              customFeelings.add(CustomFeeling(highMark, tag));
+              return CustomFeeling(highMark, tag).concept;
+            }();
+        merged.putIfAbsent(concept, () => FeelingEntry(concept));
+      }
+      final next = FeelingLog(date, merged.values.toList()
+        ..sort((a, b) => a.concept.compareTo(b.concept)));
+      if (idx >= 0) {
+        feelingLogs[idx] = next;
+      } else {
+        feelingLogs.add(next);
+      }
+    }
+    feelingLogs = [for (final f in feelingLogs)
+      f.copyWith(entries: dedupeEntries(f.entries))];
+    feelingLogs
+      ..removeWhere((f) => f.entries.isEmpty)
+      ..sort((a, b) => a.date.compareTo(b.date));
     return AppData(
       settings:
           Settings.fromJson(j['settings'] as Map<String, dynamic>? ?? {}),
@@ -566,8 +769,10 @@ class AppData {
       feedback: (j['feedback'] as List? ?? [])
           .map((e) => ForecastFeedback.fromJson(e as Map<String, dynamic>))
           .toList(),
-      observations: (j['observations'] as List? ?? [])
-          .map((e) => Observation.fromJson(e as Map<String, dynamic>))
+      feelingLogs: feelingLogs,
+      customFeelings: customFeelings,
+      feelingRotations: (j['feelingRotations'] as List? ?? [])
+          .map((e) => FeelingRotation.fromJson(e as Map<String, dynamic>))
           .toList(),
       customCards: (j['customCards'] as List? ?? [])
           .map((e) => CustomCard.fromJson(e as Map<String, dynamic>))
@@ -598,10 +803,24 @@ class AppData {
     return null;
   }
 
-  static Observation? observationFor(List<Observation> all, String date) {
-    for (final o in all) {
-      if (o.date == date) return o;
+  static FeelingLog? feelingLogFor(List<FeelingLog> all, String date) {
+    for (final f in all) {
+      if (f.date == date) return f;
     }
     return null;
+  }
+
+  /// Canonical concept dedupe helper for merged/duplicated selections:
+  /// keeps the entry that carries an explicit intensity.
+  static List<FeelingEntry> dedupeEntries(List<FeelingEntry> entries) {
+    final byConcept = <String, FeelingEntry>{};
+    for (final e in entries) {
+      final id = canonicalFeelingId(e.concept);
+      final prev = byConcept[id];
+      if (prev == null || (prev.intensity == null && e.intensity != null)) {
+        byConcept[id] = FeelingEntry(id, intensity: e.intensity);
+      }
+    }
+    return byConcept.values.toList()..sort((a, b) => a.concept.compareTo(b.concept));
   }
 }

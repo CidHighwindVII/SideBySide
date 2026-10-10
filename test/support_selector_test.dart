@@ -1,3 +1,4 @@
+import 'package:sidebyside/engine/models.dart';
 import 'package:sidebyside/engine/support_selector.dart';
 import 'package:test/test.dart';
 
@@ -17,7 +18,7 @@ void main() {
       expect(one, two);
     });
     test('different days rotate the leading pick', () {
-      final items = [a, b, c, sup, pref];
+      final items = [a, b, c, sup];
       final leads = {
         for (final day in [d(10, 1), d(10, 2), d(10, 3), d(10, 4), d(10, 5)])
           SupportSelector.order(items, day).first,
@@ -25,17 +26,9 @@ void main() {
       // more than one distinct leader across five days → not date-fixed
       expect(leads.length, greaterThan(1));
     });
-    test('a preference is not pinned to slot 0 on every day', () {
-      var prefFirst = 0;
-      for (var day = 1; day <= 20; day++) {
-        if (SupportSelector.order([pref, a, b, c], d(10, day)).first ==
-            'preference:1') {
-          prefFirst++;
-        }
-      }
-      // leads sometimes, but not always
-      expect(prefFirst, greaterThan(0));
-      expect(prefFirst, lessThan(20));
+    test('explicit preferences rank before generic actions', () {
+      expect(SupportSelector.order([a, pref, b, c], d(10, 5)).first,
+          'preference:1');
     });
   });
 
@@ -64,9 +57,40 @@ void main() {
       expect(supFirst, lessThan(15));
     });
     test('empty candidates → empty order, leading null', () {
-      final order = SupportSelector.order([a], d(10, 5), suppressed: {'a:x'});
-      expect(order, isEmpty);
-      expect(SupportSelector.leading(order, 0), isNull);
+      expect(SupportSelector.order([], d(10, 5)), isEmpty);
+      expect(SupportSelector.leading([], 0), isNull);
+    });
+    test('boost raises previously-helpful ids to the front', () {
+      final order = SupportSelector.order([a, b, c], d(10, 5), boost: {'a:z'});
+      expect(order.first, 'a:z');
+      expect(order.length, 3); // nothing removed
+    });
+    test('boost + supportPriority: feedback leads, both preserved', () {
+      final order =
+          SupportSelector.order([a, sup, b], d(10, 5), boost: {'a:x'}, supportPriority: true);
+      // boosted first (stable partition), then apoio among the rest
+      expect(order.first, 'a:x');
+      expect(order.indexOf('a:sup'), lessThan(order.indexOf('a:y')));
+    });
+    test('recently-completed never leads over a boosted fresh item', () {
+      final order = SupportSelector.order([a, b], d(10, 5),
+          recentlyCompleted: {'a:x'}, boost: {'a:y'});
+      expect(order.first, 'a:y');
+    });
+    test('a completed boosted action remains behind every fresh candidate', () {
+      final order = SupportSelector.order([a, b], d(10, 5),
+          recentlyCompleted: {'a:x'}, boost: {'a:x'});
+      expect(order, ['a:y', 'a:x']);
+    });
+    test('empty and duplicate ids cannot share a selection identity', () {
+      final order = SupportSelector.order([
+        const SelectableItem(id: ''),
+        a,
+        a,
+        b,
+      ], d(10, 5));
+      expect(order.toSet().length, order.length);
+      expect(order, unorderedEquals(['a:x', 'a:y']));
     });
   });
 
@@ -76,7 +100,31 @@ void main() {
       for (var i = 0; i < 6; i++) {
         expect(order.contains(SupportSelector.leading(order, i)), isTrue);
       }
-      expect(SupportSelector.leading(order, 0), SupportSelector.leading(order, 0));
+      expect(SupportSelector.leading(order, 0),
+          SupportSelector.leading(order, 0));
+    });
+  });
+
+  group('Support situations', () {
+    test('Giving space never invites company or practical help categories', () {
+      expect(SupportSituation.space.categories, {ActionCategory.space});
+    });
+    test('Listening maps to communication only', () {
+      expect(SupportSituation.listening.categories, {ActionCategory.communicate});
+    });
+    test('apart/together override the cohabitation filter', () {
+      expect(SupportSituation.apart.liveTogetherOverride, isFalse);
+      expect(SupportSituation.together.liveTogetherOverride, isTrue);
+      expect(SupportSituation.comfort.liveTogetherOverride, isNull);
+    });
+    test('apart keeps every category eligible', () {
+      expect(SupportSituation.apart.categories, ActionCategory.values.toSet());
+    });
+    test('comfort excludes pure space items; space-excluding rule holds', () {
+      expect(SupportSituation.comfort.categories,
+          containsAll([ActionCategory.help, ActionCategory.prepare]));
+      expect(SupportSituation.comfort.categories,
+          isNot(contains(ActionCategory.space)));
     });
   });
 }

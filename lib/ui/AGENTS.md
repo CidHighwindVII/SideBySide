@@ -1,6 +1,9 @@
 # lib/ui
 
-- `app.dart` hosts the four tabs (Hoje, Calendário, Sugestões, Definições), notifications listener and locale; `screens/` holds screens; `widgets.dart` shares forecast/suggestion UI; `theme.dart` uses fixed-seed Material 3 with dark mode. Preserve phase/traffic state hexes and icon + label accessibility.
-- Predictions are estimates: avoid medical certainty, pregnancy wording and uterus imagery. Keep lock-screen notification copy free of cycle details.
-- For **any** UI string change, even edits to existing keys, update `lib/l10n/app_pt.arb` (PT-PT, tu) and `lib/l10n/app_en.arb`; never hand-edit `lib/l10n/gen/`. Device locale selects copy, EN fallback; keep displayed dates in the resolved locale.
-- Hoje/Amanhã share `ForecastView` (today offset 0, tomorrow compact offset 1). Suggestions live on the Sugestões tab and go through `PhaseCatalog.pick`, including tag/priority filtering and display caps.
+- Follow `new-implementation.md` for target layouts: clean slate/teal; Today leads with countdown, three feeling items, and direct response cues. Keep paragraphs/details behind disclosure.
+- Navigation is the implemented four tabs — Today / Calendar / Learn / Settings; Garden lives in Learn and Support is a route opened from Today, not a tab. The former five-tab instruction was stale and is resolved in favour of the approved plan navigation.
+- Feeling entry/editing belongs to a selected Calendar date. Support searchable multiple selections/custom feelings; rank for that date, never preselect inferred feelings.
+- History is reached from Calendar. Show explicit historical provenance; Show others rotates only general items. Keep actual logs distinguishable from possibilities.
+- Preserve labeled phase/traffic hex indicators, EN/PT locale-aware dates, reduced motion, and large-text reflow. Update both ARBs for copy; generated localization is not hand-edited.
+- Preserve Tomorrow's read-only support/reminder behavior and `PhaseCatalog.pick` selection. Keep due reminders and empty/error states usable when simplifying Today.
+- Validate rendered phone layouts; source inspection alone is not visual approval. Micro-lessons use short cards, optional questions, and explicit completion.

@@ -6,8 +6,21 @@ import '../../engine/garden_engine.dart';
 import '../../engine/models.dart';
 import '../../l10n/gen/app_localizations.dart';
 import '../../state/providers.dart';
-import '../garden/garden_card.dart';
 import '../garden/plant_illustration.dart';
+
+String stageLabel(AppL l, PlantStage s) => switch (s) {
+      PlantStage.seed => l.gardenStageSeed,
+      PlantStage.sprout => l.gardenStageSprout,
+      PlantStage.leaves => l.gardenStageLeaves,
+      PlantStage.buds => l.gardenStageBuds,
+      PlantStage.flowering => l.gardenStageFlowering,
+    };
+
+String varietyName(AppL l, int v) => switch (v) {
+      0 => l.gardenVariety0,
+      1 => l.gardenVariety1,
+      _ => l.gardenVariety2,
+    };
 
 /// Full garden: the single active plant (name + pot), the retained collection of
 /// mature plants, and a per-plant detail sheet with growth dates and category

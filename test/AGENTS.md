@@ -1,6 +1,8 @@
 # test
 
-- `engine_test.dart`: pure Dart engine regression tests; add focused coverage for changed rules, calendar-day/DST boundaries and enum ordering as applicable. Run `dart test test/engine_test.dart` when Dart is available.
-- `widget_smoke_test.dart`: Flutter UI flows and layout; reuse `catalogOverride` (file-backed catalog) instead of rootBundle loading across widget tests. Pin both test dispatcher `locale` and `locales` when asserting translated text; cover PT/EN changes as appropriate.
-- `state_persistence_test.dart`: fake Store regression checks for ordered saves, wipe, failure recovery and generic heads-up copy in both ARBs. Do not touch the device file in these tests.
-- For applicable changes run `flutter test` and `flutter analyze` with an available Flutter SDK. Report actual results or explicitly state which toolchain/check is unavailable; do not use old pass counts as evidence.
+- Follow phase verification in `new-implementation.md`; assert observable behavior and meaningful boundaries rather than mirroring implementation.
+- Keep engine/history/model rules pure-Dart testable: date corrections, DST, sparse records, distinct cycles, aliases/custom merges, and deterministic general-only rotation.
+- Persistence tests use fake stores: old JSON, ordered saves/wipe, failure recovery, and stale async results. Never touch the device data file.
+- Widget tests reuse file-backed `catalogOverride`; pin dispatcher `locale` and `locales`. Cover EN/PT, normal phone size, large text, light/dark, and Calendar/History/Learn flows.
+- Validate catalog IDs/translations/aliases and lesson source/quiz metadata. Fake summary availability/language/failure states; report real-device coverage separately.
+- Run `dart test test/engine_test.dart`, `flutter test`, and `flutter analyze` as applicable; report actual results or blockers, never historical pass counts.

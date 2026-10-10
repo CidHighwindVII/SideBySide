@@ -50,6 +50,7 @@ flutter:
   generate: true
   assets:
     - assets/catalog.json
+    - assets/feelings.json
     - assets/learning.json
 
   # An image asset can refer to one or more resolution-specific "variants", see

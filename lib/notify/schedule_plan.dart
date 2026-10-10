@@ -52,7 +52,7 @@ class NotificationPlan {
               weekend ? s.weekendBriefingHour : s.briefingHour,
               weekend ? s.weekendBriefingMinute : s.briefingMinute);
           if (at.isAfter(now)) {
-            out.add(ScheduledNotif(briefId(i), at, 'amanha', 'brief'));
+            out.add(ScheduledNotif(briefId(i), at, 'tomorrow', 'brief'));
           }
         }
         if (s.headsUpEnabled && !eng.inSilenceMode) {
@@ -60,7 +60,7 @@ class NotificationPlan {
           if (next != null && CycleEngine.daysBetween(day, next) == 2) {
             final at = DateTime(day.year, day.month, day.day, 9, 0);
             if (at.isAfter(now)) {
-              out.add(ScheduledNotif(headsUpId(i), at, 'hoje', 'headsUp'));
+              out.add(ScheduledNotif(headsUpId(i), at, 'today', 'headsUp'));
             }
           }
         }

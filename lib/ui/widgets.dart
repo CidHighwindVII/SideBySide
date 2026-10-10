@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../data/catalog.dart';
+import '../data/feeling_catalog.dart';
 import '../engine/cycle_engine.dart';
 import '../engine/models.dart';
 import '../engine/support_selector.dart';
@@ -10,12 +12,78 @@ import '../state/providers.dart';
 import '../l10n/gen/app_localizations.dart';
 import 'theme.dart';
 
+class SourceLink extends StatelessWidget {
+  final String label;
+  final String url;
+  const SourceLink({required this.label, required this.url, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppL.of(context);
+    final messenger = ScaffoldMessenger.of(context);
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      title: Text(label),
+      subtitle: SelectableText(url),
+      trailing: IconButton(
+        tooltip: l.copySource,
+        icon: const Icon(Icons.copy_outlined),
+        onPressed: () async {
+          await Clipboard.setData(ClipboardData(text: url));
+          messenger.showSnackBar(SnackBar(content: Text(l.sourceCopied)));
+        },
+      ),
+    );
+  }
+}
+
 String phaseName(AppL l, Phase p) => switch (p) {
       Phase.menstrual => l.phaseMenstrual,
       Phase.follicular => l.phaseFollicular,
       Phase.ovulation => l.phaseOvulation,
       Phase.luteal => l.phaseLuteal,
       Phase.pms => l.phasePms,
+    };
+
+String stageName(AppL l, HistoryStage s) => switch (s) {
+      HistoryStage.menstrual => l.phaseMenstrual,
+      HistoryStage.follicular => l.phaseFollicular,
+      HistoryStage.ovulatory => l.phaseOvulation,
+      HistoryStage.luteal => l.phaseLuteal,
+      HistoryStage.unknown => l.stageUnknown,
+    };
+
+/// Label for any concept reference — canonical catalog entry or user-owned
+/// custom concept. Falls back to the raw id so a stale reference never
+/// renders as an empty chip.
+String feelingLabel(BuildContext context, WidgetRef ref, String concept) {
+  final isPt = ref.watch(langCodeProvider) == 'pt';
+  final catalog = ref.watch(feelingCatalogProvider).valueOrNull;
+  final c = catalog?.byId(concept);
+  if (c != null) return c.label(isPt);
+  final data = ref.watch(appDataProvider);
+  if (concept.startsWith('custom:')) {
+    final id = int.tryParse(concept.substring(7));
+    final custom = data.customFeelings.where((x) => x.id == id).firstOrNull;
+    if (custom != null) return custom.label;
+  }
+  return concept;
+}
+
+String intensityLabel(AppL l, FeelingIntensity i) => switch (i) {
+      FeelingIntensity.mild => l.intensityMild,
+      FeelingIntensity.moderate => l.intensityModerate,
+      FeelingIntensity.strong => l.intensityStrong,
+    };
+
+IconData feelingCategoryIcon(FeelingCategory c) => switch (c) {
+      FeelingCategory.emotion => Icons.face_retouching_natural_outlined,
+      FeelingCategory.physical => Icons.monitor_heart_outlined,
+      FeelingCategory.energy => Icons.battery_5_bar_outlined,
+      FeelingCategory.sleep => Icons.bedtime_outlined,
+      FeelingCategory.focus => Icons.psychology_outlined,
+      FeelingCategory.positive => Icons.favorite_outline,
+      FeelingCategory.neutral => Icons.blur_on_outlined,
     };
 
 String trafficLabel(AppL l, Traffic t) => switch (t) {
@@ -179,26 +247,40 @@ List<CatalogItem> generalPicks(PhaseCatalog general, AppData data, DateTime toda
 
 typedef _ActionDisplay = ({String text, String? why});
 
-class SupportToday extends ConsumerWidget {
+/// One support action for a day, selected through the existing catalog pick +
+/// selector rotation. When [entryLabel] is set the card starts behind a
+/// single control ("See a support idea") so Today stays glanceable; compact
+/// previews (Tomorrow) show the leading action directly.
+class SupportToday extends ConsumerStatefulWidget {
   final PhaseCatalog general;
   final bool compact;
   final DateTime? day; // the date being previewed (defaults to today)
   final bool readOnly; // future previews never complete/earn/swap
+  final String? entryLabel; // collapsible entry control for Today
   const SupportToday(
       {required this.general,
       this.compact = false,
       this.day,
       this.readOnly = false,
+      this.entryLabel,
       super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<SupportToday> createState() => _SupportTodayState();
+}
+
+class _SupportTodayState extends ConsumerState<SupportToday> {
+  bool _open = false;
+
+  @override
+  Widget build(BuildContext context) {
     final l = AppL.of(context);
     final data = ref.watch(appDataProvider);
     final isPt = ref.watch(langCodeProvider) == 'pt';
     final today = ref.watch(todayProvider);
-    final DateTime date = day ?? today;
-    final dateKey = DateFormat('yyyy-MM-dd').format(date);
+    final DateTime date = widget.day ?? today;
+    final dateKey = CycleEngine.dayKey(date);
+    final general = widget.general;
     final eligible = generalEligible(general, data.settings);
     final items = <SelectableItem>[
       for (final p in data.preferences)
@@ -215,13 +297,31 @@ class SupportToday extends ConsumerWidget {
     final order = SupportSelector.order(items, date,
         suppressed: _suppressedIds(data, date),
         recentlyCompleted: _recentlyCompleted(data, date),
-        supportPriority: data.settings.intensiveSupport);
+        supportPriority: ref.watch(supportPriorityProvider(date)));
     final persisted =
-        data.selections.where((s) => s.date == dateKey).firstOrNull;
-    final cursor = readOnly ? 0 : (persisted?.cursor ?? 0);
+        data.selections.where((s) => s.date == dateKey && s.scope.isEmpty).firstOrNull;
+    final cursor = widget.readOnly ? 0 : (persisted?.cursor ?? 0);
     final leadingId = SupportSelector.leading(order, cursor);
+    final collapsed = widget.entryLabel != null && !_open;
+    if (collapsed) {
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: FilledButton.tonalIcon(
+          onPressed: () => setState(() => _open = true),
+          icon: const Icon(Icons.volunteer_activism_outlined),
+          label: Text(widget.entryLabel!),
+        ),
+      );
+    }
+    final entryButton = widget.entryLabel != null
+        ? TextButton(
+            onPressed: () => setState(() => _open = false),
+            child: Text(l.hideSupportEntry))
+        : null;
     if (leadingId == null || !display.containsKey(leadingId)) {
-      return Text(l.allActionsSeen);
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [Text(l.allActionsSeen), ?entryButton]);
     }
     final action = display[leadingId]!;
     final done = data.completions
@@ -232,7 +332,7 @@ class SupportToday extends ConsumerWidget {
     final notifier = ref.read(appDataProvider.notifier);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SupportActionCard(
-          title: compact ? l.suggestionsTitle : l.tipOfDayTitle,
+          title: widget.compact ? l.suggestionsTitle : l.tipOfDayTitle,
           action: action.text,
           why: action.why),
       if (done)
@@ -244,7 +344,7 @@ class SupportToday extends ConsumerWidget {
             Text(l.actionCompletedLabel),
           ]),
         ),
-      if (!compact && !readOnly) ...[
+      if (!widget.compact && !widget.readOnly) ...[
         const SizedBox(height: 8),
         Wrap(spacing: 8, runSpacing: 8, children: [
           FilledButton.tonal(
@@ -253,6 +353,7 @@ class SupportToday extends ConsumerWidget {
           TextButton(
               onPressed: () => notifier.setSelection(dateKey, order, cursor + 1),
               child: Text(l.actionAnother)),
+          ?entryButton,
         ]),
         const SizedBox(height: 4),
         Wrap(spacing: 8,
@@ -266,6 +367,9 @@ class SupportToday extends ConsumerWidget {
               onPressed: () => notifier.rateAction(dateKey, leadingId, false),
               child: Text(l.actionNotUseful)),
         ]),
+      ] else if (entryButton != null) ...[
+        const SizedBox(height: 4),
+        entryButton,
       ],
     ]);
   }

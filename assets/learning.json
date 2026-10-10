@@ -1,100 +1,1137 @@
 {
+  "topics": {
+    "basics": {
+      "pt": "Fundamentos do ciclo",
+      "en": "Cycle basics"
+    },
+    "variability": {
+      "pt": "Variabilidade",
+      "en": "Variability"
+    },
+    "symptoms": {
+      "pt": "Sintomas físicos",
+      "en": "Physical symptoms"
+    },
+    "mood": {
+      "pt": "Humor e sentimentos",
+      "en": "Mood and feelings"
+    },
+    "energy": {
+      "pt": "Energia e sono",
+      "en": "Energy and sleep"
+    },
+    "focus": {
+      "pt": "Concentração",
+      "en": "Concentration"
+    },
+    "contraception": {
+      "pt": "Contraceção hormonal",
+      "en": "Hormonal contraception"
+    },
+    "support": {
+      "pt": "Ser parceiro",
+      "en": "Being a partner"
+    },
+    "communication": {
+      "pt": "Comunicação",
+      "en": "Communication"
+    },
+    "logs": {
+      "pt": "Os teus registos",
+      "en": "Your logs"
+    }
+  },
   "items": [
     {
       "id": "l:what-a-cycle-is",
-      "title": {"pt": "O que é um ciclo", "en": "What a cycle is"},
-      "body": {"pt": "O ciclo organiza-se em fases ao longo de ~21–35 dias. As fases são médias; cada pessoa é diferente.", "en": "A cycle moves through phases over about 21–35 days. The phases are averages; everyone differs."},
-      "source": {"pt": "Faixas de referência gerais, não um diagnóstico.", "en": "General reference ranges, not a diagnosis."},
+      "topic": "basics",
+      "title": {
+        "pt": "O que é um ciclo",
+        "en": "What a cycle is"
+      },
+      "body": {
+        "pt": "O ciclo organiza-se em fases ao longo de ~21–35 dias. As fases são médias; cada pessoa é diferente.",
+        "en": "A cycle moves through phases over about 21–35 days. The phases are averages; everyone differs."
+      },
+      "source": {
+        "pt": "Faixas de referência gerais, não um diagnóstico.",
+        "en": "General reference ranges, not a diagnosis."
+      },
+      "cards": [
+        {
+          "pt": "Um ciclo conta-se do primeiro dia de uma menstruação até ao primeiro dia da seguinte.",
+          "en": "A cycle is counted from the first day of one period to the first day of the next."
+        },
+        {
+          "pt": "Fases descritas nos manuais são médias de grupo — não horários individuais.",
+          "en": "Phases described in textbooks are group averages — not personal schedules."
+        }
+      ],
+      "takeaway": {
+        "pt": "O ciclo é um ritmo, não um horário.",
+        "en": "A cycle is a rhythm, not a timetable."
+      },
       "quiz": {
-        "question": {"pt": "Um ciclo de 26 dias é…", "en": "A 26-day cycle is…"},
-        "options": [{"pt": "Normal", "en": "Within a normal range"}, {"pt": "Sempre um problema", "en": "Always a problem"}, {"pt": "Impossível", "en": "Impossible"}],
+        "question": {
+          "pt": "Um ciclo de 26 dias é…",
+          "en": "A 26-day cycle is…"
+        },
+        "options": [
+          {
+            "pt": "Dentro do normal",
+            "en": "Within a normal range"
+          },
+          {
+            "pt": "Sempre um problema",
+            "en": "Always a problem"
+          },
+          {
+            "pt": "Impossível",
+            "en": "Impossible"
+          }
+        ],
         "answer": 0,
-        "explain": {"pt": "Ciclos entre ~21 e 35 dias são comuns.", "en": "Cycles between ~21 and 35 days are common."}
-      }
+        "explain": {
+          "pt": "Ciclos entre ~21 e 35 dias são comuns.",
+          "en": "Cycles between ~21 and 35 days are common."
+        }
+      },
+      "refs": [
+        {
+          "pt": "Faixa de referência 21–35 dias (usado em estudos de humor cíclico)",
+          "en": "The 21–35 day reference range (used in cycle-mood research)",
+          "url": "https://mentalhealth.bmj.com/content/28/1/e301674"
+        }
+      ]
     },
     {
       "id": "l:phases-vary",
-      "title": {"pt": "As fases variam", "en": "Phases vary"},
-      "body": {"pt": "A duração das fases muda de pessoa para pessoa e de ciclo para ciclo. Uma data prevista não marca o início real de uma fase.", "en": "Phase lengths change from person to person and cycle to cycle. A predicted date does not mark when a phase actually begins."},
-      "source": {"pt": "Henry et al., 2024 — variabilidade dentro da própria pessoa.", "en": "Henry et al., 2024 — within-person variability."}
+      "topic": "variability",
+      "title": {
+        "pt": "As fases variam",
+        "en": "Phases vary"
+      },
+      "body": {
+        "pt": "A duração das fases muda de pessoa para pessoa e de ciclo para ciclo. Uma data prevista não marca o início real de uma fase.",
+        "en": "Phase lengths change from person to person and cycle to cycle. A predicted date does not mark when a phase actually begins."
+      },
+      "source": {
+        "pt": "Henry et al., 2024 — variabilidade dentro da própria pessoa.",
+        "en": "Henry et al., 2024 — within-person variability."
+      },
+      "cards": [
+        {
+          "pt": "Dois ciclos seguidos podem ter durações diferentes sem qualquer problema.",
+          "en": "Two cycles in a row can differ in length without anything being wrong."
+        },
+        {
+          "pt": "Stress, doença ou sono também mexem no ritmo.",
+          "en": "Stress, illness and sleep shifts move the rhythm too."
+        }
+      ],
+      "takeaway": {
+        "pt": "Compara com ela própria, não com a média.",
+        "en": "Compare with her own pattern, not the average."
+      }
     },
     {
       "id": "l:dates-not-feelings",
-      "title": {"pt": "Datas não sentem", "en": "Dates don't feel"},
-      "body": {"pt": "O calendário estima datas. Não descreve humor, energia nem disponibilidade — isso é sempre para perguntar.", "en": "The calendar estimates dates. It cannot describe mood, energy or willingness — that's always something to ask."},
-      "source": {"pt": "Princípio do apoio primeiro desta app.", "en": "This app's support-first principle."},
+      "topic": "logs",
+      "title": {
+        "pt": "Datas não sentem",
+        "en": "Dates don't feel"
+      },
+      "body": {
+        "pt": "O calendário estima datas. Não descreve humor, energia nem disponibilidade — isso é sempre para perguntar.",
+        "en": "The calendar estimates dates. It cannot describe mood, energy or willingness — that's always something to ask."
+      },
+      "source": {
+        "pt": "Princípio do apoio primeiro desta app.",
+        "en": "This app's support-first principle."
+      },
+      "cards": [
+        {
+          "pt": "Uma data prevista não descreve como alguém se sente.",
+          "en": "A predicted date cannot describe how someone feels."
+        },
+        {
+          "pt": "Registos feitos por ela são sinais; datas são apenas datas.",
+          "en": "Records she logs are signals; dates are just dates."
+        }
+      ],
+      "takeaway": {
+        "pt": "Pergunta, não infiras.",
+        "en": "Ask, don't infer."
+      },
       "quiz": {
-        "question": {"pt": "A fase diz como ela se sente?", "en": "Does a phase tell how she feels?"},
-        "options": [{"pt": "Não — pergunta", "en": "No — ask her"}, {"pt": "Sim, sempre", "en": "Yes, always"}, {"pt": "Só na PMS", "en": "Only during PMS"}],
+        "question": {
+          "pt": "A fase diz como ela se sente?",
+          "en": "Does a phase tell how she feels?"
+        },
+        "options": [
+          {
+            "pt": "Não — pergunta",
+            "en": "No — ask her"
+          },
+          {
+            "pt": "Sim, sempre",
+            "en": "Yes, always"
+          },
+          {
+            "pt": "Só na PMS",
+            "en": "Only during PMS"
+          }
+        ],
         "answer": 0,
-        "explain": {"pt": "Fases são estimativas de datas, não de sentimentos.", "en": "Phases are date estimates, not feeling estimates."}
+        "explain": {
+          "pt": "Fases são estimativas de datas, não de sentimentos.",
+          "en": "Phases are date estimates, not feeling estimates."
+        }
       }
     },
     {
       "id": "l:ovulation-uncertainty",
-      "title": {"pt": "Ovulação é difícil de prever", "en": "Ovulation is hard to predict"},
-      "body": {"pt": "Só contar dias do calendário não identifica com precisão o dia da ovulação. A janela fértil é uma estimativa, com incerteza.", "en": "Counting calendar days alone cannot pinpoint the day of ovulation. The fertile window is an estimate, with uncertainty."},
-      "source": {"pt": "Johnson et al., 2018.", "en": "Johnson et al., 2018."}
+      "topic": "variability",
+      "title": {
+        "pt": "Ovulação é difícil de prever",
+        "en": "Ovulation is hard to predict"
+      },
+      "body": {
+        "pt": "Só contar dias do calendário não identifica com precisão o dia da ovulação. A janela fértil é uma estimativa, com incerteza.",
+        "en": "Counting calendar days alone cannot pinpoint the day of ovulation. The fertile window is an estimate, with uncertainty."
+      },
+      "source": {
+        "pt": "Johnson et al., 2018.",
+        "en": "Johnson et al., 2018."
+      },
+      "cards": [
+        {
+          "pt": "Num estudo com 949 voluntárias, métodos de calendário não previram melhor do que ~21%.",
+          "en": "In a study of 949 volunteers, calendar methods predicted no better than ~21%."
+        },
+        {
+          "pt": "A incerteza cresce com ciclos irregulares.",
+          "en": "Uncertainty grows with irregular cycles."
+        }
+      ],
+      "takeaway": {
+        "pt": "Trata o dia estimado como aproximado, sempre.",
+        "en": "Treat the estimated day as approximate, always."
+      },
+      "refs": [
+        {
+          "pt": "Johnson et al., 2018 — BJOG",
+          "en": "Johnson et al., 2018 — BJOG",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/29749274/"
+        }
+      ]
     },
     {
       "id": "l:fertile-window",
-      "title": {"pt": "A janela fértil", "en": "The fertile window"},
-      "body": {"pt": "Costuma abranger ~6 dias que terminam na ovulação: os espermatozoides sobrevivem vários dias. Nesta app isso é uma estimativa, nunca uma confirmação.", "en": "It usually spans about 6 days ending at ovulation: sperm survive several days. Here that's an estimate, never a confirmation."},
-      "source": {"pt": "Referência geral de fertilidade; não aconselhamento médico.", "en": "General fertility reference; not medical advice."}
+      "topic": "basics",
+      "title": {
+        "pt": "A janela fértil",
+        "en": "The fertile window"
+      },
+      "body": {
+        "pt": "Costuma abranger ~6 dias que terminam na ovulação: os espermatozoides sobrevivem vários dias. Nesta app isso é uma estimativa, nunca uma confirmação.",
+        "en": "It usually spans about 6 days ending at ovulation: sperm survive several days. Here that's an estimate, never a confirmation."
+      },
+      "source": {
+        "pt": "Referência geral de fertilidade; não aconselhamento médico.",
+        "en": "General fertility reference; not medical advice."
+      },
+      "cards": [
+        {
+          "pt": "Os ~6 dias refletem sobrevivência dos espermatozoides, não precisão do cálculo.",
+          "en": "The ~6 days reflect sperm survival, not calculation precision."
+        },
+        {
+          "pt": "Não é método contracetivo e esta app não afirma o contrário.",
+          "en": "It is not contraception, and this app never says otherwise."
+        }
+      ],
+      "takeaway": {
+        "pt": "Estimativa para enquadramento, nunca para decisões médicas.",
+        "en": "An estimate for context, never for medical decisions."
+      }
     },
     {
       "id": "l:hormonal-contraception",
-      "title": {"pt": "Contracetivo hormonal", "en": "Hormonal contraception"},
-      "body": {"pt": "Métodos hormonais suprimem a ovulação, por isso esta app não prevê ovulação nem janela fértil quando o defines como hormonal. O sangamento que registares continua visível.", "en": "Hormonal methods suppress ovulation, so this app predicts no ovulation or fertile window when you set it to hormonal. Bleeding you log stays visible."},
-      "source": {"pt": "Comportamento da app; fala com um profissional sobre o teu método.", "en": "App behaviour; talk to a professional about your method."},
+      "topic": "contraception",
+      "title": {
+        "pt": "Contracetivo hormonal",
+        "en": "Hormonal contraception"
+      },
+      "body": {
+        "pt": "Métodos hormonais suprimem a ovulação, por isso esta app não prevê ovulação nem janela fértil quando o defines como hormonal. O sangamento que registares continua visível.",
+        "en": "Hormonal methods suppress ovulation, so this app predicts no ovulation or fertile window when you set it to hormonal. Bleeding you log stays visible."
+      },
+      "source": {
+        "pt": "Comportamento da app; fala com um profissional sobre o teu método.",
+        "en": "App behaviour; talk to a professional about your method."
+      },
+      "cards": [
+        {
+          "pt": "Sangamento por método hormonal não é um ciclo natural equivalente.",
+          "en": "Bleeding on a hormonal method is not an equivalent natural cycle."
+        },
+        {
+          "pt": "As fases estimadas desaparecem; os registos diários continuam válidos.",
+          "en": "Estimated phases disappear; daily records stay valid."
+        }
+      ],
+      "takeaway": {
+        "pt": "Em modo hormonal, usa os registos — não as previsões.",
+        "en": "In hormonal mode, use the records — not the forecasts."
+      },
       "quiz": {
-        "question": {"pt": "Com contracetivo hormonal, a app prevê ovulação?", "en": "With hormonal contraception, does the app predict ovulation?"},
-        "options": [{"pt": "Não", "en": "No"}, {"pt": "Sim, com certezas", "en": "Yes, for certain"}, {"pt": "Só em dias pares", "en": "Only on even days"}],
+        "question": {
+          "pt": "Com contracetivo hormonal, a app prevê ovulação?",
+          "en": "With hormonal contraception, does the app predict ovulation?"
+        },
+        "options": [
+          {
+            "pt": "Não",
+            "en": "No"
+          },
+          {
+            "pt": "Sim, com certezas",
+            "en": "Yes, for certain"
+          },
+          {
+            "pt": "Só em dias pares",
+            "en": "Only on even days"
+          }
+        ],
         "answer": 0,
-        "explain": {"pt": "Sem ovulação prevista; apenas o sangamento registado.", "en": "No predicted ovulation; only logged bleeding."}
+        "explain": {
+          "pt": "Sem ovulação prevista; apenas o sangamento registado.",
+          "en": "No predicted ovulation; only logged bleeding."
+        }
       }
     },
     {
       "id": "l:estimates-not-facts",
-      "title": {"pt": "Estimativas, não factos", "en": "Estimates, not facts"},
-      "body": {"pt": "Toda a previsão aqui é uma estimativa baseada nas datas que introduziste. A data real pode mudar.", "en": "Every forecast here is an estimate from the dates you entered. The real date may change."},
-      "source": {"pt": "Regra de honestidade da app.", "en": "The app's honesty rule."}
+      "topic": "variability",
+      "title": {
+        "pt": "Estimativas, não factos",
+        "en": "Estimates, not facts"
+      },
+      "body": {
+        "pt": "Toda a previsão aqui é uma estimativa baseada nas datas que introduziste. A data real pode mudar.",
+        "en": "Every forecast here is an estimate from the dates you entered. The real date may change."
+      },
+      "source": {
+        "pt": "Regra de honestidade da app.",
+        "en": "The app's honesty rule."
+      },
+      "cards": [
+        {
+          "pt": "A margem mostrada é incerteza de data, não uma janela biológica.",
+          "en": "The margin shown is date uncertainty, not a biological window."
+        },
+        {
+          "pt": "Corrigir datas melhora a estimativa seguinte.",
+          "en": "Correcting dates improves the next estimate."
+        }
+      ],
+      "takeaway": {
+        "pt": "Fala em possibilidades, nunca em certezas.",
+        "en": "Speak in possibilities, never in certainties."
+      }
     },
     {
       "id": "l:ask-dont-assume",
-      "title": {"pt": "Pergunta, não assumas", "en": "Ask, don't assume"},
-      "body": {"pt": "A forma mais útil de apoiar costuma ser perguntar o que ajuda — e aceitar a resposta, incluindo um não.", "en": "The most useful support is usually asking what helps — and accepting the answer, including a no."},
-      "source": {"pt": "Ussher & Perz, 2017 (casais); contexto, não garantia.", "en": "Ussher & Perz, 2017 (couples); context, not a guarantee."}
+      "topic": "support",
+      "title": {
+        "pt": "Pergunta, não assumas",
+        "en": "Ask, don't assume"
+      },
+      "body": {
+        "pt": "A forma mais útil de apoiar costuma ser perguntar o que ajuda — e aceitar a resposta, incluindo um não.",
+        "en": "The most useful support is usually asking what helps — and accepting the answer, including a no."
+      },
+      "source": {
+        "pt": "Ussher & Perz, 2017 (casais); contexto, não garantia.",
+        "en": "Ussher & Perz, 2017 (couples); context, not a guarantee."
+      },
+      "cards": [
+        {
+          "pt": "Perguntar dá-lhe escolha; assumir tira-lha.",
+          "en": "Asking gives her a choice; assuming takes one away."
+        },
+        {
+          "pt": "Aceitar um não à primeira é parte do apoio.",
+          "en": "Accepting a no the first time is part of the support."
+        }
+      ],
+      "takeaway": {
+        "pt": "Pergunta e acredita na resposta.",
+        "en": "Ask, then believe the answer."
+      },
+      "refs": [
+        {
+          "pt": "Ussher & Perz, 2017 — PMC5395168",
+          "en": "Ussher & Perz, 2017 — PMC5395168",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5395168/"
+        }
+      ]
     },
     {
       "id": "l:specific-offers",
-      "title": {"pt": "Ofertas concretas", "en": "Concrete offers"},
-      "body": {"pt": "\"Tiro o jantar\" é mais fácil de aceitar ou recusar do que \"se precisares de alguma coisa\". Sé especifico.", "en": "\"I'll handle dinner\" is easier to accept or decline than \"let me know if you need anything.\" Be specific."},
-      "source": {"pt": "Prática de comunicação.", "en": "Communication practice."}
+      "topic": "communication",
+      "title": {
+        "pt": "Ofertas concretas",
+        "en": "Concrete offers"
+      },
+      "body": {
+        "pt": "\"Tiro o jantar\" é mais fácil de aceitar ou recusar do que \"se precisares de alguma coisa\". Sê específico.",
+        "en": "\"I'll handle dinner\" is easier to accept or decline than \"let me know if you need anything.\" Be specific."
+      },
+      "source": {
+        "pt": "Prática de comunicação.",
+        "en": "Communication practice."
+      },
+      "cards": [
+        {
+          "pt": "Uma oferta concreta não exige que ela gerir a ajuda.",
+          "en": "A concrete offer doesn't make her manage the help."
+        },
+        {
+          "pt": "\"Queres que faça X?\" — um sim ou um não chegam.",
+          "en": "\"Want me to do X?\" — one yes or no is enough."
+        }
+      ],
+      "takeaway": {
+        "pt": "Nomeia a tarefa que assumis.",
+        "en": "Name the one task you're taking."
+      }
     },
     {
       "id": "l:mental-load",
-      "title": {"pt": "A carga mental", "en": "The mental load"},
-      "body": {"pt": "Assumir tarefas inclui lembrar, planear e decidir — não só executar. Pergunta o que está por fazer.", "en": "Taking on tasks includes remembering, planning and deciding — not just doing. Ask what's still pending."},
-      "source": {"pt": "Noção geral de partilha de tarefas.", "en": "General idea of shared responsibilities."}
+      "topic": "support",
+      "title": {
+        "pt": "A carga mental",
+        "en": "The mental load"
+      },
+      "body": {
+        "pt": "Assumir tarefas inclui lembrar, planear e decidir — não só executar. Pergunta o que está por fazer.",
+        "en": "Taking on tasks includes remembering, planning and deciding — not just doing. Ask what's still pending."
+      },
+      "source": {
+        "pt": "Noção geral de partilha de responsabilidades.",
+        "en": "General idea of shared responsibilities."
+      },
+      "cards": [
+        {
+          "pt": "Fazer sem que alguém tenha de pedir já alivia a gestão.",
+          "en": "Doing it without a request already lightens the management."
+        },
+        {
+          "pt": "\"Diz-me o que preciso de fazer\" ainda deixa nela o planeamento.",
+          "en": "\"Tell me what needs doing\" still leaves the planning with her."
+        }
+      ],
+      "takeaway": {
+        "pt": "Assume também a parte de lembrar.",
+        "en": "Take over the remembering too."
+      }
     },
     {
       "id": "l:space-is-support",
-      "title": {"pt": "Dar espaço também é apoio", "en": "Space is support too"},
-      "body": {"pt": "Às vezes o mais útil é dar espaço sem desaparecer. Diz que estás disponível e respeita o ritmo dela.", "en": "Sometimes the most helpful thing is space without disappearing. Say you're around and respect her pace."},
-      "source": {"pt": "Prática de comunicação.", "en": "Communication practice."}
+      "topic": "support",
+      "title": {
+        "pt": "Dar espaço também é apoio",
+        "en": "Space is support too"
+      },
+      "body": {
+        "pt": "Às vezes o mais útil é dar espaço sem desaparecer. Diz que estás disponível e respeita o ritmo dela.",
+        "en": "Sometimes the most helpful thing is space without disappearing. Say you're around and respect her pace."
+      },
+      "source": {
+        "pt": "Prática de comunicação.",
+        "en": "Communication practice."
+      },
+      "cards": [
+        {
+          "pt": "Espaço com porta aberta bate presença sem pedido.",
+          "en": "Space with an open door beats unrequested hovering."
+        },
+        {
+          "pt": "Um pedido explícito de espaço nunca se 'compensa' com mais convívio.",
+          "en": "An explicit request for space is never 'fixed' with more company."
+        }
+      ],
+      "takeaway": {
+        "pt": "Espaço dito fica mais seguro que silêncio.",
+        "en": "Named space feels safer than disappearing."
+      }
     },
     {
       "id": "l:irregularity-and-health",
-      "title": {"pt": "Variação e saúde", "en": "Variation and health"},
-      "body": {"pt": "Variação pontual é normal. Padrões muito irregulares podem valer uma conversa com um profissional — sem alarme nem diagnóstico.", "en": "Occasional variation is normal. Very irregular patterns may be worth a conversation with a professional — no alarm, no diagnosis."},
-      "source": {"pt": "Sinal de acompanhamento, não conclusão.", "en": "A follow-up cue, not a conclusion."}
+      "topic": "variability",
+      "title": {
+        "pt": "Variação e saúde",
+        "en": "Variation and health"
+      },
+      "body": {
+        "pt": "Variação pontual é normal. Padrões muito irregulares podem valer uma conversa com um profissional — sem alarme nem diagnóstico.",
+        "en": "Occasional variation is normal. Very irregular patterns may be worth a conversation with a professional — no alarm, no diagnosis."
+      },
+      "source": {
+        "pt": "Sinal de acompanhamento, não conclusão.",
+        "en": "A follow-up cue, not a conclusion."
+      },
+      "cards": [
+        {
+          "pt": "Esta app aponta a conversa; não interpreta causas.",
+          "en": "This app points to a conversation; it never interprets causes."
+        },
+        {
+          "pt": "A decisão de procurar aconselhamento é sempre dela.",
+          "en": "The decision to seek advice is always hers."
+        }
+      ],
+      "takeaway": {
+        "pt": "Notar, sugerir, não diagnosticar.",
+        "en": "Notice, suggest, never diagnose."
+      }
     },
     {
       "id": "l:consent-and-data",
-      "title": {"pt": "Dados e confiança", "en": "Data and trust"},
-      "body": {"pt": "Guarda apenas o que combinaste com ela. A app não verifica consentimento nem envia dados para a nuvem.", "en": "Only save what you've discussed with her. The app can't verify consent and sends nothing to the cloud."},
-      "source": {"pt": "Privacidade local desta app.", "en": "This app's local privacy."}
+      "topic": "logs",
+      "title": {
+        "pt": "Dados e confiança",
+        "en": "Data and trust"
+      },
+      "body": {
+        "pt": "Guarda apenas o que combinaste com ela. A app não verifica consentimento nem envia dados para a nuvem.",
+        "en": "Only save what you've discussed with her. The app can't verify consent and sends nothing to the cloud."
+      },
+      "source": {
+        "pt": "Privacidade local desta app.",
+        "en": "This app's local privacy."
+      },
+      "cards": [
+        {
+          "pt": "Tudo fica num único ficheiro local, apagável nas Definições.",
+          "en": "Everything sits in one local file, deletable in Settings."
+        },
+        {
+          "pt": "As notificações no ecrã bloqueado não revelam nada.",
+          "en": "Lock-screen notifications reveal nothing."
+        }
+      ],
+      "takeaway": {
+        "pt": "Regista com ela, não sobre ela.",
+        "en": "Log with her, not about her."
+      }
+    },
+    {
+      "id": "l:before-period",
+      "topic": "symptoms",
+      "title": {
+        "pt": "O que muda antes da menstruação?",
+        "en": "What changes before a period?"
+      },
+      "body": {
+        "pt": "Em muitas pessoas, queixas como irritação, inchaço ou seios sensíveis surgem sobretudo na última semana antes do fluxo — mas o padrão varia muito entre pessoas e entre ciclos.",
+        "en": "For many people, complaints like irritability, bloating or tender breasts show up mostly in the final week before bleeding — but the pattern varies a lot between people and between cycles."
+      },
+      "source": {
+        "pt": "Lancet 2008; StatPearls 2023. Médias de grupo, não regras individuais.",
+        "en": "Lancet 2008; StatPearls 2023. Group averages, not personal rules."
+      },
+      "cards": [
+        {
+          "pt": "Os sintomas tendem a agravar-se ~6 dias antes e a atingir o pico ~2 dias antes do início.",
+          "en": "Symptoms tend to worsen about 6 days before and peak about 2 days before the start."
+        },
+        {
+          "pt": "Nem todas as pessoas têm fase pré-menstrual; não ter não é falha.",
+          "en": "Not everyone has a premenstrual stretch; not having one isn't a flaw."
+        },
+        {
+          "pt": "A data prevista pode mudar — a semana aproximada também.",
+          "en": "The expected date can shift — and so does the approximate week."
+        }
+      ],
+      "takeaway": {
+        "pt": "Usa a semana como hipótese para perguntar, não como etiqueta.",
+        "en": "Use the week as a hypothesis for asking, not a label."
+      },
+      "refs": [
+        {
+          "pt": "Lancet 2008 — Premenstrual syndrome",
+          "en": "Lancet 2008 — Premenstrual syndrome",
+          "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(08)60527-9/fulltext"
+        }
+      ]
+    },
+    {
+      "id": "l:comfort-or-space",
+      "topic": "communication",
+      "title": {
+        "pt": "Conforto ou espaço? Como perguntar",
+        "en": "Comfort or space? How to ask"
+      },
+      "body": {
+        "pt": "O apoio de que cada pessoa precisa nem sempre coincide com o que tu dás. Perguntar em concreto encurta o fosso.",
+        "en": "The support someone needs isn't always the support you'd give. Asking concretely closes the gap."
+      },
+      "source": {
+        "pt": "Prática de comunicação; coerente com os achados de apoio observado em casais.",
+        "en": "Communication practice; consistent with observed couple-support findings."
+      },
+      "cards": [
+        {
+          "pt": "\"Queres abraço ou silêncio?\" dá duas saídas fáceis.",
+          "en": "\"Hug or quiet?\" gives two easy answers."
+        },
+        {
+          "pt": "Se ela pedir espaço, confirma e afasta-te de verdade.",
+          "en": "If she asks for space, acknowledge it and actually step back."
+        }
+      ],
+      "takeaway": {
+        "pt": "Uma pergunta curta vale um dia de suposições.",
+        "en": "One short question beats a day of guessing."
+      },
+      "refs": [
+        {
+          "pt": "Verhofstadt et al., 2016 — PMC4765893",
+          "en": "Verhofstadt et al., 2016 — PMC4765893",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4765893/"
+        }
+      ]
+    },
+    {
+      "id": "l:listen-dont-fix",
+      "topic": "communication",
+      "title": {
+        "pt": "Ouvir sem querer resolver tudo",
+        "en": "Listen without trying to fix everything"
+      },
+      "body": {
+        "pt": "Conselho não pedido é lido como crítica; escuta é lida como apoio. A sequência importa: primeiro ouvir, depois — se ela quiser — pensar em soluções.",
+        "en": "Unsolicited advice reads as criticism; listening reads as support. Order matters: listen first, then — only if she wants — problem-solve."
+      },
+      "source": {
+        "pt": "Estudo observacional de casais (Verhofstadt et al., 2016): tomada de perspetiva associada a menos apoio negativo.",
+        "en": "Observational couples study (Verhofstadt et al., 2016): perspective-taking associated with less negative support."
+      },
+      "cards": [
+        {
+          "pt": "\"Queres opinião ou só desabafar?\" resolve o dilema.",
+          "en": "\"Do you want input or just to vent?\" settles the dilemma."
+        },
+        {
+          "pt": "Ajudar a sentir-se ouvida é já instrumental, não passivo.",
+          "en": "Helping her feel heard is already instrumental, not passive."
+        }
+      ],
+      "takeaway": {
+        "pt": "Pede licença antes de dar soluções.",
+        "en": "Ask permission before giving answers."
+      },
+      "refs": [
+        {
+          "pt": "Verhofstadt et al., 2016 — PMC4765893",
+          "en": "Verhofstadt et al., 2016 — PMC4765893",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4765893/"
+        }
+      ]
+    },
+    {
+      "id": "l:what-logs-show",
+      "topic": "logs",
+      "title": {
+        "pt": "O que os teus registos podem — e não podem — dizer",
+        "en": "What your logs can—and cannot—tell you"
+      },
+      "body": {
+        "pt": "Registos repetidos mostram padrões desta pessoa, não leis sobre todas as pessoas. Repetir não é prever, e menos é mais: a regra tem de ser honesta.",
+        "en": "Repeated logs show this person's pattern, not laws about all people. Recurring is not predicting, and less must be more: the rule has to stay honest."
+      },
+      "source": {
+        "pt": "Limites de previsão por calendário (Johnson 2018; Henry 2024).",
+        "en": "Calendar-prediction limits (Johnson 2018; Henry 2024)."
+      },
+      "cards": [
+        {
+          "pt": "Algo registado em dois ciclos anteriores pode reaparecer — ou não.",
+          "en": "Something logged in two earlier cycles might recur — or not."
+        },
+        {
+          "pt": "Um dia sem registo significa desconhecido, não 'esteve bem'.",
+          "en": "A blank day means unknown, not 'she was fine'."
+        }
+      ],
+      "takeaway": {
+        "pt": "Usa padrões como convite à conversa.",
+        "en": "Use patterns as an invitation to talk."
+      }
+    },
+    {
+      "id": "l:energy-myth",
+      "topic": "energy",
+      "title": {
+        "pt": "A energia não é um medidor do ciclo",
+        "en": "Energy isn't a cycle meter"
+      },
+      "body": {
+        "pt": "Um estudo com registos diários de mulheres com depressão não encontrou uma associação fiável entre energia e dia do ciclo. Este resultado não exclui variações de energia noutras pessoas ou em quem tem sintomas pré-menstruais.",
+        "en": "One daily-recording study of women with depression found no reliable association between energy and cycle day. This result does not rule out energy changes in other people or those with premenstrual symptoms."
+      },
+      "source": {
+        "pt": "BMJ Mental Health 2025 (EMA + HRV).",
+        "en": "BMJ Mental Health 2025 (EMA + HRV)."
+      },
+      "cards": [
+        {
+          "pt": "A fase estimada, por si só, não revela a energia dela.",
+          "en": "The estimated stage alone does not tell you her energy."
+        },
+        {
+          "pt": "Registos reais de cansaço valem mais que qualquer teoria.",
+          "en": "Actual logged tiredness outweighs any theory."
+        }
+      ],
+      "takeaway": {
+        "pt": "Acredita no que foi registado, não no que foi inferido.",
+        "en": "Trust what's logged, not what's inferred."
+      },
+      "refs": [
+        {
+          "pt": "BMJ Mental Health 2025",
+          "en": "BMJ Mental Health 2025",
+          "url": "https://mentalhealth.bmj.com/content/28/1/e301674"
+        }
+      ]
+    },
+    {
+      "id": "l:sleep-steady",
+      "topic": "energy",
+      "title": {
+        "pt": "O sono aguenta-se mais firme",
+        "en": "Sleep mostly holds steady"
+      },
+      "body": {
+        "pt": "Em milhões de observações, humor e sinais vitais variaram mais com o ciclo do que sono e exercício. Ainda assim, algumas pessoas notam noites piores na semana pré-menstrual.",
+        "en": "Across millions of observations, mood and vital signs varied more with the cycle than sleep and exercise did. Still, some people notice rougher nights in the premenstrual week."
+      },
+      "source": {
+        "pt": "Pierson et al., Nature Human Behaviour 2021: registos de utilizadoras, não medições universais.",
+        "en": "Pierson et al., Nature Human Behaviour 2021: app-user logs, not universal measurements."
+      },
+      "cards": [
+        {
+          "pt": "Sono agitado registado por ela é sinal; presumi-lo pela fase é ruído.",
+          "en": "Sleep trouble she logs is a signal; assuming it from a phase is noise."
+        },
+        {
+          "pt": "Cafeína, stress e horários mexem no sono tanto como qualquer fase.",
+          "en": "Caffeine, stress and schedules move sleep as much as any phase does."
+        }
+      ],
+      "takeaway": {
+        "pt": "Oferece descanso sem exigir explicação.",
+        "en": "Offer rest without demanding a reason."
+      },
+      "refs": [
+        {
+          "pt": "Nature Human Behaviour 2021",
+          "en": "Nature Human Behaviour 2021",
+          "url": "https://www.nature.com/articles/s41562-020-01046-9"
+        }
+      ]
+    },
+    {
+      "id": "l:mood-lowest",
+      "topic": "mood",
+      "title": {
+        "pt": "Quando o humor desce",
+        "en": "When mood dips"
+      },
+      "body": {
+        "pt": "Num estudo de mulheres com depressão, o humor foi em média mais baixo perto do início da menstruação. Este grupo clínico não representa todas as pessoas; um calendário não revela como ela se sente.",
+        "en": "In a study of women with depression, average mood was lower around the start of menstruation. This clinical group does not represent everyone; a calendar cannot tell you how she feels."
+      },
+      "source": {
+        "pt": "BMJ Mental Health 2025; Nature Human Behaviour 2021.",
+        "en": "BMJ Mental Health 2025; Nature Human Behaviour 2021."
+      },
+      "cards": [
+        {
+          "pt": "A variação dentro da própria pessoa é maior que qualquer fase de manual.",
+          "en": "Within-person variation is bigger than any textbook phase."
+        },
+        {
+          "pt": "Podes oferecer consideração nesse tempo sem anunciar a razão.",
+          "en": "You can offer extra care around that window without announcing the reason."
+        }
+      ],
+      "takeaway": {
+        "pt": "Antecipar é preparar; nunca é impor.",
+        "en": "Anticipating is preparing; it's never prescribing."
+      },
+      "refs": [
+        {
+          "pt": "Delray, Lewis & Hayes, 2025 — mulheres com depressão",
+          "en": "Delray, Lewis & Hayes, 2025 — women with depression",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12198828/"
+        }
+      ]
+    },
+    {
+      "id": "l:irritability-leads",
+      "topic": "mood",
+      "title": {
+        "pt": "A irritação costuma chegar primeiro",
+        "en": "Irritability often leads"
+      },
+      "body": {
+        "pt": "Entre as queixas pré-menstruais, a ira/irritabilidade tende a começar um pouco mais cedo do que as outras e é das mais perturbadoras para os dois.",
+        "en": "Among premenstrual complaints, anger/irritability tends to start a little earlier than the others and is among the most disruptive for both partners."
+      },
+      "source": {
+        "pt": "Lancet 2008; Psychological Medicine 2025.",
+        "en": "Lancet 2008; Psychological Medicine 2025."
+      },
+      "cards": [
+        {
+          "pt": "Sentir irritação é real nela — não um sintoma a decodificar.",
+          "en": "Irritation is real for her — not a symptom to decode."
+        },
+        {
+          "pt": "'São as hormonas' invalida; 'isto deve estar difícil' acolhe.",
+          "en": "\"It's your hormones\" dismisses; \"this must be hard\" welcomes."
+        }
+      ],
+      "takeaway": {
+        "pt": "Cuida das palavras, não da explicação.",
+        "en": "Mind your wording, not the explanation."
+      },
+      "refs": [
+        {
+          "pt": "Lancet 2008",
+          "en": "Lancet 2008",
+          "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(08)60527-9/fulltext"
+        }
+      ]
+    },
+    {
+      "id": "l:positive-window",
+      "topic": "mood",
+      "title": {
+        "pt": "Os dias bons não seguem uma promessa",
+        "en": "Good days aren't a cycle promise"
+      },
+      "body": {
+        "pt": "Um grande estudo de registos numa aplicação encontrou variações de humor ao longo do ciclo. Estas médias não dizem quando ela estará bem-disposta. Aproveita os dias bons que ela realmente tem, sem esperar uma janela prevista.",
+        "en": "A large app-based study found mood variation across the cycle. Those averages do not tell you when she will be in a good mood. Enjoy the good days she actually has, without expecting a predicted window."
+      },
+      "source": {
+        "pt": "Pierson et al., Nature Human Behaviour 2021: registos de utilizadoras da Clue; associação populacional, não previsão individual.",
+        "en": "Pierson et al., Nature Human Behaviour 2021: Clue user logs; population association, not individual prediction."
+      },
+      "cards": [
+        {
+          "pt": "Nada disto significa que ela deva estar radiante nesse dia.",
+          "en": "None of this means she should be glowing on that day."
+        },
+        {
+          "pt": "Aproveitar dias bons para planos juntos é só... aproveitar dias bons.",
+          "en": "Using good days for shared plans is simply enjoying good days."
+        }
+      ],
+      "takeaway": {
+        "pt": "Sobe quando sobe; não exijas a maré.",
+        "en": "Ride the wave when it comes; never demand it."
+      },
+      "refs": [
+        {
+          "pt": "Pierson et al., 2021",
+          "en": "Pierson et al., 2021",
+          "url": "https://www.nature.com/articles/s41562-020-01046-9"
+        }
+      ]
+    },
+    {
+      "id": "l:pms-pmdd-help",
+      "topic": "symptoms",
+      "title": {
+        "pt": "PMS, PMDD e quando procurar ajuda",
+        "en": "PMS, PMDD and when to seek help"
+      },
+      "body": {
+        "pt": "Sintomas pré-menstruais são comuns (~47.8%); na forma grave e clínica (PMDD) rondam os 3–8%. Só um profissional diagnostica — com registo prospetivo, não com uma app.",
+        "en": "Premenstrual symptoms are common (~47.8%); in the severe clinical form (PMDD) around 3–8%. Only a professional diagnoses — with prospective charting, not an app."
+      },
+      "source": {
+        "pt": "Frontiers in Psychiatry 2024; DSM-5 citado em StatPearls.",
+        "en": "Frontiers in Psychiatry 2024; DSM-5 as cited in StatPearls."
+      },
+      "cards": [
+        {
+          "pt": "Se atrapalha a vida diária, vale a pena sugerir uma consulta — uma vez, sem insistir.",
+          "en": "If it disrupts daily life, suggesting an appointment is worth it — once, without pushing."
+        },
+        {
+          "pt": "A app nunca emite diagnósticos nem rótulos.",
+          "en": "The app never issues diagnoses or labels."
+        }
+      ],
+      "takeaway": {
+        "pt": "Sugerir apoio profissional é cuidado; diagnosticar não é.",
+        "en": "Suggesting professional care is support; diagnosing isn't."
+      },
+      "refs": [
+        {
+          "pt": "Frontiers in Psychiatry 2024",
+          "en": "Frontiers in Psychiatry 2024",
+          "url": "https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1363875/full"
+        }
+      ]
+    },
+    {
+      "id": "l:ask-mean-it",
+      "topic": "support",
+      "title": {
+        "pt": "Perguntar o que ajuda — e cumprir",
+        "en": "Ask what helps — and follow through"
+      },
+      "body": {
+        "pt": "Pessoas que percebem menor apoio disponível mostram-se mais vulneráveis a sintomas perturbadores. O padrão é associação, não culpa — mas a disponibilidade é o que podes dar.",
+        "en": "People perceiving lower available support report more distressing symptoms. That's association, not blame — but availability is what you can give."
+      },
+      "source": {
+        "pt": "Schwartz & Drexel, 2001.",
+        "en": "Schwartz & Drexel, 2001."
+      },
+      "cards": [
+        {
+          "pt": "Ajudar a decidir é melhor do que ajudar adivinhar.",
+          "en": "Helping her decide beats guessing for her."
+        },
+        {
+          "pt": "Cumprir o combinado é o apoio que fica registado.",
+          "en": "Following through is the support that gets remembered."
+        }
+      ],
+      "takeaway": {
+        "pt": "O valor está em poder contar, não em adivinhar.",
+        "en": "The value is in being countable, not mind-reading."
+      }
+    },
+    {
+      "id": "l:timing-talks",
+      "topic": "communication",
+      "title": {
+        "pt": "Conversar em horas calmas",
+        "en": "Talk at calm times"
+      },
+      "body": {
+        "pt": "Combina uma altura para conversar tendo em conta a disponibilidade atual de ambos. O trabalho com casais com perturbações pré-menstruais apoia explorar a comunicação, não adiar conversas com base numa fase prevista.",
+        "en": "Agree on a time to talk based on both people's current capacity. Work with couples managing premenstrual disorders supports exploring communication, not delaying conversations based on a predicted stage."
+      },
+      "source": {
+        "pt": "Ussher & Perz, 2017: intervenção clínica em perturbações pré-menstruais; não valida uma regra geral de timing.",
+        "en": "Ussher & Perz, 2017: clinical intervention for premenstrual disorders; does not validate a general timing rule."
+      },
+      "cards": [
+        {
+          "pt": "\"Podemos falar sobre X no domingo?\" funciona como pedido normal.",
+          "en": "\"Can we talk about X on Sunday?\" works as an ordinary request."
+        },
+        {
+          "pt": "Adiar uma conversa importante porque 'a fase não ajuda' pode adiar demais.",
+          "en": "Postponing an important talk because 'the phase is bad' can postpone too much."
+        }
+      ],
+      "takeaway": {
+        "pt": "Acordem o tempo; não o imponhas.",
+        "en": "Agree the timing; don't enforce it."
+      },
+      "refs": [
+        {
+          "pt": "Ussher & Perz, 2017 — PMC5395168",
+          "en": "Ussher & Perz, 2017 — PMC5395168",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5395168/"
+        }
+      ]
+    },
+    {
+      "id": "l:tracking-together",
+      "topic": "logs",
+      "title": {
+        "pt": "Registar em conjunto",
+        "en": "Tracking together"
+      },
+      "body": {
+        "pt": "Ensaios com casais associam monitorizar em conjunto a melhor entendimento entre os dois. A observação partilhada só ajuda se for acordada e respeitar a privacidade dela.",
+        "en": "Couple trials associate joint monitoring with better mutual understanding. Shared observation only helps when it's agreed and respects her privacy."
+      },
+      "source": {
+        "pt": "Ussher & Perz, 2017; enquadramento de privacidade local desta app.",
+        "en": "Ussher & Perz, 2017; this app's local-privacy framing."
+      },
+      "cards": [
+        {
+          "pt": "Registos são sobre o dia-a-dia dela, não um dossiê.",
+          "en": "Logs are about her day-to-day, not a case file."
+        },
+        {
+          "pt": "Rever juntos os padrões pode ser conversa; sozinho é suposição.",
+          "en": "Reviewing patterns together can become conversation; alone it stays speculation."
+        }
+      ],
+      "takeaway": {
+        "pt": "Combine o que fica guardado e o que apaga.",
+        "en": "Agree what's kept and what's deleted."
+      },
+      "refs": [
+        {
+          "pt": "Ussher & Perz, 2017 — PMC5395168",
+          "en": "Ussher & Perz, 2017 — PMC5395168",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5395168/"
+        }
+      ]
+    },
+    {
+      "id": "l:no-medicalizing",
+      "topic": "support",
+      "title": {
+        "pt": "Não a reduzas às hormonas",
+        "en": "Don't reduce her to hormones"
+      },
+      "body": {
+        "pt": "Conhecer o ciclo pode melhorar o entendimento e evitar conflitos — o risco documentado é médico-la: tratar queixas legítimas como 'sintomas'.",
+        "en": "Knowing about the cycle can improve understanding and avoid conflict — the documented risk is medicalizing her: treating legitimate complaints as 'symptoms'."
+      },
+      "source": {
+        "pt": "Men's Perceptions of Partner with PMS, 2014; Psychological Medicine 2025.",
+        "en": "Men's Perceptions of Partner with PMS, 2014; Psychological Medicine 2025."
+      },
+      "cards": [
+        {
+          "pt": "Um incómodo com causa real continua real com causa hormonal.",
+          "en": "A complaint with a real cause stays real even with a hormonal one."
+        },
+        {
+          "pt": "Nunca uses o ciclo para ganhar a discussão.",
+          "en": "Never use the cycle to win an argument."
+        }
+      ],
+      "takeaway": {
+        "pt": "O ciclo é contexto; ela é a pessoa.",
+        "en": "The cycle is context; she is the person."
+      },
+      "refs": [
+        {
+          "pt": "American Journal of Men's Health, 2014",
+          "en": "American Journal of Men's Health, 2014",
+          "url": "https://journals.sagepub.com/doi/10.1177/1557988313497050"
+        }
+      ]
+    },
+    {
+      "id": "l:normal-length",
+      "topic": "basics",
+      "title": {
+        "pt": "Quanto tempo é normal?",
+        "en": "How long is normal?"
+      },
+      "body": {
+        "pt": "Estudos de referência tratam 21 a 35 dias como faixa comum entre menstruantes adultas; fora disso, ou com saltos grandes, vale conversar com um profissional.",
+        "en": "Reference studies treat 21 to 35 days as the common range; outside it, or with big jumps, a professional conversation is worth it."
+      },
+      "source": {
+        "pt": "Critério de exclusão 21–35 d em estudo EMA de humor.",
+        "en": "The 21–35 day exclusion in a mood-EMA study."
+      },
+      "cards": [
+        {
+          "pt": "'Normal' é estatística — o teu ciclo pode ser fora sem ser um problema.",
+          "en": "'Normal' is statistics — your own cycle can sit outside without being a problem."
+        },
+        {
+          "pt": "Esta app calcula médias a partir dos registos, não da média dos livros.",
+          "en": "This app computes averages from your logs, not from the textbook mean."
+        }
+      ],
+      "takeaway": {
+        "pt": "Mede com ela, não contra ela.",
+        "en": "Measure with her, not against her."
+      },
+      "refs": [
+        {
+          "pt": "BMJ Mental Health 2025",
+          "en": "BMJ Mental Health 2025",
+          "url": "https://mentalhealth.bmj.com/content/28/1/e301674"
+        }
+      ]
+    },
+    {
+      "id": "l:reading-signals",
+      "topic": "focus",
+      "title": {
+        "pt": "Concentração em dias difíceis",
+        "en": "Focus on rough days"
+      },
+      "body": {
+        "pt": "Relatos de névoa mental existem e variam entre pessoas. Ajustar o horário de esforço é mais útil do que discutir a causa.",
+        "en": "Brain-fog reports exist and vary between people. Rescheduling effort is more useful than debating the cause."
+      },
+      "source": {
+        "pt": "Prática; relatos individuais nos registos.",
+        "en": "Practice; individual reports in the logs."
+      },
+      "cards": [
+        {
+          "pt": "Se ela diz que se concentra pior, vale reagendar, não contrariar.",
+          "en": "If she says focus is worse, reschedule — don't argue."
+        },
+        {
+          "pt": "Nada aqui é generalizável para além da pessoa.",
+          "en": "None of this generalizes beyond the person."
+        }
+      ],
+      "takeaway": {
+        "pt": "Acomoda sem diagnosticar.",
+        "en": "Accommodate without diagnosing."
+      }
+    },
+    {
+      "id": "l:what-phase-labels-do",
+      "topic": "logs",
+      "title": {
+        "pt": "O que uma etiqueta de fase faz contigo",
+        "en": "What a phase label does to you"
+      },
+      "body": {
+        "pt": "Rotular um dia como 'fase X' muda o que reparas — e o que ignoras. As etiquetas da app são apoios de memória, não lentes que devam distorcer a conversa.",
+        "en": "Naming a day 'phase X' changes what you notice — and what you ignore. The app's labels are memory aids, not lenses meant to bend the conversation."
+      },
+      "source": {
+        "pt": "Risco documentado de enquadramento médico.",
+        "en": "Documented framing/medicalizing risk."
+      },
+      "cards": [
+        {
+          "pt": "Quando o registo dela contrariar a fase, acredita no registo.",
+          "en": "When her record contradicts the phase, believe the record."
+        },
+        {
+          "pt": "Sem registo é desconhecido — a app diz isso mesmo.",
+          "en": "Without records it's unknown — the app says exactly that."
+        }
+      ],
+      "takeaway": {
+        "pt": "Observação acima de teoria.",
+        "en": "Observation over theory."
+      }
     }
   ]
 }

@@ -4,9 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 import '../data/catalog.dart';
+import '../data/feeling_catalog.dart';
 import '../data/learning_catalog.dart';
 import '../data/store.dart';
+import '../data/summarization.dart';
 import '../engine/cycle_engine.dart';
+import '../engine/feeling_selector.dart';
 import '../engine/garden_engine.dart';
 import '../engine/models.dart';
 import '../log.dart';
@@ -62,10 +65,16 @@ class AppDataNotifier extends StateNotifier<AppData> {
 
   void updateSettings(Settings s) => _set(state.copyWith(settings: s));
 
-  void saveLog(PeriodLog log) {
+  /// Every period-start write goes through this gate: a start closer than 21
+  /// calendar days to any *other* recorded start (earlier or later) is
+  /// rejected at the mutation layer, so no logging entry point can bypass the
+  /// spacing rule. Marking/unmarking an end keeps the same start and passes.
+  bool saveLog(PeriodLog log) {
+    if (!CycleEngine.startSpacingOk(state.logs, log.start)) return false;
     final logs = [...state.logs.where((l) => l.start != log.start), log]
       ..sort((a, b) => a.start.compareTo(b.start));
     _set(state.copyWith(logs: logs));
+    return true;
   }
 
   void deleteLog(PeriodLog log) =>
@@ -76,14 +85,95 @@ class AppDataNotifier extends StateNotifier<AppData> {
     _set(state.copyWith(feedback: [...others, ForecastFeedback(date, thumbsUp)]));
   }
 
-  /// v0.3.0 (#4): one observation per date — upsert; empty tags deletes.
-  void saveObservation(String date, List<String> tags) {
-    final others = state.observations.where((o) => o.date != date).toList();
-    final next = tags.isEmpty
+  // ---------- feeling records (upsert; empty entries deletes) ----------
+
+  /// One dated feeling record per calendar day. Selections are always
+  /// user-chosen; intensity is optional and never inferred.
+  void saveFeelingLog(String date, List<FeelingEntry> entries) {
+    final others = state.feelingLogs.where((f) => f.date != date).toList();
+    final validCustoms = state.customFeelings.map((c) => c.concept).toSet();
+    final deduped = AppData.dedupeEntries(entries.where((e) =>
+        !e.concept.startsWith('custom:') || validCustoms.contains(e.concept)).toList());
+    final next = deduped.isEmpty
         ? others
-        : [...others, Observation(date, tags)]
+        : [...others, FeelingLog(date, deduped)]
           ..sort((a, b) => a.date.compareTo(b.date));
-    _set(state.copyWith(observations: next));
+    _set(state.copyWith(feelingLogs: next));
+  }
+
+  /// Custom concept created when no catalog match exists. Returns the stable
+  /// `custom:<id>` reference so the caller can immediately select it.
+  String addCustomFeeling(String label) {
+    final (id, next) = state.allocateId();
+    _set(state.copyWith(
+      nextId: next,
+      customFeelings: [...state.customFeelings, CustomFeeling(id, label.trim())],
+    ));
+    return 'custom:$id';
+  }
+
+  void renameCustomFeeling(int id, String label) => _set(state.copyWith(
+      customFeelings: [
+        for (final c in state.customFeelings)
+          c.id == id ? c.copyWith(label: label.trim()) : c,
+      ]));
+
+  /// Merge one custom concept into another (canonical or custom): every dated
+  /// reference moves over, same-date duplicates collapse keeping any explicit
+  /// intensity, and the merged-away concept disappears.
+  void mergeCustomFeeling(int fromId, String intoConcept) {
+    final from = 'custom:$fromId';
+    if (from == intoConcept) return;
+    if (!state.customFeelings.any((c) => c.id == fromId)) return;
+    if (intoConcept.startsWith('custom:') &&
+        !state.customFeelings.any((c) => c.concept == intoConcept)) {
+      return;
+    }
+    final logs = <FeelingLog>[];
+    for (final f in state.feelingLogs) {
+      if (!f.entries.any((e) => e.concept == from)) {
+        logs.add(f);
+        continue;
+      }
+      final mapped = [
+        for (final e in f.entries)
+          if (e.concept == from)
+            FeelingEntry(intoConcept, intensity: e.intensity)
+          else
+            e,
+      ];
+      logs.add(f.copyWith(entries: AppData.dedupeEntries(mapped)));
+    }
+    _set(state.copyWith(
+      feelingLogs: logs..sort((a, b) => a.date.compareTo(b.date)),
+      customFeelings: state.customFeelings.where((c) => c.id != fromId).toList(),
+    ));
+  }
+
+  void deleteCustomFeeling(int id) {
+    final from = 'custom:$id';
+    final logs = <FeelingLog>[];
+    for (final f in state.feelingLogs) {
+      if (!f.entries.any((e) => e.concept == from)) {
+        logs.add(f);
+        continue;
+      }
+      final kept = f.entries.where((e) => e.concept != from).toList();
+      if (kept.isEmpty) continue;
+      logs.add(f.copyWith(entries: kept));
+    }
+    _set(state.copyWith(
+      feelingLogs: logs,
+      customFeelings: state.customFeelings.where((c) => c.id != id).toList(),
+    ));
+  }
+
+  /// Persist the manual "Show others" rotation for one date. Historical items
+  /// are untouched; only general possibilities move.
+  void setFeelingRotation(String date, int cursor) {
+    final others = state.feelingRotations.where((r) => r.date != date).toList();
+    _set(state.copyWith(
+        feelingRotations: [...others, FeelingRotation(date, cursor)]));
   }
 
   /// v0.3.0 (#18): user-written phase-bound cards.
@@ -144,15 +234,15 @@ class AppDataNotifier extends StateNotifier<AppData> {
   }
 
   /// Persist today's deterministic selection so rebuilds/restarts keep it.
-  void setSelection(String date, List<String> order, int cursor) {
-    final others = state.selections.where((s) => s.date != date).toList();
+  void setSelection(String date, List<String> order, int cursor, {String scope = ''}) {
+    final others = state.selections.where((s) => s.date != date || s.scope != scope).toList();
     _set(state.copyWith(
-        selections: [...others, DaySelection(date, order, cursor)]));
+        selections: [...others, DaySelection(date, order, cursor, scope: scope)]));
   }
 
   void swapSelection(String date, List<String> order) {
     final current =
-        state.selections.where((s) => s.date == date).firstOrNull;
+        state.selections.where((s) => s.date == date && s.scope.isEmpty).firstOrNull;
     final next = (current?.cursor ?? -1) + 1;
     setSelection(date, order, next);
   }
@@ -400,6 +490,9 @@ final appDataProvider =
 final catalogProvider = FutureProvider<Catalog>((_) async =>
     Catalog.parse(await rootBundle.loadString('assets/catalog.json')));
 
+final feelingCatalogProvider = FutureProvider<FeelingCatalog>((_) async =>
+    FeelingCatalog.parse(await rootBundle.loadString('assets/feelings.json')));
+
 final learningProvider = FutureProvider<LearningCatalog>((_) async =>
     LearningCatalog.parse(await rootBundle.loadString('assets/learning.json')));
 
@@ -432,4 +525,98 @@ final gardenProvider = Provider<GardenState>((ref) {
   final data = ref.watch(appDataProvider);
   final today = ref.watch(todayProvider);
   return GardenEngine(events: data.careEvents, today: today).state();
+});
+
+/// Optional on-device note summaries: isolated behind the platform adapter,
+/// never on the load/save/ranking path, and never a cloud fallback.
+final summarizationControllerProvider =
+    ChangeNotifierProvider.autoDispose<SummarizationController>((ref) {
+  final controller = SummarizationController(summarizationPlatformOverrideForTests);
+  // Note edits/deletions/wipes orphan any displayed summary.
+  ref.listen(appDataProvider, (prev, next) {
+    if (prev == null) return;
+    final changed = next.entries.length != prev.entries.length ||
+        !identical(next.entries, prev.entries) ||
+        next.entries.map((e) => '${e.id}:${e.text}').join() !=
+            prev.entries.map((e) => '${e.id}:${e.text}').join();
+    if (changed) controller.invalidate();
+  });
+  return controller;
+});
+
+/// The "She may notice" briefing for one date: up to two fixed historical
+/// picks plus at least one general possibility, all derived from the pure
+/// selector — never preselected feelings, never fabricated when the estimate
+/// state offers no stage context. Null until the feeling catalog is loaded.
+final feelingBriefingProvider =
+    Provider.family<FeelingBriefing?, DateTime>((ref, date) {
+  final catalog = ref.watch(feelingCatalogProvider).valueOrNull;
+  if (catalog == null) return null;
+  final data = ref.watch(appDataProvider);
+  final eng = ref.watch(engineProvider(date));
+  if (!eng.canPredict) return null;
+  final stage = historyStageOf(eng.phaseOrNull(date));
+  final key = CycleEngine.dayKey(date);
+  final logged = {
+    for (final e in AppData.feelingLogFor(data.feelingLogs, key)?.entries ??
+            const <FeelingEntry>[])
+        e.concept,
+  };
+  final cursor = data.feelingRotations
+          .where((r) => r.date == key)
+          .firstOrNull
+          ?.cursor ??
+      0;
+  return FeelingSelector.pick(
+    logs: data.logs,
+    feelings: data.feelingLogs,
+    eng: eng,
+    date: date,
+    generalEligible: stage == HistoryStage.luteal && eng.phaseOrNull(date) != Phase.pms
+        ? const [] : catalog.eligibleFor(stage),
+    fallbackEligible: catalog.eligibleFor(HistoryStage.unknown),
+    exclude: logged,
+    cursor: cursor,
+  );
+});
+
+/// Support priority for the catalog pick on a date: the user's explicit
+/// intensive-support setting, recent (≤3 days) moderate/strong logged
+/// discomfort, or a pre-period context where the estimate puts the next start
+/// within 3 days. All flow through the existing `PhaseCatalog.pick`
+/// `supportPriority` contract; nothing bypasses filtering or caps.
+final supportPriorityProvider =
+    Provider.family<bool, DateTime>((ref, date) {
+  final data = ref.watch(appDataProvider);
+  final eng = ref.watch(engineProvider(date));
+  final catalog = ref.watch(feelingCatalogProvider).valueOrNull;
+  return data.settings.intensiveSupport ||
+      FeelingSelector.recentDiscomfort(data.feelingLogs, date,
+          discomfortConcepts: catalog?.discomfortConcepts ?? const {}) ||
+      FeelingSelector.periodNear(eng, date);
+});
+
+final supportContextProvider = Provider.family<
+    ({Set<ActionCategory> current, Set<ActionCategory> historical}), DateTime>((ref, date) {
+  final data = ref.watch(appDataProvider);
+  final catalog = ref.watch(feelingCatalogProvider).valueOrNull;
+  final eng = ref.watch(engineProvider(date));
+  final current = <ActionCategory>{};
+  for (final log in data.feelingLogs) {
+    final day = DateTime.tryParse(log.date);
+    if (day == null) continue;
+    final age = CycleEngine.daysBetween(day, date);
+    if (age < 0 || age > 3) continue;
+    for (final entry in log.entries) {
+      current.addAll(catalog?.byId(entry.concept)?.supportCategories ?? const {});
+    }
+  }
+  final historical = <ActionCategory>{};
+  if (eng.canPredict) {
+    for (final h in FeelingSelector.history(logs: data.logs,
+        feelings: data.feelingLogs, eng: eng, date: date)) {
+      historical.addAll(catalog?.byId(h.concept)?.supportCategories ?? const {});
+    }
+  }
+  return (current: current, historical: historical);
 });

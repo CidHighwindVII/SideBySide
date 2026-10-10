@@ -1,5 +1,7 @@
 # lib/state
 
-- `providers.dart`: `main.dart` overrides `appDataProvider` after `Store.load`; `engineProvider` injects catalog axes. Use the provider in UI, not a separate engine with missing axes.
-- Route every data/settings mutation through `AppDataNotifier._set`, **including wipe**, so listeners see it. Coordinate wipe's file deletion with saving; serialize async persistence and the resulting notification reschedules so stale operations cannot win. Current implementation may not yet satisfy this: inspect before relying on it.
-- `ui/app.dart` listens to `appDataProvider` for local notification/widget refresh. `langCodeProvider` follows the device locale for catalog/date text (EN fallback); language is not persisted.
+- Use `providers.dart` for state and provider-backed estimates; `engineProvider` injects catalog axes. Do not construct an alternate UI engine with fallback-only axes.
+- Route every mutation through `AppDataNotifier._set`, including feeling edits, custom merges, rotation, and wipe. Maintain save/wipe ordering and failure recovery.
+- Persistence and notification/widget listeners are separate pipelines, not one atomic transaction. Ensure stale work cannot overwrite newer state or resurrect wiped data.
+- Invalidate derived history/ranking after log edits, period corrections, or custom merges. Keep manual general-item rotation stable across reopening; language remains device-derived and unpersisted.
+- Optional summarization must not block load/save or ranking; cancel/invalidate generated output when source notes change or disappear.

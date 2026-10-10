@@ -9,16 +9,26 @@ class AppLPt extends AppL {
   AppLPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get tabHoje => 'Hoje';
+  String get feelingExplainEveryday =>
+      'Uma possibilidade quotidiana, sem associação estabelecida à fase do ciclo. Pergunta como se sente em vez de presumir.';
 
   @override
-  String get tabCalendario => 'Calendário';
+  String get copySource => 'Copiar ligação da fonte';
 
   @override
-  String get tabSugestoes => 'Sugestões';
+  String get sourceCopied => 'Ligação da fonte copiada';
 
   @override
-  String get tabDefinicoes => 'Definições';
+  String get tabToday => 'Hoje';
+
+  @override
+  String get tabCalendar => 'Calendário';
+
+  @override
+  String get tabSuggestions => 'Sugestões';
+
+  @override
+  String get tabSettings => 'Definições';
 
   @override
   String get phaseMenstrual => 'Menstrual';
@@ -99,7 +109,7 @@ class AppLPt extends AppL {
   String get weekendBriefingTime => 'Hora do briefing (fim de semana)';
 
   @override
-  String get supportTitle => 'Priorizar sugestões de ajuda';
+  String get supportTitle => 'Apoio';
 
   @override
   String get supportBody =>
@@ -771,4 +781,333 @@ class AppLPt extends AppL {
 
   @override
   String get gardenUnnamed => 'Sem nome';
+
+  @override
+  String get todayNextPeriodLabel => 'Próxima menstruação';
+
+  @override
+  String todayDaysUntil(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '~$n dias',
+      one: '~1 dia',
+      zero: 'Começa hoje',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String todayExpectedRange(String range) {
+    return 'Previsto $range';
+  }
+
+  @override
+  String get stageUnknown => 'Fase desconhecida';
+
+  @override
+  String get stageUnknownNote =>
+      'Fase incerta — a mostrar apenas possibilidades gerais.';
+
+  @override
+  String get sheMayNotice => 'Ela pode notar';
+
+  @override
+  String get todayFeelNoData =>
+      'As possibilidades gerais aparecem depois de registares uma menstruação.';
+
+  @override
+  String get todayFeelUnavailable =>
+      'Sem sugestões de sentimento neste modo — as estimativas precisam de datas registadas.';
+
+  @override
+  String get generalTag => 'Geral';
+
+  @override
+  String get fromHistoryTag => 'Do histórico';
+
+  @override
+  String get previouslyLoggedTag => 'Registado antes';
+
+  @override
+  String get loggedTodayLabel => 'Registado hoje';
+
+  @override
+  String get showOthers => 'Mostrar outras';
+
+  @override
+  String get howToRespond => 'Como responder';
+
+  @override
+  String get seeSupportIdea => 'Ver uma ideia de apoio';
+
+  @override
+  String get hideSupportEntry => 'Ocultar ideia de apoio';
+
+  @override
+  String get feelingExplainGeneral =>
+      'Uma possibilidade geral para a fase estimada — nunca uma previsão do que ela sente. Só é um registo se o tiveres guardado no Calendário.';
+
+  @override
+  String feelingExplainHistory(int n) {
+    return 'Registado à volta deste ponto em $n ciclos anteriores.';
+  }
+
+  @override
+  String get feelingExplainPrevious => 'Registado antes num ciclo anterior.';
+
+  @override
+  String feelingLastLogged(String date) {
+    return 'Último registo: $date';
+  }
+
+  @override
+  String get feelingOpenCalendar => 'Registar sentimentos nesta data';
+
+  @override
+  String get feelingsTitle => 'Sentimentos';
+
+  @override
+  String get feelingSearch => 'Procurar sentimentos';
+
+  @override
+  String get feelingSelected => 'Selecionados';
+
+  @override
+  String get feelingRemove => 'Remover';
+
+  @override
+  String feelingSuggestedFor(String stage) {
+    return 'Sugeridos por volta da fase $stage';
+  }
+
+  @override
+  String get feelingSuggestedGeneral => 'Sugestões gerais — fase não estimada';
+
+  @override
+  String get feelingYourOwn => 'Os teus sentimentos personalizados';
+
+  @override
+  String get feelingCustomCreate => 'Criar sentimento personalizado';
+
+  @override
+  String get feelingCustomLabel => 'Dá um nome a este sentimento';
+
+  @override
+  String get feelingCustomManage => 'Gerir sentimentos personalizados';
+
+  @override
+  String get feelingCustomNone => 'Ainda não tens sentimentos personalizados.';
+
+  @override
+  String get feelingRename => 'Renomear';
+
+  @override
+  String get feelingMerge => 'Juntar a outro';
+
+  @override
+  String get feelingMergeInto => 'Juntar a que sentimento?';
+
+  @override
+  String get feelingDeleteCustom => 'Apagar sentimento personalizado';
+
+  @override
+  String feelingSearchResults(int n) {
+    return '$n resultados';
+  }
+
+  @override
+  String get feelingIntensityNone => 'Sem intensidade';
+
+  @override
+  String get feelingIntensityHint => 'Definir intensidade';
+
+  @override
+  String get intensityMild => 'Suave';
+
+  @override
+  String get intensityModerate => 'Moderada';
+
+  @override
+  String get intensityStrong => 'Forte';
+
+  @override
+  String feelingSaveCount(int n) {
+    return 'Guardar $n';
+  }
+
+  @override
+  String get feelingClearSave => 'Guardar (vazio limpa o dia)';
+
+  @override
+  String get calFeelings => 'Sentimentos';
+
+  @override
+  String get startTooCloseReason => 'Demasiado perto de outro início registado';
+
+  @override
+  String get calendarOvulationDay => 'dia de ovulação estimada';
+
+  @override
+  String get calendarOvulationSummary => 'Ovulação estimada';
+
+  @override
+  String get calendarOvulationDetailsTitle => 'Dia de ovulação estimado';
+
+  @override
+  String calendarOvulationDetailsBody(int n) {
+    return 'Só datas do calendário não conseguem fixar a ovulação. Isto marca um dia estimado com ±$n dias de incerteza — não um evento confirmado.';
+  }
+
+  @override
+  String calendarOvulationEstimatedOn(String date) {
+    return 'Estimado por volta de $date.';
+  }
+
+  @override
+  String get calendarOvulationNone =>
+      'Sem estimativa de ovulação — poucos registos ou contracetivo hormonal.';
+
+  @override
+  String get feelingLoggedLegend => 'sentimentos registados';
+
+  @override
+  String get historyTitle => 'Histórico';
+
+  @override
+  String get historyEmpty =>
+      'Ainda não há sentimentos registados. Regista-os a partir de uma data do Calendário.';
+
+  @override
+  String get historyLutealNote =>
+      'As observações pré-menstruais ficam dentro da fase lútea.';
+
+  @override
+  String get historyUnknownNote =>
+      'Estas datas não tiveram fase deduzível — regista menstruações para as agrupar.';
+
+  @override
+  String get tabLearn => 'Aprender';
+
+  @override
+  String get supportSituationPrompt => 'Qual é a situação agora?';
+
+  @override
+  String get sitComfort => 'Conforto';
+
+  @override
+  String get sitComfortBody => 'Ela receberia bem calor e cuidado.';
+
+  @override
+  String get sitPractical => 'Ajuda prática';
+
+  @override
+  String get sitPracticalBody => 'Algo fora do prato dela ajudaria.';
+
+  @override
+  String get sitListening => 'Ouvir';
+
+  @override
+  String get sitListeningBody => 'Ela quer ser ouvida, não consertada.';
+
+  @override
+  String get sitSpace => 'Dar espaço';
+
+  @override
+  String get sitSpaceBody => 'Ela pediu margem — respeita isso.';
+
+  @override
+  String get sitTogether => 'Tempo a dois';
+
+  @override
+  String get sitTogetherBody => 'Boa companhia sem pressão parece bem.';
+
+  @override
+  String get sitApart => 'Estamos longe';
+
+  @override
+  String get sitApartBody => 'Apoio à distância hoje.';
+
+  @override
+  String get actionOfferLabel => 'Como podes oferecer:';
+
+  @override
+  String get anotherIdea => 'Outra ideia';
+
+  @override
+  String get didThis => 'Fiz isto';
+
+  @override
+  String get didThisDone => 'Marcado como feito.';
+
+  @override
+  String get previouslyHelpfulTag => 'Já ajudou antes';
+
+  @override
+  String get whyThisLabel => 'Porquê isto?';
+
+  @override
+  String get changeSituation => 'Mudar a situação';
+
+  @override
+  String get checkInFallback =>
+      'Nada mais se encaixa agora. O melhor próximo passo é perguntares-lhe diretamente o que ajudaria hoje.';
+
+  @override
+  String get whatHelpsHer => 'O que a ajuda a ela';
+
+  @override
+  String get catalogLoadFailPreferences =>
+      'As ideias de apoio não estão disponíveis agora. As tuas preferências guardadas continuam acessíveis abaixo.';
+
+  @override
+  String get learnRecommended => 'A escolha de hoje';
+
+  @override
+  String get learnTopics => 'Explorar por tema';
+
+  @override
+  String learnProgress(int done, int total) {
+    return '$done de $total lições concluídas';
+  }
+
+  @override
+  String get learnTakeaway => 'Para levar';
+
+  @override
+  String get learnReadMore => 'Fontes e leitura adicional';
+
+  @override
+  String get summaryTitle => 'Resumo no dispositivo';
+
+  @override
+  String get summaryAction => 'Resumir notas recentes';
+
+  @override
+  String get summaryDownloading =>
+      'É preciso preparar o modelo — a transferência fica no dispositivo.';
+
+  @override
+  String get summarySetup => 'Preparar modelo';
+
+  @override
+  String get summaryRunning => 'A resumir no dispositivo…';
+
+  @override
+  String get summaryUnavailable =>
+      'Os resumos no dispositivo não estão disponíveis neste aparelho. As notas e o histórico funcionam exatamente da mesma forma.';
+
+  @override
+  String get summaryUnsupported =>
+      'Os resumos no dispositivo suportam por agora apenas inglês, japonês ou coreano — notas em português ficam sem resumo.';
+
+  @override
+  String get summaryFailed =>
+      'O resumo não foi concluído. Nada mudou — tenta de novo ou lê as notas diretamente.';
+
+  @override
+  String get summaryRetry => 'Tentar de novo';
+
+  @override
+  String get summarySources => 'Ver notas originais';
 }

@@ -9,16 +9,26 @@ class AppLEn extends AppL {
   AppLEn([String locale = 'en']) : super(locale);
 
   @override
-  String get tabHoje => 'Today';
+  String get feelingExplainEveryday =>
+      'An everyday possibility, with no established cycle-stage association. Ask how she feels rather than assuming.';
 
   @override
-  String get tabCalendario => 'Calendar';
+  String get copySource => 'Copy source link';
 
   @override
-  String get tabSugestoes => 'Suggestions';
+  String get sourceCopied => 'Source link copied';
 
   @override
-  String get tabDefinicoes => 'Settings';
+  String get tabToday => 'Today';
+
+  @override
+  String get tabCalendar => 'Calendar';
+
+  @override
+  String get tabSuggestions => 'Suggestions';
+
+  @override
+  String get tabSettings => 'Settings';
 
   @override
   String get phaseMenstrual => 'Menstrual';
@@ -99,7 +109,7 @@ class AppLEn extends AppL {
   String get weekendBriefingTime => 'Weekend briefing time';
 
   @override
-  String get supportTitle => 'Prioritize offers of help';
+  String get supportTitle => 'Support';
 
   @override
   String get supportBody =>
@@ -769,4 +779,335 @@ class AppLEn extends AppL {
 
   @override
   String get gardenUnnamed => 'Unnamed';
+
+  @override
+  String get todayNextPeriodLabel => 'Next period';
+
+  @override
+  String todayDaysUntil(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '~$n days',
+      one: '~1 day',
+      zero: 'Starts today',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String todayExpectedRange(String range) {
+    return 'Expected $range';
+  }
+
+  @override
+  String get stageUnknown => 'Stage unknown';
+
+  @override
+  String get stageUnknownNote =>
+      'Stage uncertain — showing general possibilities only.';
+
+  @override
+  String get sheMayNotice => 'She may notice';
+
+  @override
+  String get todayFeelNoData =>
+      'General possibilities appear once you log a period date.';
+
+  @override
+  String get todayFeelUnavailable =>
+      'No feeling suggestions in this mode — estimates need logged dates.';
+
+  @override
+  String get generalTag => 'General';
+
+  @override
+  String get fromHistoryTag => 'From history';
+
+  @override
+  String get previouslyLoggedTag => 'Previously logged';
+
+  @override
+  String get loggedTodayLabel => 'Logged today';
+
+  @override
+  String get showOthers => 'Show others';
+
+  @override
+  String get howToRespond => 'How to respond';
+
+  @override
+  String get seeSupportIdea => 'See a support idea';
+
+  @override
+  String get hideSupportEntry => 'Hide support idea';
+
+  @override
+  String get feelingExplainGeneral =>
+      'A general possibility for the estimated stage — never a prediction of how she feels. It is only a record if you logged it in the Calendar.';
+
+  @override
+  String feelingExplainHistory(int n) {
+    return 'Logged around this point in $n previous cycles.';
+  }
+
+  @override
+  String get feelingExplainPrevious =>
+      'Previously logged in one earlier cycle.';
+
+  @override
+  String feelingLastLogged(String date) {
+    return 'Last logged $date';
+  }
+
+  @override
+  String get feelingOpenCalendar => 'Log feelings for this date';
+
+  @override
+  String get feelingsTitle => 'Feelings';
+
+  @override
+  String get feelingSearch => 'Search feelings';
+
+  @override
+  String get feelingSelected => 'Selected';
+
+  @override
+  String get feelingRemove => 'Remove';
+
+  @override
+  String feelingSuggestedFor(String stage) {
+    return 'Suggested around the $stage stretch';
+  }
+
+  @override
+  String get feelingSuggestedGeneral =>
+      'General suggestions — stage not estimated';
+
+  @override
+  String get feelingYourOwn => 'Your custom feelings';
+
+  @override
+  String get feelingCustomCreate => 'Create custom feeling';
+
+  @override
+  String get feelingCustomLabel => 'Name this feeling';
+
+  @override
+  String get feelingCustomManage => 'Manage custom feelings';
+
+  @override
+  String get feelingCustomNone => 'No custom feelings yet.';
+
+  @override
+  String get feelingRename => 'Rename';
+
+  @override
+  String get feelingMerge => 'Merge into another';
+
+  @override
+  String get feelingMergeInto => 'Merge into which feeling?';
+
+  @override
+  String get feelingDeleteCustom => 'Delete custom feeling';
+
+  @override
+  String feelingSearchResults(int n) {
+    return '$n results';
+  }
+
+  @override
+  String get feelingIntensityNone => 'No intensity';
+
+  @override
+  String get feelingIntensityHint => 'Set intensity';
+
+  @override
+  String get intensityMild => 'Mild';
+
+  @override
+  String get intensityModerate => 'Moderate';
+
+  @override
+  String get intensityStrong => 'Strong';
+
+  @override
+  String feelingSaveCount(int n) {
+    return 'Save $n';
+  }
+
+  @override
+  String get feelingClearSave => 'Save (none clears the day)';
+
+  @override
+  String get calFeelings => 'Log feelings';
+
+  @override
+  String get startTooCloseReason => 'Too close to another recorded start';
+
+  @override
+  String get calendarOvulationDay => 'estimated ovulation day';
+
+  @override
+  String get calendarOvulationSummary => 'Est. ovulation';
+
+  @override
+  String get calendarOvulationDetailsTitle => 'Estimated ovulation day';
+
+  @override
+  String calendarOvulationDetailsBody(int n) {
+    return 'Calendar dates alone cannot pinpoint ovulation. This marks an estimated day with ±$n days of uncertainty — not a confirmed event.';
+  }
+
+  @override
+  String calendarOvulationEstimatedOn(String date) {
+    return 'Estimated around $date.';
+  }
+
+  @override
+  String get calendarOvulationNone =>
+      'No ovulation estimate — too few logs or hormonal contraception.';
+
+  @override
+  String get feelingLoggedLegend => 'feelings logged';
+
+  @override
+  String get historyTitle => 'History';
+
+  @override
+  String get historyEmpty =>
+      'No feelings logged yet. Log them from a Calendar date.';
+
+  @override
+  String get historyLutealNote =>
+      'Pre-period observations sit inside the luteal stretch.';
+
+  @override
+  String get historyUnknownNote =>
+      'These dates had no derivable stage — log period dates to group them.';
+
+  @override
+  String get tabLearn => 'Learn';
+
+  @override
+  String get supportSituationPrompt => 'What\'s the situation right now?';
+
+  @override
+  String get sitComfort => 'Comfort';
+
+  @override
+  String get sitComfortBody => 'She\'d welcome warmth and care.';
+
+  @override
+  String get sitPractical => 'Practical help';
+
+  @override
+  String get sitPracticalBody => 'Something off her plate would help.';
+
+  @override
+  String get sitListening => 'Listening';
+
+  @override
+  String get sitListeningBody => 'She wants to be heard, not fixed.';
+
+  @override
+  String get sitSpace => 'Giving space';
+
+  @override
+  String get sitSpaceBody => 'She asked for room — honour that.';
+
+  @override
+  String get sitTogether => 'Time together';
+
+  @override
+  String get sitTogetherBody => 'Low-pressure company sounds good.';
+
+  @override
+  String get sitApart => 'We\'re apart';
+
+  @override
+  String get sitApartBody => 'Support from a distance today.';
+
+  @override
+  String get actionOfferLabel => 'How you might offer it:';
+
+  @override
+  String get anotherIdea => 'Another idea';
+
+  @override
+  String get didThis => 'I did this';
+
+  @override
+  String get didThisDone => 'Marked as done.';
+
+  @override
+  String get previouslyHelpfulTag => 'Previously helpful';
+
+  @override
+  String get whyThisLabel => 'Why this?';
+
+  @override
+  String get changeSituation => 'Change the situation';
+
+  @override
+  String get checkInFallback =>
+      'Nothing else fits right now. The best next step is asking her directly what would help today.';
+
+  @override
+  String get whatHelpsHer => 'What helps her';
+
+  @override
+  String get catalogLoadFailPreferences =>
+      'Support ideas are unavailable right now. Your saved preferences still work below.';
+
+  @override
+  String get learnRecommended => 'Today\'s pick';
+
+  @override
+  String get learnTopics => 'Browse by topic';
+
+  @override
+  String learnProgress(int done, int total) {
+    return '$done of $total lessons completed';
+  }
+
+  @override
+  String get learnTakeaway => 'Takeaway';
+
+  @override
+  String get learnReadMore => 'Sources & deeper reading';
+
+  @override
+  String get summaryTitle => 'On-device summary';
+
+  @override
+  String get summaryAction => 'Summarise recent notes';
+
+  @override
+  String get summaryDownloading =>
+      'Model setup needed — the download stays on-device.';
+
+  @override
+  String get summarySetup => 'Set up model';
+
+  @override
+  String get summaryRunning => 'Summarising on-device…';
+
+  @override
+  String get summaryUnavailable =>
+      'On-device summaries aren\'t available on this device. Your notes and history work exactly the same.';
+
+  @override
+  String get summaryUnsupported =>
+      'On-device summaries currently support English, Japanese or Korean only — Portuguese notes stay unsummarised.';
+
+  @override
+  String get summaryFailed =>
+      'The summary didn\'t complete. Nothing changed — try again or read the notes directly.';
+
+  @override
+  String get summaryRetry => 'Try again';
+
+  @override
+  String get summarySources => 'View original notes';
 }

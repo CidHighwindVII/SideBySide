@@ -28,6 +28,13 @@ class CycleEngine {
   static DateTime addCalendarDays(DateTime d, int days) =>
       DateTime(d.year, d.month, d.day + days);
 
+  /// Stable yyyy-MM-dd key for a local calendar day (DST-safe, no formatting
+  /// dependency); every dated record uses this key.
+  static String dayKey(DateTime d) =>
+      '${d.year.toString().padLeft(4, '0')}-'
+      '${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
+
   /// UTC-based so a DST clock shift (23/25h days) can never truncate a
   /// calendar-day difference to one day short.
   static int daysBetween(DateTime a, DateTime b) => DateTime.utc(
@@ -72,6 +79,15 @@ class CycleEngine {
   /// Product rule: period starts must be at least 21 calendar days apart.
   static bool cycleTooShort(DateTime a, DateTime b) =>
       daysBetween(a, b).abs() < 21;
+
+  /// True when `start` can be recorded as a period start alongside [logs].
+  /// Checking every existing start in both directions is what makes a
+  /// retroactive entry unable to bypass the 21-day spacing rule; exactly 21
+  /// days apart is allowed. Re-saving the same start (e.g. adding an end) is
+  /// never blocked.
+  static bool startSpacingOk(List<PeriodLog> logs, DateTime start) =>
+      logs.any((l) => dateOnly(l.start) == dateOnly(start)) ||
+      logs.every((l) => !cycleTooShort(l.start, start));
 
   /// v0.2.0 (#1): median resists single-cycle outliers (a 42-day gap in a
   /// 28-day pattern must not drag the average to 31).
@@ -200,6 +216,21 @@ class CycleEngine {
       estimateState == EstimateState.unknown;
 
   Phase? phaseOrNull(DateTime date) => canPredict ? phaseAt(date) : null;
+
+  // Historical derivability is independent of today's overdue forecast gate.
+  // A recorded next start bounds a past cycle; an unbounded cycle still obeys
+  // the existing ten-day silence limit. Hormonal mode remains unavailable.
+  Phase? phaseForRecord(DateTime date) {
+    if (settings.contraception == Contraception.hormonal) return null;
+    final d = dateOnly(date);
+    final idx = logs.lastIndexWhere((l) => !l.start.isAfter(d));
+    if (idx < 0) return null;
+    if (idx == logs.length - 1 &&
+        daysBetween(logs[idx].start, d) >= avgCycle + 10) {
+      return null;
+    }
+    return phaseAt(d);
+  }
 
   // ---------- confidence (4.3 / 4.7) ----------
 
@@ -402,6 +433,31 @@ class CycleEngine {
       if (diff <= band && diff >= -(5 + band)) return true;
     }
     return false;
+  }
+
+  /// The estimated ovulation day itself — an estimate with uncertainty, never
+  /// a confirmed day. Distinct from the six-day fertile interval that ends on
+  /// it ([fertileIntervalAt]).
+  bool ovulationDayAt(DateTime date) {
+    if (!canPredict) return false;
+    final d = dateOnly(date);
+    for (final a in _fertileAnchors) {
+      final ovu = ovulationDayFor(a);
+      if (ovu != null && dateOnly(ovu) == d) return true;
+    }
+    return false;
+  }
+
+  /// The next estimated ovulation day from [today] onward, for summaries.
+  /// Null when the mode or history cannot support one.
+  DateTime? nextOvulationDay() {
+    if (!canPredict) return null;
+    final d = dateOnly(today);
+    final days = [
+      for (final a in _fertileAnchors) ovulationDayFor(a),
+    ].whereType<DateTime>().where((o) => !dateOnly(o).isBefore(d)).toList()
+      ..sort((a, b) => a.compareTo(b));
+    return days.isEmpty ? null : days.first;
   }
 
   // ---------- health nudge (4.8 + D29) ----------

@@ -7,11 +7,13 @@ class SelectableItem {
   final bool support; // "apoio intensivo" boost
   final bool preferred; // user-authored preference
   final ActionCategory category;
+  final int relevance; // current observation=1, history=2, stage=3, general=4
   const SelectableItem(
       {required this.id,
       this.support = false,
       this.preferred = false,
-      this.category = ActionCategory.help});
+      this.category = ActionCategory.help,
+      this.relevance = 4});
 }
 
 /// Deterministic, date-aware daily action selection (implementation.md P4).
@@ -43,40 +45,51 @@ class SupportSelector {
     return h & 0x7fffffffffffffff;
   }
 
+  /// The public day-ranked key for [id] — the same primitive the action
+  /// rotation uses, so every date-seeded selection is deterministic and
+  /// stable across rebuilds and restarts.
+  static int dayRank(String id, DateTime date) => _hash(id, _daySeed(date));
+
   /// Builds the day's ordering of eligible ids.
   ///
   /// - [suppressed]: ids with negative feedback in the last 7 days — removed.
   /// - [recentlyCompleted]: ids completed in the last 7 days — sunk to the end
   ///   so finished actions stop leading, without dropping them entirely.
+  /// - [boost]: ids with prior *positive* action feedback — raised to the
+  ///   front as "previously helpful" claims. Feedback is the only evidence an
+  ///   action worked; feeling history never boosts here.
   /// - [supportPriority]: `apoio` items come first *within* the rotation.
   ///
-  /// A preference is `preferred` but never pinned to slot 0: the date-seeded
-  /// hash re-ranks every day, so no single item permanently occupies the top.
+  /// Preferences lead within fresh/done partitions. Date-seeded rotation and
+  /// feedback break ties within relevance tiers, never override explicit needs.
   static List<String> order(
     List<SelectableItem> items,
     DateTime date, {
     Set<String> suppressed = const {},
     Set<String> recentlyCompleted = const {},
+    Set<String> boost = const {},
     bool supportPriority = false,
   }) {
-    final eligible =
-        items.where((i) => !suppressed.contains(i.id)).toList();
+    final seen = <String>{};
+    final eligible = items.where((i) => i.id.isNotEmpty &&
+        !suppressed.contains(i.id) && seen.add(i.id)).toList();
     final seed = _daySeed(date);
     int key(SelectableItem i) => _hash(i.id, seed);
-    // 1. deterministic per-day permutation
-    eligible.sort((a, b) => key(a).compareTo(key(b)));
-    // 2. sink recently-completed items to the tail (stable within the split)
-    final fresh = eligible.where((i) => !recentlyCompleted.contains(i.id)).toList();
-    final done = eligible.where((i) => recentlyCompleted.contains(i.id)).toList();
-    var ranked = [...fresh, ...done];
-    // 3. support re-rank as a stable partition of the (already rotated) order
-    if (supportPriority) {
-      ranked = [
-        ...ranked.where((i) => i.support),
-        ...ranked.where((i) => !i.support),
-      ];
-    }
-    return ranked.map((i) => i.id).toList();
+    eligible.sort((a, b) {
+      final done = (recentlyCompleted.contains(a.id) ? 1 : 0)
+          .compareTo(recentlyCompleted.contains(b.id) ? 1 : 0);
+      if (done != 0) return done;
+      final tier = (a.preferred ? 0 : a.relevance)
+          .compareTo(b.preferred ? 0 : b.relevance);
+      if (tier != 0) return tier;
+      final feedback = (boost.contains(a.id) ? 0 : 1)
+          .compareTo(boost.contains(b.id) ? 0 : 1);
+      if (feedback != 0) return feedback;
+      if (supportPriority && a.support != b.support) return a.support ? -1 : 1;
+      final rank = key(a).compareTo(key(b));
+      return rank != 0 ? rank : a.id.compareTo(b.id);
+    });
+    return eligible.map((i) => i.id).toList();
   }
 
   /// The leading id for [cursor] within [order], wrapping when the user keeps

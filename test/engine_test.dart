@@ -569,8 +569,10 @@ void main() {
       expect(SupportSelector.order(items, day),
           SupportSelector.order(items, CycleEngine.dateOnly(DateTime(2026, 10, 5))));
     });
-    test('learning has >=12 cards with unique ids and PT/EN parity', () {
-      expect(learning.items.length, greaterThanOrEqualTo(12));
+    test('learning has 25–30 EN/PT micro-lessons with cards and takeaways',
+        () {
+      expect(learning.items.length, greaterThanOrEqualTo(25));
+      expect(learning.items.length, lessThanOrEqualTo(30));
       final ids = learning.items.map((i) => i.id).toList();
       expect(ids.toSet().length, ids.length);
       for (final i in learning.items) {
@@ -581,6 +583,19 @@ void main() {
         expect(i.bodyEn.trim(), isNotEmpty);
         expect(i.sourcePt.trim(), isNotEmpty);
         expect(i.sourceEn.trim(), isNotEmpty);
+        expect(i.cards.length, inInclusiveRange(1, 3), reason: i.id);
+        for (final c in i.cards) {
+          expect(c.pt.trim(), isNotEmpty, reason: i.id);
+          expect(c.en.trim(), isNotEmpty, reason: i.id);
+        }
+        expect(i.takeaway, isNotNull, reason: i.id);
+        expect(i.takeaway!.pt.trim(), isNotEmpty, reason: i.id);
+        expect(learning.topics.keys, contains(i.topic), reason: i.id);
+        for (final r in i.refs) {
+          expect(r.url.startsWith('https://'), isTrue, reason: i.id);
+          expect(r.labelPt.trim(), isNotEmpty);
+          expect(r.labelEn.trim(), isNotEmpty);
+        }
         if (i.quiz != null) {
           expect(i.quiz!.options.length, greaterThanOrEqualTo(2));
           expect(i.quiz!.answer, inInclusiveRange(0, i.quiz!.options.length - 1));
@@ -593,6 +608,28 @@ void main() {
             expect(o.en.trim(), isNotEmpty);
           }
         }
+      }
+    });
+    test('the 13 original lesson ids are preserved for old completion records',
+        () {
+      const legacy = [
+        'l:what-a-cycle-is', 'l:phases-vary', 'l:dates-not-feelings',
+        'l:ovulation-uncertainty', 'l:fertile-window',
+        'l:hormonal-contraception', 'l:estimates-not-facts',
+        'l:ask-dont-assume', 'l:specific-offers', 'l:mental-load',
+        'l:space-is-support', 'l:irregularity-and-health',
+        'l:consent-and-data',
+      ];
+      for (final id in legacy) {
+        expect(learning.byId(id), isNotNull, reason: id);
+      }
+    });
+    test('support actions carry EN/PT offering examples', () {
+      final withOffer =
+          catalog.general.actionable.where((i) => i.offer(false) != null);
+      expect(withOffer.length, greaterThanOrEqualTo(20));
+      for (final i in withOffer) {
+        expect(i.offer(true)!.trim(), isNotEmpty, reason: i.id);
       }
     });
     test('learning cards avoid certainty/pregnancy claims', () {

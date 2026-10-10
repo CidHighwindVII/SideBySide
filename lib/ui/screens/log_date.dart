@@ -23,13 +23,16 @@ class LogDateScreen extends ConsumerWidget {
               initialDate: initialDate ?? today, firstDate: DateTime(today.year - 1),
               lastDate: CycleEngine.addCalendarDays(today, 365));
           if (picked == null || !context.mounted) return;
-          final logs = ref.read(appDataProvider).logs;
-          if (logs.any((log) => CycleEngine.cycleTooShort(log.start, picked))) {
+          // Mutation layer enforces the 21-day spacing rule; this pre-check
+          // just explains the rejection instead of a silent no-op.
+          final saved = ref
+              .read(appDataProvider.notifier)
+              .saveLog(PeriodLog(picked, null));
+          if (!saved && context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(l.periodTooSoon)));
             return;
           }
-          ref.read(appDataProvider.notifier).saveLog(PeriodLog(picked, null));
           Navigator.of(context).pop();
         },
       )));

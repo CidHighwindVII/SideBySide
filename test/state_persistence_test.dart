@@ -43,23 +43,36 @@ class _RecordingStore extends Store {
 }
 
 void main() {
-  test('old JSON still loads; preferences and action ratings round-trip', () {
+  test('old JSON still loads; legacy observations migrate to feeling records', () {
     final old = AppData.fromJson({
       'settings': {'onboarded': true},
       'logs': [PeriodLog(DateTime(2026, 8, 1), null).toJson()],
-      'observations': [const Observation('2026-08-01', ['colicas']).toJson()],
+      'observations': [
+        {'date': '2026-08-01', 'tags': ['colicas', 'weird-tag']},
+      ],
       'customCards': [const CustomCard(Phase.pms, 'old note').toJson()],
       'feedback': [const ForecastFeedback('2026-08-01', true).toJson()],
     });
     expect(old.preferences, isEmpty);
     expect(old.actionFeedback, isEmpty);
+    // known legacy tag → canonical concept; unmapped value preserved as a
+    // custom concept, so the record is never dropped.
+    final migrated = old.feelingLogs.single;
+    expect(migrated.date, '2026-08-01');
+    expect(migrated.entries.map((e) => e.concept).toList(),
+        containsAll(['cramps', 'custom:1']));
+    expect(old.customFeelings.single.label, 'weird-tag');
+    // migration is idempotent: re-parsing the new file changes nothing
+    final reparsed = AppData.fromJson(old.toJson());
+    expect(reparsed.feelingLogs.single.entries.length, 2);
+    expect(reparsed.customFeelings.single.label, 'weird-tag');
+    expect(reparsed.nextId, old.nextId);
     final updated = old.copyWith(
       preferences: [const SupportPreference(1, 'help', 'Agreed chore')],
       actionFeedback: [const ActionFeedback('2026-08-02', 'preference:1', true)],
     );
     final restored = AppData.fromJson(updated.toJson());
     expect(restored.logs.length, 1);
-    expect(restored.observations.single.tags, ['colicas']);
     expect(restored.customCards.single.text, 'old note');
     expect(restored.feedback.single.thumbsUp, isTrue);
     expect(restored.preferences.single.text, 'Agreed chore');
@@ -282,6 +295,124 @@ void main() {
   });
 
   group('Phase 9 — end-to-end regression', () {
+    test('saveLog enforces 21-day spacing for every logging entry point',
+        () async {
+      final store = _RecordingStore()..releaseFirstWrite.complete();
+      final n = AppDataNotifier(store, const AppData());
+      expect(n.saveLog(PeriodLog(DateTime(2026, 1, 1), null)), isTrue);
+      await n.persistenceIdle;
+      expect(n.saveLog(PeriodLog(DateTime(2026, 1, 21), null)), isFalse);
+      expect(n.saveLog(PeriodLog(DateTime(2025, 12, 20), null)), isFalse); // earlier direction
+      expect(n.saveLog(PeriodLog(DateTime(2026, 1, 22), null)), isTrue);
+      await n.persistenceIdle;
+      expect(n.state.logs.length, 2);
+      expect(store.onDisk!.logs.length, 2); // rejected writes never persisted
+      // an end edit on the same start still passes
+      expect(n.saveLog(PeriodLog(DateTime(2026, 1, 22), DateTime(2026, 1, 26))), isTrue);
+      await n.persistenceIdle;
+      expect(n.state.logs.last.end, DateTime(2026, 1, 26));
+      n.dispose();
+    });
+
+    test('existing starts can still have end dates edited in legacy short cycles', () async {
+      final store = _RecordingStore()..releaseFirstWrite.complete();
+      final n = AppDataNotifier(store, AppData(logs: [
+        PeriodLog(DateTime(2026, 1, 1), null),
+        PeriodLog(DateTime(2026, 1, 15), null),
+      ]));
+      expect(n.saveLog(PeriodLog(DateTime(2026, 1, 1), DateTime(2026, 1, 4))), isTrue);
+      await n.persistenceIdle;
+      expect(n.state.logs.first.end, DateTime(2026, 1, 4));
+      expect(n.saveLog(PeriodLog(DateTime(2026, 1, 8), null)), isFalse);
+      n.dispose();
+    });
+
+    test('feeling edits, custom rename/merge and rotation persist through _set',
+        () async {
+      final store = _RecordingStore()..releaseFirstWrite.complete();
+      final n = AppDataNotifier(store, const AppData());
+      expect(n.addCustomFeeling('zumbido'), 'custom:1');
+      expect(n.addCustomFeeling('tontura leve'), 'custom:2');
+      n.saveFeelingLog('2026-10-10', const [
+        FeelingEntry('cramps', intensity: FeelingIntensity.mild),
+        FeelingEntry('custom:1'),
+        FeelingEntry('custom:1'), // duplicate tap collapses
+      ]);
+      await n.persistenceIdle;
+      expect(n.state.feelingLogs.single.entries.length, 2);
+      expect(store.onDisk!.feelingLogs.single.date, '2026-10-10');
+      expect(store.onDisk!.customFeelings.length, 2);
+
+      n.renameCustomFeeling(1, 'zumbido nos ouvidos');
+      await n.persistenceIdle;
+      expect(n.state.customFeelings.first.label, 'zumbido nos ouvidos');
+
+      // merge custom:1 into a canonical concept: dated references move over
+      // and same-date duplicates collapse.
+      n.saveFeelingLog('2026-10-09', const [FeelingEntry('custom:1')]);
+      n.mergeCustomFeeling(1, 'dizzy');
+      await n.persistenceIdle;
+      expect(n.state.customFeelings.length, 1);
+      final merged = n.state.feelingLogs
+          .firstWhere((f) => f.date == '2026-10-10')
+          .entries
+          .map((e) => e.concept)
+          .toList();
+      expect(merged, containsAll(['cramps', 'dizzy']));
+      expect(merged.where((c) => c == 'custom:1'), isEmpty);
+      expect(n.state.feelingLogs.any((f) =>
+              f.entries.any((e) => e.concept == 'custom:1')),
+          isFalse);
+
+      n.setFeelingRotation('2026-10-10', 4);
+      await n.persistenceIdle;
+      expect(store.onDisk!.feelingRotations.single.cursor, 4);
+      final reloaded = AppData.fromJson(store.onDisk!.toJson());
+      expect(reloaded.feelingRotations.single.cursor, 4);
+      expect(reloaded.customFeelings.length, 1);
+      n.dispose();
+    });
+
+    test('stale deleted-custom references cannot be reintroduced by a save', () async {
+      final store = _RecordingStore()..releaseFirstWrite.complete();
+      final n = AppDataNotifier(store, const AppData());
+      n.addCustomFeeling('temporary');
+      n.saveFeelingLog('2026-10-10', const [FeelingEntry('custom:1')]);
+      await n.persistenceIdle;
+      n.mergeCustomFeeling(1, 'dizzy');
+      await n.persistenceIdle;
+      n.saveFeelingLog('2026-10-10', const [
+        FeelingEntry('custom:1'), // stale editor draft
+        FeelingEntry('cramps'),
+      ]);
+      await n.persistenceIdle;
+      final saved = n.state.feelingLogs.single.entries.map((e) => e.concept);
+      expect(saved, contains('cramps'));
+      expect(saved, isNot(contains('custom:1')));
+      expect(n.state.customFeelings, isEmpty);
+      n.dispose();
+    });
+
+    test('deleting a custom concept removes only its dated references',
+        () async {
+      final store = _RecordingStore()..releaseFirstWrite.complete();
+      final n = AppDataNotifier(store, const AppData());
+      n.addCustomFeeling('extra');
+      n.saveFeelingLog('2026-10-10', const [
+        FeelingEntry('cramps'),
+        FeelingEntry('custom:1'),
+      ]);
+      n.saveFeelingLog('2026-10-11', const [FeelingEntry('custom:1')]);
+      await n.persistenceIdle;
+      n.deleteCustomFeeling(1);
+      await n.persistenceIdle;
+      expect(n.state.feelingLogs.length, 1); // 10-11 had only the custom → removed
+      expect(n.state.feelingLogs.single.date, '2026-10-10');
+      expect(n.state.feelingLogs.single.entries.single.concept, 'cramps');
+      n.dispose();
+    });
+
+
     test('completion → persistence → garden growth → restart, no duplicates',
         () async {
       final store = _RecordingStore()..releaseFirstWrite.complete();

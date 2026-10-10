@@ -37,6 +37,10 @@ class MainActivity : FlutterActivity() {
                     result.notImplemented()
                 }
             }
+        // Phase 5: isolated on-device summarization capability channel.
+        configureSummarizationChannel(
+            flutterEngine.dartExecutor.binaryMessenger, this
+        )
     }
 
     override fun onRequestPermissionsResult(

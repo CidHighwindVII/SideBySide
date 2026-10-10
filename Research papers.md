@@ -1,109 +1,199 @@
-# Research & Evidence — basis for SPEC v0.9.0
+# Research & Evidence — planning and content basis
 
-Papers reviewed to decide which utility features SideBySide should add. Each
-finding lists the sources, what they say, and the concrete recommendation that
-became a decision (D27–D30) in `SPEC-v0.9.0.md`. Numbers are quoted from the
-abstracts/full text returned during retrieval.
+Sources reviewed for `new-implementation.md` content decisions. The earlier
+version of this file summarized papers against a deleted specification
+(`SPEC-v0.9.0.md`) and quoted some venue labels from retrieval metadata without
+verification; those references are historical and must not be treated as
+implemented claims. Current code and the phase record in
+`new-implementation.md` define actual behaviour.
 
----
-
-## F1 — Calendar-only methods cannot pinpoint ovulation/period; error scales with variability → **D27**
-
-- **"Can apps and calendar methods predict ovulation with sufficient accuracy?"** (BJOG 2018; PubMed 29749274). 949 volunteers with urinary LH across a full cycle. *Accuracy of ovulation prediction was no better than 21% by the apps*; "it is not possible for calendar/app methods that use cycle-length information alone to accurately predict the day of ovulation."
-- **"Period tracker applications: What menstrual cycle information are they giving women?"** (Women's Health 2021). 10 apps × 5 women: of 36 ovulation predictions, only 3 (8%) exact, **67% were 2–9 days early**; apps assume a textbook 28-day / day-14 model.
-- **"Oura Ring as a Tool for Ovulation Detection"** (JMIR 2025; e60667). Calendar method **MAE 3.44 days** (regular) rising to **6.63 days for irregular cycles**; physiology method 1.26 d. "calendar method performed significantly worse in participants with irregular cycles."
-- **"The diagnostic accuracy of wearable digital technology in detecting the fertility window"** (npj Digital Medicine 2026). Pooled accuracy: wearables 0.88, BBT 0.75, **calendar 0.72** (worst).
-- **"Plausibility of Menstrual Cycle Apps Claiming to Support Conception"** (PMC5891577). Calendar-based apps scored **0/30** on a quality rubric; "the utility of this technique is limited."
-
-**Recommendation → D27:** the app's fixed ±2-day bands overstate precision for low-confidence users. Scale band width to confidence (high 2 / medium 3 / low 4) so the displayed uncertainty tracks the real error the literature measures. This is the honesty rule (§3/D19) made quantitative.
+**Verification pass (2026-10-11).** The sources that directly anchor published
+app content were re-fetched and checked; the rest are marked with their status.
+Numbers below come from the abstracts/results sections of the retrieved pages.
+Study findings are associations or trial outcomes in specific populations —
+never individual predictions, and never clinical guidance.
 
 ---
 
-## F2 — The premenstrual window is ~the final week, not the final 5 days → **D28**
+## Verified this pass
 
-- **"Premenstrual syndrome"** (The Lancet 2008). "Symptoms often worsen substantially **6 days before**, and peak at about **2 days before**, menses start." Anger/irritability start slightly earlier than other symptoms.
-- **"Premenstrual Syndrome"** (StatPearls NBK560698, 2023). "Symptoms often worsen a week before and spike two days before menstruation begins."
-- **"Premenstrual Disorders"** (StatPearls NBK532307). Symptoms "typically begin **1 to 2 weeks before** menstruation"; DSM-5 timing criterion = "final week before the onset of menses."
-- **"Premenstrual Dysphoric Disorder"** (Endotext NBK279045, 2017). Onset "often **7–10 days prior** to menstruation."
-- **"Premenstrual syndrome: new insights into etiology"** (Frontiers in Psychiatry 2024). PMS prevalence ~47.8%; PMDD (severe form) ~3–8%.
-- **"Are there temporal subtypes of PMDD?"** (PMC8168625, 2021). Trajectory modelling: a majority "premenstrual-week" group plus a smaller "full-luteal" group — i.e. the rough window is *at least* the last week, sometimes longer.
+### V1 — Johnson, Marriott & Zinaman (2018). "Can apps and calendar methods predict ovulation with accuracy?"
+*Current Medical Research & Opinion* 34(9):1587–1594. DOI 10.1080/03007995.2018.1475348.
+Earlier notes in this file mislabelled the venue as BJOG; corrected here.
+https://pubmed.ncbi.nlm.nih.gov/29749274/
 
-**Recommendation → D28:** widen the PMS phase from the last 5 days to the last **7** days (the "premenstrual week"), so the warning cards and the PMS-start briefing fire ~2 days earlier — exactly when the evidence says irritability/sensitivity begin. Clamp against short-cycle overlap with ovulation.
+- **Population:** 949 volunteers (768 analysed) aged ≥18, seeking to conceive,
+  self-reported cycles 23–35 days; cycles outside that range were excluded —
+  so results do not characterise very short or long cycles.
+- **Findings:** for a 28-day cycle the most likely ovulation day was day 16
+  (21% probability); app day-prediction accuracy was "no better than 21%";
+  "it is not possible for calendar/app methods that use cycle-length
+  information alone to accurately predict the day of ovulation."
+- **Limitations:** best-case scoring assumptions; apps' undisclosed methods had
+  to be modelled; volunteers were fertile-window-motivated, not representative
+  of all users.
+- **App content it supports:** uncertainty band widening by confidence
+  (`bandDays`); the Calendar ovulation-day marker and its "estimate, not
+  confirmed day" detail sheet; lesson `l:ovulation-uncertainty`.
 
----
+### V2 — Verhofstadt et al. (2016). "The Role of Cognitive and Affective Empathy in Spouses' Support Interactions: An Observational Study"
+*PLoS ONE* 11(2): e0149944. PMC4765893.
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4765893/
 
-## F3 — Variability (not just absolute length) is the marker and the error driver → **D29**
+- **Population:** 45 committed heterosexual couples (50 recruited) living
+  together ≥6 months; lab-based observed support conversations, not a
+  generalisation to all couples or relationship forms.
+- **Findings:** for male providers, higher situational perspective-taking was
+  associated with less negative support; across both partners, situational
+  perspective-taking correlated with more instrumental support; dispositional
+  empathic concern predicted lower negative support.
+- **Limitations:** cross-sectional observation; association ≠ causation; coded
+  10-minute lab tasks, not daily life; no app involved.
+- **App content it supports:** the Support screen's concrete-offer and
+  listening-first ordering; lessons `l:listen-dont-fix`,
+  `l:comfort-or-space`; warnings in `catalog.json` against unsolicited advice.
 
-- **"Oura Ring as a Tool for Ovulation Detection"** (JMIR 2025). Cycle *variability* significantly degraded calendar accuracy (irregular → 6.6 d MAE); the physiology method was robust to it.
-- **"Tracking mood symptoms across the menstrual cycle… EMA + HRV"** (BMJ Mental Health 2025; e301674). Uses cycle day −14…+20; **excludes lengths outside 21–35 d** as outside the normal range — the same range the app already nudges on.
-- Gynecology norm (echoed across the PMS sources): a cycle is "regular" only if cycle-to-cycle variation is small (~≲ 7–9 d); larger variation warrants evaluation even when each cycle is in the 21–35 d range.
+### V3 — Ussher & Perz (2017). "Evaluation of the relative efficacy of a couple CBT for Premenstrual Disorders… RCT"
+*PLoS ONE* 12(4): e0175068. PMC5395168.
+https://pmc.ncbi.nlm.nih.gov/articles/PMC5395168/
 
-**Recommendation → D29:** the current nudge only catches gaps outside 21–35 d. Add a **variability trigger** (max − min ≥ 9 days over the last ≥ 3 gaps) so an in-range-but-wild pattern is also flagged — in-app only, no notification, no diagnosis.
+- **Population:** 83 women randomised (63 completed) meeting moderate–severe
+  PMD criteria — a clinical sample, not the general population.
+- **Findings:** both CBT arms reduced premenstrual symptoms/distress vs
+  wait-list; the couple arm showed more active behavioural coping; increased
+  partner understanding was reported by 84% (couple) vs 39% (one-to-one) vs
+  19% (wait-list), relationship improvement by 57% vs 26% vs 5%.
+- **Limitations:** attrition and small final sample; partners' own perspectives
+  were not assessed; mostly heterosexual couples; therapy effects do not
+  transfer to app features.
+- **App content it supports:** communication topics (`l:timing-talks`,
+  `l:tracking-together`, `l:ask-dont-assume`); the framing that shared
+  awareness helps while never claiming the app itself reproduces trial effects.
 
----
+### V4 — Yonkers, O'Brien & Eriksson (2008). "Premenstrual syndrome" — *The Lancet* 371:1200–1210
+https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(08)60527-9/fulltext
 
-## F4 — Shared awareness of the cyclical pattern is the active ingredient → **D30**
+- **Findings checked:** symptoms "often worsen substantially 6 days before, and
+  peak at about 2 days before, menses start"; anger/irritability are among the
+  most severe complaints and start slightly earlier; peak days by factor
+  (depressive −2, physical −1, anger −2, cravings −3); 5–8% have moderate–severe
+  symptoms; a symptom-free interval before ovulation is part of the definition.
+- **App content:** background for the last-7-days product window and lessons
+  `l:before-period` / `l:irritability-leads`. Current feeling eligibility is
+  explicitly mapped to V9/V10 below; the window is not clinical precision.
 
-- **Frank et al.** (reported in the couple-CBT RCT below): including the male partner in **monitoring** the woman's premenstrual symptoms gave "significant improvement in relationship functioning and reduction in premenstrual distress compared to a self-monitoring control group"; awareness of the pattern let couples "develop joint strategies… and discuss major issues at times other than the premenstrual phase."
-- **"Evaluation of the relative efficacy of couple CBT for Premenstrual Disorders"** (RCT, PMC5395168, 2017). Increased partner understanding/support reported by **84%** in the couple condition vs 39% one-to-one and 19% wait-list; relationship improvement **57%** vs 26% vs 5%.
-- **"Impact of women's coping with premenstrual symptoms on dyadic adjustment and perceived social support"** (Akbağ & Güler, 2026). Concludes clinicians should involve "spouses or romantic partners in educational interventions to improve awareness of premenstrual symptoms."
-- **"The relationship between partner social support and premenstrual symptoms"** (Schwartz, Drexel, 2001). Women perceiving lower available partner support are "more susceptible to experiencing distressing emotional and physical symptoms" pre- and post-menstrually.
-- **"Empathy, Egalitarianism and Emotion Work in the Relational Negotiation of PMS"** (2008). Awareness/recognition of premenstrual change + responsiveness → open communication and better outcomes.
+### V5 — Withdrawn citation: ovulatory positive affect
 
-**Recommendation → D30:** the app already makes *him* a monitor, but never surfaces the **pattern** back to him. Add a read-only view clustering his own observations by derived phase across cycles — operationalising "shared awareness of the pattern" without feeding the engine or making clinical claims.
+The earlier Ocampo/Heliyon citation could not be substantiated in this repair
+pass. Europe PMC resolves `10.1016/j.heliyon.2016.e00186` to a reactive-stepping
+stroke study (PMID 27861645), not the claimed affect study. The ScienceDirect
+PII did not retrieve successfully. The claimed population and findings must
+not be reused as verified evidence. `good-mood` remains searchable/loggable,
+but has no stage association; `l:positive-window` retains its ID and now teaches
+the distinction between population associations and individual expectations.
 
----
+### V6 — Delray, Lewis & Hayes (2025). "Tracking mood symptoms across the menstrual cycle in women with depression using ecological momentary assessment and heart rate variability" *BMJ Mental Health* 28(1): e301674
+https://mentalhealth.bmj.com/content/28/1/e301674
 
-## F5 — Partner support = validate + instrumental, not "fixing" → **catalog validated (no change)**
+- **Population:** 352 women **with depression** tracked by EMA; the analysed range
+  excludes cycles outside ~21–35 days — findings describe that group, not all
+  menstruants.
+- **Findings used:** mood lowest roughly from ~3 days before to ~2 days after
+  menstruation onset; energy was not reliably associated with cycle day; the
+  study frames premenstrual *exacerbation* of depression, which this app must
+  not present as a diagnosis.
+- **App content:** lessons `l:energy-myth` / `l:mood-lowest` now name the clinical
+  population. A null energy result in this cohort does not exclude premenstrual
+  fatigue elsewhere (the paper explicitly notes fatigue in PMDs). It does not
+  override V9's patient information or validate a universal mood window.
+- **Rechecked 2026-10-11:** publisher returned 403; full text retrieved from
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12198828/ (DOI `10.1136/bmjment-2025-301674`).
 
-- **"The Role of Cognitive and Affective Empathy in Spouses' Support Interactions"** (observational, PMC4765893). For **male** providers, situational perspective-taking (empathic accuracy) → **lower negative support** (less unsolicited advice/criticism) and **more instrumental support**.
-- **"Men's Perceptions and Attitudes Toward the Partner With PMS"** (2014). Knowledge of the cycle → better understanding and conflict-avoidance; the risk is **medicalizing** PMS and rendering her complaints invisible.
-- **"28 days later"** (Psychological Medicine 2025): anger/irritability are the most distressing premenstrual complaints.
+### V7 — Pierson, Althoff, Thomas, Hillard & Leskovec (2021). "Daily, weekly, seasonal and menstrual cycles in women's mood, behaviour and vital signs" *Nature Human Behaviour* 5:716–725
+https://www.nature.com/articles/s41562-020-01046-9
 
-**Recommendation:** the catalog's existing items — "validate before fixing", "take on chores unasked", "ask: vent or help?", and the warnings "never say 'it's your hormones' / 'it's PMS'" — already match this evidence. **No content change.** (Also satisfies the §3 honesty + anti-medicalization framing.)
+- **Population:** 241 million observations from 3.3 million women in 109
+  countries, using the Clue women's-health app. Self-tracking, app-user selection
+  and reporting effects apply; these are not universal wearable measurements.
+- **Findings used:** mood and vital signs varied most across the menstrual
+  cycle while sleep and exercise behaviour remained more constant.
+- **App content it supports:** sleep treated as weakly stage-linked
+  (`l:sleep-steady`), and the general caution in lesson
+  `l:estimates-not-facts`.
 
----
+- **Rechecked 2026-10-11:** publisher abstract, authors/citation and data
+  availability retrieved. Subscription full text was not available; do not
+  attribute additional detailed effects to this abstract-only inspection.
 
-## F6 — Mood/energy across the cycle → **axes kept; energy is the softest signal**
+### V8 — Google ML Kit GenAI Summarization (Android), developer docs, retrieved 2026-10-11
+https://developers.google.com/ml-kit/genai/summarization/android
 
-- **"Daily, weekly, seasonal and menstrual cycles in women's mood, behaviour and vital signs"** (Nature Human Behaviour 2021; 241 M observations, 3.3 M women). "Mood, vital signs and sexual behaviour vary most substantially over the menstrual cycle, while **sleep and exercise behaviour remain more constant**."
-- **"Tracking mood symptoms… EMA"** (BMJ 2025). Mood lowest from **3 d before to 2 d after** menstruation; **energy NOT associated with cycle day**.
-- **"28 days later"** (2025): progesterone → less energy / lower happiness / worse sleep in luteal; OC users show flattened variability.
-- **"Comparison of affect changes during the ovulatory phase"** (Heliyon 2016): positive affect highest periovulation in naturally-cycling women.
-- **"Moods in everyday situations"** (Davydov et al.): follicular/luteal per se don't *determine* mood — they modulate arousal reactivity.
+- Beta API; requires Android API ≥26 and AICore/Gemini Nano on supported
+  devices; documented language support is English, Japanese and Korean —
+  **not Portuguese**. Availability must be checked at runtime; installed
+  assistant apps do not imply an accessible model.
+- **App impact:** adapter scaffolding only; no provider is bundled, the app
+  reports unavailable and there is no cloud fallback or Portuguese promise.
 
-**Recommendation:** the phase→status `axes` map (green follicular/ovulation, yellow luteal, red menstrual/PMS) is directionally consistent with the mood data — **keep it**. `energy` is the weakest-evidenced axis (already in-app-only, never on the lock screen), so it stays soft and is **not** expanded. No new energy feature.
+### V9 — NHS, "PMS (premenstrual syndrome)"
+https://www.nhs.uk/conditions/pre-menstrual-syndrome/
 
----
+- **Retrieved 2026-10-11:** patient information; reviewed 18 June 2024. Symptoms
+  vary between women and months. Lists mood swings, depressed/irritable or
+  anxious/emotional feelings, tiredness/sleep trouble, bloating, breast
+  tenderness, skin changes and appetite/cravings before a period.
+- **Supports exactly 12 luteal concepts:** tender-breasts, bloating, acne,
+  appetite-up, cravings, irritable, mood-swings, anxious, sad, emotional,
+  low-energy, slept-badly. Presented only in the estimated pre-period window,
+  with limitations/source access. No frequency, individual prediction or
+  diagnosis is inferred. Vivid dreams, general pain tolerance and other
+  unsubstantiated stage associations were removed.
 
-## Guardrails — what the evidence says NOT to build
-- **Fertile-window / ovulation-day precision:** F1 shows calendar data can't do it, and it collides with D14 (zero pregnancy wording) + §3. Ovulation stays a mood anchor only.
-- **ML / personalization / retraining:** not supported by any finding as a utility need; fixed rule engine stands.
-- **Severity/PMDD screening:** F2/F5 flag PMDD but diagnosis needs prospective clinical charting; the app's §3 "no medical advice" boundary holds. The D29 nudge stays a gentle, non-diagnostic prompt.
+### V10 — NHS, "Period pain"
+https://www.nhs.uk/conditions/period-pain/
 
----
+- **Retrieved 2026-10-11:** patient information; reviewed 18 March 2026. Describes
+  cramps/tummy pain around period onset that may spread to back and thighs.
+- **Supports four menstrual concepts:** cramps, backache, pelvic-pain, leg-ache.
+  These are tentative possibilities, not proof of symptoms or their cause.
+- **Curated everyday fallback:** calm, content, neutral, private, sociable.
+  This is editorially selected everyday context, explicitly not an evidenced
+  cycle association. Its source panel says so; no paper is claimed to predict it.
 
-## Full source list (as retrieved)
-1. BJOG 2018 — https://pubmed.ncbi.nlm.nih.gov/29749274/
-2. Women's Health 2021, period-tracker apps — https://sage.cnpereading.com/doi/10.1177/17455065211049905
-3. JMIR 2025, Oura ovulation detection — https://www.jmir.org/2025/1/e60667/PDF
-4. npj Digital Medicine 2026, wearable accuracy NMA — https://www.nature.com/articles/s41746-025-02320-8
-5. PMC5891577, plausibility of conception apps — https://pmc.ncbi.nlm.nih.gov/articles/PMC5891577/
-6. Reprod Biol Endocrinol 2022, BBT+HR ML — https://link.springer.com/article/10.1186/s12958-022-00993-4
-7. Lancet 2008, Premenstrual syndrome — https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(08)60527-9/fulltext
-8. PMC8168625 2021, temporal subtypes of PMDD — https://pmc.ncbi.nlm.nih.gov/articles/PMC8168625/
-9. Endotext NBK279045 2017, PMDD — https://www.ncbi.nlm.nih.gov/books/NBK279045/
-10. StatPearls NBK532307, Premenstrual Disorders — https://www.ncbi.nlm.nih.gov/books/NBK532307/
-11. Frontiers in Psychiatry 2024, PMS new insights — https://www.frontiersin.org/journals/psychiatry/articles/10.3389/fpsyt.2024.1363875/full
-12. StatPearls NBK560698 2023, Premenstrual Syndrome — https://www.ncbi.nlm.nih.gov/books/NBK560698/
-13. Psychological Medicine 2025, "28 days later" — https://www.cambridge.org/core/journals/psychological-medicine/article/19A3FE300575FB7D86414DEA0C34629E
-14. Davydov et al., Moods in everyday situations — https://escholarship.org/content/qt7gr0z2xd/qt7gr0z2xd.pdf
-15. BMJ Mental Health 2025, EMA + HRV in depression — https://mentalhealth.bmj.com/content/28/1/e301674
-16. Nature Human Behaviour 2021, daily/seasonal/menstrual cycles — https://www.nature.com/articles/s41562-020-01046-9
-17. Heliyon 2016, affect at ovulation (OC vs natural) — https://www.sciencedirect.com/science/article/pii/S2405844016322794
-18. PMC5395168 2017, couple-CBT RCT for PMDs (incl. Frank et al.) — https://pmc.ncbi.nlm.nih.gov/articles/PMC5395168/
-19. Drexel 2001 (Schwartz), partner social support & PMS — https://researchdiscovery.drexel.edu/esploro/outputs/doctoral/991021888879704721
-20. Akbağ & Güler 2026, coping → dyadic adjustment — https://exa.ai/library/publication/wfb2fm26l8q
-21. PMC4765893, cognitive/affective empathy in spousal support — https://pmc.ncbi.nlm.nih.gov/articles/PMC4765893/
-22. Men's Perceptions of Partner with PMS, 2014 — https://journals.sagepub.com/doi/10.1177/1557988313497050
-23. UG 2008, empathy/egalitarianism in lesbian PMS negotiation — https://sage.cnpereading.com/doi/10.1177/0959353507084954
+## Reviewed earlier at planning time, not re-verified this pass
+These informed historical decisions; treat their quoted numbers as planning
+memory until someone re-checks them (the file's earlier revision claimed
+verification it had not performed):
+
+- "Period tracker applications: What menstrual cycle information are they
+  giving women?" *Women's Health* 2021 (10 apps × 5 women; 8% exact ovulation
+  matches) — https://sage.cnperereading.com/doi/10.1177/17455065211049905
+- "Oura Ring as a Tool for Ovulation Detection" JMIR 2025 e60667 (calendar MAE
+  3.44→6.63 days with irregularity).
+- "The diagnostic accuracy of wearable digital technology in detecting the
+  fertility window" npj Digital Medicine 2026 (pooled calendar 0.72).
+- "Plausibility of Menstrual Cycle Apps Claiming to Support Conception"
+  PMC5891577.
+- "28 days later" Psychological Medicine 2025; StatPearls NBK560698/NBK532307;
+  Frontiers in Psychiatry 2024 (PMS ~47.8%, PMDD ~3–8%); PMC8168625;
+  Endotext NBK279045; Heliyon/Davydov mood-variability items; Akbağ & Güler
+  2026; Schwartz & Drexel 2001; "Men's Perceptions… with PMS" 2014.
+
+## Evidence → content mapping (current)
+
+| Published content | Anchor | Confidence boundary kept |
+|---|---|---|
+| 16 stage-associated feeling concepts (12 pre-period luteal, four menstrual, none ovulatory/follicular) | V9, V10 | Specific source/limitations metadata; searchable entries are not automatically briefing candidates |
+| Fatigue/sleep possibilities before a period; neutral energy forecast axis | V9, V6, V7 | Clinical-cohort null results do not negate symptoms in other groups; no individual energy prediction |
+| PMS = final ~7 days | V4 (worsening ~6 days before) | Engine window; clamp keeps PMS after ovulation |
+| Confidence-scaled ±2/3/4-day bands, ovulation uncertainty sheet | V1, V7 | Band width is date-uncertainty, not a fertility window |
+| Support ordering: concrete offers, listen-first, space respected | V2 | Association evidence, no efficacy claim |
+| Couple communication lessons | V3 | Clinical-population trial; never promised as app outcomes |
+| Health nudge, PMDD lesson framing | V4 prevalence + V6 population | Suggests a conversation; never diagnoses |
+| No Portuguese AI summary claim | V8 | Capability-checked; EN/JA/KO only per docs |
+
+## Guardrails (unchanged)
+Calendar-only methods cannot pinpoint ovulation; no pregnancy wording;
+recurrence in History is a product threshold, not validated accuracy; lock
+screen reveals nothing; research retrieved here is not user-research — the
+rendered Support tasks and Today prototype still require real human review.

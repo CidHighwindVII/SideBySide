@@ -1,5 +1,7 @@
 # lib/data
 
-- `store.dart`: exactly one durable app-data JSON file; temp+rename is an atomic-write mechanism, not a second persistence surface. Keep writes/wipe ordered with state changes; `engine/models.dart` JSON defaults must remain backward-compatible.
-- `device.dart`: Android calendar writes and home-screen widget only; no backup export/import or QR sync. No cloud/server storage.
-- `assets/catalog.json` supplies PT-PT + EN suggestion content and phase axes, parsed in `catalog.dart`. Once loaded, its axes override `CycleEngine._axisMap` fallback. Render suggestions through `PhaseCatalog.pick` for cohabitation tags, support priority and caps; keep status wording tentative and free of pregnancy wording.
+- `store.dart` owns one durable app-data JSON file; temp+rename is an atomic-write mechanism. Preserve ordered save/wipe and backward-compatible model loading.
+- Packaged catalogs are content, not additional user-data stores. Validate stable IDs, aliases, EN/PT coverage, and parser defaults; preserve existing observations/completions during migration.
+- `catalog.dart`/`PhaseCatalog.pick` remain the support filtering/priority/cap path. Loaded catalog axes override engine fallback.
+- Keep Android integrations behind adapters. For summaries check actual device, configuration, language, and input support; preserve normal history on failure/unavailability.
+- Model downloads are distinct from note processing: inference stays local, with no cloud fallback. Summaries never silently mutate logs or ranking; discard stale results after edits/deletion/wipe.
